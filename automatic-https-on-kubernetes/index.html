@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Automatic HTTPS on Kubernetes | Anthony Ison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. O">
+<meta name="keywords" content="kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Automatic HTTPS on Kubernetes">
+<meta property="og:url" content="http://anthonyison.com/automatic-https-on-kubernetes/index.html">
+<meta property="og:site_name" content="Anthony Ison">
+<meta property="og:description" content="This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. O">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-01T11:39:54.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Automatic HTTPS on Kubernetes">
+<meta name="twitter:description" content="This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. O">
+  
+    <link rel="alternate" href="/atom.xml" title="Anthony Ison" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Anthony Ison</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Software development and DevOps. Bringing solutions to life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://anthonyison.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-automatic-https-on-kubernetes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/automatic-https-on-kubernetes/" class="article-date">
+  <time datetime="2019-05-01T10:48:39.000Z" itemprop="datePublished">2019-05-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Automatic HTTPS on Kubernetes
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. Of course, I’d still need to organise a certificate for my domain. Hold on, let me stop and back up a minute.</p>
+<p>What the heck is this HTTPS and certificate stuff? Basically, HTTPS will guarantee that the communication between the client and server can’t be read or changed by anyone between the client and server. So, usernames and passwords are safe to send. While that’s important, it’s probably more important that your pages cannot be changed either. It’s a bit like a message written in code with the king’s seal. Since the code (HTTPS) is known to you and the king, you know it cannot be read. The seal (certificate) proves the authenticity.</p>
+<p>As I set out on this adventure, it looks like I need cert-manager and the best way to install this appears to be to use helm, which I installed with Chocolatey.</p>
+<p>choco install kubernetes-helm<br>helm init<br>First steps<br>We are going to install cert-manager which will perform all of the magic of fetching certificates and storing them for use in our various services. We need to set up the config for cert-manager, so that we can provide the link to Lets Encrypt. Save the following in a file, say issuer.yaml, and run ‘kubectl apply -f issuer.yaml’ to apply. (Make sure you update with your email first!)</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">certmanager.k8s.io/v1alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterIssuer</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">letsencrypt-prod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  acme:</span></span><br><span class="line"><span class="attr">    server:</span> <span class="attr">https://acme-v02.api.letsencrypt.org/directory</span>    </span><br><span class="line"><span class="attr">    email:</span> <span class="string">youremail@gmail.com</span></span><br><span class="line"><span class="attr">    privateKeySecretRef:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">letsencrypt-prod</span></span><br><span class="line"><span class="attr">    http01:</span> <span class="string">&#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Installing cert manager<br>kubectl apply -f \<br>    <a href="https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml" target="_blank" rel="noopener">https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml</a></p>
+<p>helm install –name cert-manager –namespace ingress \<br>    –set ingressShim.defaultIssuerName=letsencrypt-prod<br>    –set ingressShim.defaultIssuerKind=ClusterIssuer<br>    stable/cert-manager<br>I ran into issues installing cert-manager with a ‘cluster-admin’ not found error. I found instructions on this page<a href="https://docs.bitnami.com/azure/get-started-aks/" title="Configuring AKS" target="_blank" rel="noopener">4</a> which helped me create a cluster admin role, create a service account and assign tiller to it.</p>
+<p>Installing nginx-ingress<br>The next step is to configure an Ingress to manage the TLS endpoint, that is to manage my HTTPS endpoint with certificate connected to my domain. Without this step, I found I could set up my Ingress entry, but the address would stay empty.</p>
+<p>helm install stable/nginx-ingress \<br>    –name nginx \<br>    –set rbac.create=true \<br>    –namespace ingress<br>Once installed, I can see a LoadBalancer entry which has my External IP on it.</p>
+<p>Update the Service<br>In the previous post, we set the service up as a LoadBalancer type. We don’t need that any more since we have a new IP on our LoadBalancer nginx-ingress service. Update the service.yaml and change LoadBalancer to a NodePort and run ‘kubectl apply -f service.yaml’. This will make sure we can only access our service through our TLS ingress service.</p>
+<p>Generate Certificate and Ingress for Service<br>Apply the following updates to the kubernetes cluster.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">anthonyison-ingress</span></span><br><span class="line"><span class="attr">  annotations:</span></span><br><span class="line">    <span class="string">kubernetes.io/ingress.class:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="string">certmanager.k8s.io/cluster-issuer:</span> <span class="string">letsencrypt-prod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  tls:</span></span><br><span class="line"><span class="attr">  - hosts:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">anthonyison.com</span></span><br><span class="line"><span class="attr">    secretName:</span> <span class="string">anthonyison-crt</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">anthonyison.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">anthonyison</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">certmanager.k8s.io/v1alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Certificate</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">anthonyison-crt</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  secretName:</span> <span class="string">anthonyison-crt</span></span><br><span class="line"><span class="attr">  dnsNames:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">anthonyison.com</span></span><br><span class="line"><span class="attr">  acme:</span></span><br><span class="line"><span class="attr">    config:</span></span><br><span class="line"><span class="attr">    - http01:</span></span><br><span class="line"><span class="attr">        ingressClass:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">      domains:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">anthonyison.com</span></span><br><span class="line"><span class="attr">  issuerRef:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">letsencrypt-prod</span></span><br><span class="line"><span class="attr">    kind:</span> <span class="string">ClusterIssuer</span></span><br></pre></td></tr></table></figure>
+<p>That’s it!  Hit your domain and confirm that https is working. You should be able to click on the padlock in the address bar and click on Certificate to see the details. You should see a certificate issued by Lets Encrypt to your domain name.</p>
+<p>So, I started off with some regret that I wasn’t running in a Web App. While it took quite a while to work through many of the issues that showed up along the way, it is actually pretty easy once it’s set up, and furthermore, I don’t have to think about my certificates ever again. I think maybe it’s not as bad as I thought. No regrets, right?</p>
+<p>References:</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anthonyison.com/automatic-https-on-kubernetes/" data-id="cjv63mrlm0006bovmyt80qzow" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/dynamic-environment-in-your-static-angular-application/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Dynamic environment in your static Angular application
+        
+      </div>
+    </a>
+  
+  
+    <a href="/running-ghost-on-kubernetes-on-azure/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Running Ghost on Kubernetes on Azure</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure/">azure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dotnet/">dotnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ghost/">ghost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/azure/" style="font-size: 10px;">azure</a> <a href="/tags/dotnet/" style="font-size: 10px;">dotnet</a> <a href="/tags/ghost/" style="font-size: 20px;">ghost</a> <a href="/tags/kubernetes/" style="font-size: 20px;">kubernetes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/dynamic-environment-in-your-static-angular-application/">Dynamic environment in your static Angular application</a>
+          </li>
+        
+          <li>
+            <a href="/automatic-https-on-kubernetes/">Automatic HTTPS on Kubernetes</a>
+          </li>
+        
+          <li>
+            <a href="/running-ghost-on-kubernetes-on-azure/">Running Ghost on Kubernetes on Azure</a>
+          </li>
+        
+          <li>
+            <a href="/creating-a-blog-with-ghost/">Creating a blog with Ghost</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Anthony Ison<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

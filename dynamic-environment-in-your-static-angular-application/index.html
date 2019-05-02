@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Dynamic environment in your static Angular application | Anthony Ison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as you target different environments, the old “one file per enviro">
+<meta name="keywords" content="dotnet,angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dynamic environment in your static Angular application">
+<meta property="og:url" content="http://anthonyison.com/dynamic-environment-in-your-static-angular-application/index.html">
+<meta property="og:site_name" content="Anthony Ison">
+<meta property="og:description" content="I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as you target different environments, the old “one file per enviro">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-01T11:43:33.992Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dynamic environment in your static Angular application">
+<meta name="twitter:description" content="I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as you target different environments, the old “one file per enviro">
+  
+    <link rel="alternate" href="/atom.xml" title="Anthony Ison" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Anthony Ison</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Software development and DevOps. Bringing solutions to life.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://anthonyison.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-dynamic-environment-in-your-static-angular-application" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/dynamic-environment-in-your-static-angular-application/" class="article-date">
+  <time datetime="2019-05-01T10:53:56.000Z" itemprop="datePublished">2019-05-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dynamic environment in your static Angular application
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as you target different environments, the old “one file per environment” really doesn’t cut it. I don’t want to rebuild my application just to deploy to production and if it’s in a container? Pfft, good luck! I’ve solved this problem a few different ways in the past and I’ve just solved it again. But this time, it didn’t feel quite so hacky, so I thought I’d post about it.</p>
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>Angular CLI provides an <code>environment.ts</code> for storing your global settings and you can select which environment file to use when you build. I want to build my application once and then deploy to different environments without rebuilding, however I can’t change my environment settings on deploy or through environment variables. There are a few reasons I don’t want to rebuild.</p>
+<ol>
+<li>I want to test in staging and then redeploy the artifact to production</li>
+<li>I want to run it from a container</li>
+</ol>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Ok, so this is not a new problem and it has been reasonably solved on server side deployments a few ways:</p>
+<ol>
+<li>Environment variables / web.config / appsettings.json - config is easily overridden in place and is often used for server config settings.</li>
+<li>Rewrite on deploy - the deployment script itself can overwrite settings as it is deployed to configure the environment it is deploying to.</li>
+</ol>
+<h3 id="Option-1-Inject-bootstrap-settings-into-the-index-html"><a href="#Option-1-Inject-bootstrap-settings-into-the-index-html" class="headerlink" title="Option 1: Inject bootstrap settings into the index.html"></a>Option 1: Inject bootstrap settings into the index.html</h3><p>This was my first attempt at solving the problem. I added a comment in the index.html and created an MVC endpoint to load the index.html file, replace the comment with a script block to create a settings object and return the updated html page. It was good for keeping the number of requests down, but it felt a bit hacky.</p>
+<h3 id="Option-2-A-separate-bootstrap-script-file"><a href="#Option-2-A-separate-bootstrap-script-file" class="headerlink" title="Option 2: A separate bootstrap script file"></a>Option 2: A separate bootstrap script file</h3><p>This approach was inspired by <a href="https://www.jvandemo.com/how-to-configure-your-angularjs-application-using-environment-variables/" target="_blank" rel="noopener">this post</a>. The basic idea is to pull a separate self-executing script that contains our bootstrap settings from the <code>index.html</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;My Awesome Angular app&lt;/title&gt;</span><br><span class="line">    &lt;base href=&quot;/&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; </span><br><span class="line">          content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;</span><br><span class="line">    &lt;!-- Load environment variables --&gt;</span><br><span class="line">    &lt;script src=&quot;assets/bootstrap.js&quot;&gt;&lt;/script&gt;  </span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;app-root&gt;&lt;/app-root&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>Next, create the <code>bootstrap.js</code> file in your assets folder. It should look something like this:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">window</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.bootstrapSettings = &#123;</span><br><span class="line">    apiUrl: <span class="string">'https://localhost:44384'</span>,</span><br><span class="line">    production: <span class="literal">false</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;(<span class="keyword">this</span>));</span><br></pre></td></tr></table></figure></p>
+<p>When the angular app loads, we now have a bootstrap object available to pull settings from. In this case, I can reference <code>window.bootstrapSettings.apiUrl</code> to find my api location, but I’m trying to use <code>environment.apiUrl</code>.</p>
+<p>Next, we need to update <code>environment.ts</code> to bring in the bootstrap settings.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> environment = <span class="built_in">Object</span>.assign(&#123;</span><br><span class="line">    production: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  (<span class="built_in">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).bootstrapSettings);</span><br></pre></td></tr></table></figure>
+<p>At this point, we can build once and serve from different static sites by simply applying a different <code>assets/bootstrap.js</code> file with the new settings during deployment.</p>
+<p>This is good, but we’re serving from dotnet core, so we can do better. (If you’re using node, the idea is not much different). The basic idea is to avoid serving the static bootstrap file and instead, send a bootstrap file based on our appsettings file, which we can easily override from our environment (web app, container, etc) using the middleware below.</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EnvironmentBootstrap</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> apiUrl &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">EnvironmentBootstrapExtensions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IApplicationBuilder <span class="title">UseEnvironmentBootstrap</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">this</span> IApplicationBuilder builder, <span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> builder.UseMiddleware&lt;EnvironmentBootstrapMiddleware&gt;(path);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EnvironmentBootstrapMiddleware</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> RequestDelegate _next;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> EnvironmentBootstrap _environment;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> <span class="keyword">string</span> _endpointPath;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EnvironmentBootstrapMiddleware</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">    	RequestDelegate next, </span></span></span><br><span class="line"><span class="function"><span class="params">        IOptions&lt;EnvironmentBootstrap&gt; options, </span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _next = next;</span><br><span class="line">        _endpointPath = path;</span><br><span class="line">        _environment = options.Value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Invoke</span>(<span class="params">HttpContext httpContext</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// Short circuit on request for bootstrap.js</span></span><br><span class="line">        <span class="keyword">if</span> (httpContext.Request.Path</span><br><span class="line">            .Equals(_endpointPath, StringComparison.Ordinal))</span><br><span class="line">        &#123;</span><br><span class="line">            httpContext.Response.ContentType = <span class="string">"application/javascript"</span>;</span><br><span class="line">            <span class="keyword">await</span> httpContext.Response.WriteAsync(</span><br><span class="line">            	<span class="string">"(function (window) &#123; window.bootstrapSettings = "</span> +</span><br><span class="line">            	JsonConvert.SerializeObject(_environment) + </span><br><span class="line">            	<span class="string">";&#125;(this));"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">// Pass to next item in the pipeline</span></span><br><span class="line">            <span class="keyword">await</span> _next.Invoke(httpContext);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Finally, activate the pipeline in the Startup.cs file:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Startup</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        services.Configure&lt;EnvironmentBootstrap&gt;(</span><br><span class="line">            Configuration.GetSection(<span class="string">"client"</span>));</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">                    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="comment">// Bootstrap the bootstrap.js file ahead of UseStaticFiles</span></span><br><span class="line">        app.UseEnvironmentBootstrap(<span class="string">"/assets/bootstrap.js"</span>);</span><br><span class="line">        app.UseStaticFiles();</span><br><span class="line">        app.UseSpaStaticFiles();</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>That’s it! The project can now be built once and deployed to different environments, with angular client environment settings available to be configured from the environment itself. For an Azure Web app, set an Application Setting ‘client:apiUrl’ to override the client’s <code>apiUrl</code> environment setting.</p>
+<p>What do you think? Is there a better solution? What do you like or dislike about this approach?</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://anthonyison.com/dynamic-environment-in-your-static-angular-application/" data-id="cjv63mrlq0009bovm27h5ebjg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dotnet/">dotnet</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/automatic-https-on-kubernetes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Automatic HTTPS on Kubernetes</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure/">azure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dotnet/">dotnet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ghost/">ghost</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/azure/" style="font-size: 10px;">azure</a> <a href="/tags/dotnet/" style="font-size: 10px;">dotnet</a> <a href="/tags/ghost/" style="font-size: 20px;">ghost</a> <a href="/tags/kubernetes/" style="font-size: 20px;">kubernetes</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/dynamic-environment-in-your-static-angular-application/">Dynamic environment in your static Angular application</a>
+          </li>
+        
+          <li>
+            <a href="/automatic-https-on-kubernetes/">Automatic HTTPS on Kubernetes</a>
+          </li>
+        
+          <li>
+            <a href="/running-ghost-on-kubernetes-on-azure/">Running Ghost on Kubernetes on Azure</a>
+          </li>
+        
+          <li>
+            <a href="/creating-a-blog-with-ghost/">Creating a blog with Ghost</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Anthony Ison<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
