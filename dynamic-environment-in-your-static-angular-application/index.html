@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang>
+<html lang="en">
 
 
 
@@ -39,8 +39,8 @@
 	
 
 	
-	<link rel="shortcut icon" href="https://i.loli.net/2017/11/26/5a19c0b50432e.png">
-	<link rel="apple-touch-icon" href="https://i.loli.net/2017/11/26/5a19c0b50432e.png">
+	<link rel="shortcut icon" href="/images/Anthony-Square-Color.png">
+	<link rel="apple-touch-icon" href="/images/Anthony-Square-Color.png">
 	
 
 	
@@ -51,7 +51,7 @@
 	
 
 	
-	<link rel="alternate" href="https://feedly.com/i/subscription/feed/https://anthonyison.com/rss/" title="Anthony Ison">
+	<link rel="alternate" href="/atom.xml" title="Anthony Ison">
 	
 
 	<meta property="og:site_name" content="Anthony Ison">
@@ -81,7 +81,11 @@
         <ul class="nav">
             <li>
                 
-                <a href="/" title="Home">HOME</a>
+                
+                <a class="site-nav-logo" href="/" title="Anthony Ison">
+                    <img src="/images/Anthony-Square-Color.png" alt="Anthony Ison">
+                </a>
+                
                 
             </li>
             
@@ -128,6 +132,11 @@
         <svg viewbox="0 0 1152 1024" xmlns="http://www.w3.org/2000/svg"><path d="m1099.31 248.166c-12.562-47.3-49.574-84.552-96.568-97.194-85.18-22.972-426.742-22.972-426.742-22.972s-341.56 0-426.742 22.972c-46.994 12.644-84.006 49.894-96.568 97.194-22.824 85.734-22.824 264.61-22.824 264.61s0 178.876 22.824 264.61c12.562 47.3 49.574 83 96.568 95.642 85.182 22.972 426.742 22.972 426.742 22.972s341.56 0 426.742-22.972c46.994-12.642 84.006-48.342 96.568-95.642 22.824-85.734 22.824-264.61 22.824-264.61s0-178.876-22.824-264.61zm-635.02 427.016v-324.812l285.478 162.41z"/></svg>
     </a>
     
+    
+    <a class="social-link" title="rss" href="https://feedly.com/i/subscription/feed/https://isonaj.github.io/atom.xml" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+    </a>
+    
 </div>
     </div>
 </nav>
@@ -157,7 +166,6 @@
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
                     <p>I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as you target different environments, the old “one file per environment” really doesn’t cut it. I don’t want to rebuild my application just to deploy to production and if it’s in a container? Pfft, good luck! I’ve solved this problem a few different ways in the past and I’ve just solved it again. But this time, it didn’t feel quite so hacky, so I thought I’d post about it.</p>
-<a id="more"></a>
 <h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>Angular CLI provides an <code>environment.ts</code> for storing your global settings and you can select which environment file to use when you build. I want to build my application once and then deploy to different environments without rebuilding, however I can’t change my environment settings on deploy or through environment variables. There are a few reasons I don’t want to rebuild.</p>
 <ol>
 <li>I want to test in staging and then redeploy the artifact to production</li>
@@ -236,7 +244,7 @@
             
             
 
-<article class="read-next-card" style="background-image: url(/images/andrei-mike-1536816-unsplash.jpg)">
+<article class="read-next-card" style="background-image: url(/images/imleedh-ali-677414-unsplash.jpg)">
   <header class="read-next-card-header">
     <small class="read-next-card-header-sitetitle">&mdash; Anthony Ison &mdash;</small>
     <h3 class="read-next-card-header-title">Recent Posts</h3>
@@ -290,7 +298,7 @@
             
             
 
-<article class="read-next-card" style="background-image: url(/images/andrei-mike-1536816-unsplash.jpg)">
+<article class="read-next-card" style="background-image: url(/images/imleedh-ali-677414-unsplash.jpg)">
 	<header class="read-next-card-header" style="padding-bottom: 20px">
 		<h3 class="read-next-card-header-title">Tag Cloud</h3>
 	</header>
@@ -312,7 +320,7 @@
 <div id="search" class="search-overlay subscribe-overlay">
     <div class="search-form">
         
-        <img class="search-overlay-logo" src="https://i.loli.net/2017/11/26/5a19c0b50432e.png" alt="Anthony Ison">
+        <img class="search-overlay-logo" src="/images/Anthony-Square-Color.png" alt="Anthony Ison">
         
         <input id="local-search-input" class="search-input" type="text" name="search" placeholder="Search ...">
         <a class="search-overlay-close" href="#"></a>
@@ -358,7 +366,7 @@
 	<div class="floating-header-logo">
         <a href="/" title="Anthony Ison">
 			
-                <img src="https://i.loli.net/2017/11/26/5a19c0b50432e.png" alt="Anthony Ison icon">
+                <img src="/images/Anthony-Square-Color.png" alt="Anthony Ison icon">
 			
             <span>Anthony Ison</span>
         </a>

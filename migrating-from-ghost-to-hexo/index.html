@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang>
+<html lang="en">
 
 
 
@@ -39,8 +39,8 @@
 	
 
 	
-	<link rel="shortcut icon" href="https://i.loli.net/2017/11/26/5a19c0b50432e.png">
-	<link rel="apple-touch-icon" href="https://i.loli.net/2017/11/26/5a19c0b50432e.png">
+	<link rel="shortcut icon" href="/images/Anthony-Square-Color.png">
+	<link rel="apple-touch-icon" href="/images/Anthony-Square-Color.png">
 	
 
 	
@@ -51,7 +51,7 @@
 	
 
 	
-	<link rel="alternate" href="https://feedly.com/i/subscription/feed/https://anthonyison.com/rss/" title="Anthony Ison">
+	<link rel="alternate" href="/atom.xml" title="Anthony Ison">
 	
 
 	<meta property="og:site_name" content="Anthony Ison">
@@ -81,7 +81,11 @@
         <ul class="nav">
             <li>
                 
-                <a href="/" title="Home">HOME</a>
+                
+                <a class="site-nav-logo" href="/" title="Anthony Ison">
+                    <img src="/images/Anthony-Square-Color.png" alt="Anthony Ison">
+                </a>
+                
                 
             </li>
             
@@ -128,6 +132,11 @@
         <svg viewbox="0 0 1152 1024" xmlns="http://www.w3.org/2000/svg"><path d="m1099.31 248.166c-12.562-47.3-49.574-84.552-96.568-97.194-85.18-22.972-426.742-22.972-426.742-22.972s-341.56 0-426.742 22.972c-46.994 12.644-84.006 49.894-96.568 97.194-22.824 85.734-22.824 264.61-22.824 264.61s0 178.876 22.824 264.61c12.562 47.3 49.574 83 96.568 95.642 85.182 22.972 426.742 22.972 426.742 22.972s341.56 0 426.742-22.972c46.994-12.642 84.006-48.342 96.568-95.642 22.824-85.734 22.824-264.61 22.824-264.61s0-178.876-22.824-264.61zm-635.02 427.016v-324.812l285.478 162.41z"/></svg>
     </a>
     
+    
+    <a class="social-link" title="rss" href="https://feedly.com/i/subscription/feed/https://isonaj.github.io/atom.xml" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+    </a>
+    
 </div>
     </div>
 </nav>
@@ -159,7 +168,7 @@
                     <p>It was surprisingly easy to migrate my blog out of ghost, but there were a few missed steps along the way. Often, I would find a better way after I had done the heavy lifting.</p>
 <h2 id="1-Install-Hexo-and-create-the-blog"><a href="#1-Install-Hexo-and-create-the-blog" class="headerlink" title="1. Install Hexo and create the blog"></a>1. Install Hexo and create the blog</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init myblog</span><br><span class="line">$ cd myblog</span><br></pre></td></tr></table></figure>
 <h2 id="2-Install-the-hexo-casper-theme"><a href="#2-Install-the-hexo-casper-theme" class="headerlink" title="2. Install the hexo-casper theme"></a>2. Install the hexo-casper theme</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/xzhih/hexo-theme-casper.git themes/hexo-casper</span><br></pre></td></tr></table></figure>
-<h2 id="3-Configure-the-theme-and-site"><a href="#3-Configure-the-theme-and-site" class="headerlink" title="3. Configure the theme and site"></a>3. Configure the theme and site</h2><p>Edit _config.yaml<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Anthony</span> <span class="string">Ison</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">Software</span> <span class="string">development</span> <span class="string">and</span> <span class="string">DevOps.</span> <span class="string">Bringing</span> <span class="string">solutions</span> <span class="string">to</span> <span class="string">life.</span></span><br><span class="line"><span class="attr">description:</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Anthony</span> <span class="string">Ison</span></span><br><span class="line"><span class="attr">language:</span></span><br><span class="line"><span class="attr">timezone:</span></span><br><span class="line"><span class="attr">url:</span> <span class="attr">http://anthonyison.com</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set these to create lowercase, title-only permalinks (like ghost)</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:title/</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># consider creating a folder with each post to hold any assets</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="3-Configure-the-theme-and-site"><a href="#3-Configure-the-theme-and-site" class="headerlink" title="3. Configure the theme and site"></a>3. Configure the theme and site</h2><p>Edit _config.yaml<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Anthony</span> <span class="string">Ison</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">Software</span> <span class="string">development</span> <span class="string">and</span> <span class="string">DevOps.</span> <span class="string">Bringing</span> <span class="string">solutions</span> <span class="string">to</span> <span class="string">life.</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">My</span> <span class="string">meandering</span> <span class="string">thoughts</span> <span class="string">on</span> <span class="string">development,</span> <span class="string">devops</span> <span class="string">and</span> <span class="string">technology</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">software</span> <span class="string">development,devops,azure,kubernetes,angular,serverless,docker</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Anthony</span> <span class="string">Ison</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">en</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Australia/Brisbane</span>  <span class="comment"># From http://momentjs.com/timezone/</span></span><br><span class="line"><span class="attr">url:</span> <span class="attr">http://anthonyison.com</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set these to create lowercase, title-only permalinks (like ghost)</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:title/</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># consider creating a folder with each post to hold any assets</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
 <p>Edit themes/hexo-casper/_config.yaml</p>
 <h2 id="4-Migrate-posts-from-ghost-to-hexo"><a href="#4-Migrate-posts-from-ghost-to-hexo" class="headerlink" title="4. Migrate posts from ghost to hexo"></a>4. Migrate posts from ghost to hexo</h2><p>In Ghost:<br>Labs &gt; Export content</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-migrator-ghost --save</span><br><span class="line">$ hexo migrate ghost my-ghost.json</span><br></pre></td></tr></table></figure>
@@ -171,7 +180,9 @@
 <p><em>FAILED!</em></p>
 <p>This got a little closer, and actually pulled content across, but now I’m out of options. Fortunately, I don’t have many posts and will manually migrate instead. I hope you have better luck.</p>
 <h2 id="5-Reattach-the-post-images"><a href="#5-Reattach-the-post-images" class="headerlink" title="5. Reattach the post images"></a>5. Reattach the post images</h2><p>Many of the migration tools will bring content across without images. So afterwards, you will need to copy the images in and link them to posts manually.</p>
-<h2 id="6-Configure-deploy"><a href="#6-Configure-deploy" class="headerlink" title="6. Configure deploy"></a>6. Configure deploy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h2 id="6-Configure-RSS"><a href="#6-Configure-RSS" class="headerlink" title="6. Configure RSS"></a>6. Configure RSS</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+<p>Add this to your _config.yaml:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feed:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">atom</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">atom.xml</span></span><br><span class="line"><span class="attr">  limit:</span> <span class="number">20</span></span><br><span class="line"><span class="attr">  hub:</span></span><br><span class="line"><span class="attr">  content:</span></span><br><span class="line"><span class="attr">  content_limit:</span> <span class="number">140</span></span><br><span class="line"><span class="attr">  content_limit_delim:</span> <span class="string">' '</span></span><br><span class="line"><span class="attr">  order_by:</span> <span class="bullet">-date</span></span><br><span class="line"><span class="attr">  icon:</span> <span class="string">icon.png</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="7-Configure-deploy"><a href="#7-Configure-deploy" class="headerlink" title="7. Configure deploy"></a>7. Configure deploy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <p>Edit _config.yaml<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/isonaj/isonaj.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></p>
 
                 </div>
@@ -208,7 +219,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Install-Hexo-and-create-the-blog"><span class="toc-text">1. Install Hexo and create the blog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Install-the-hexo-casper-theme"><span class="toc-text">2. Install the hexo-casper theme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Configure-the-theme-and-site"><span class="toc-text">3. Configure the theme and site</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Migrate-posts-from-ghost-to-hexo"><span class="toc-text">4. Migrate posts from ghost to hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Reattach-the-post-images"><span class="toc-text">5. Reattach the post images</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Configure-deploy"><span class="toc-text">6. Configure deploy</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Install-Hexo-and-create-the-blog"><span class="toc-text">1. Install Hexo and create the blog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Install-the-hexo-casper-theme"><span class="toc-text">2. Install the hexo-casper theme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Configure-the-theme-and-site"><span class="toc-text">3. Configure the theme and site</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Migrate-posts-from-ghost-to-hexo"><span class="toc-text">4. Migrate posts from ghost to hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Reattach-the-post-images"><span class="toc-text">5. Reattach the post images</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Configure-RSS"><span class="toc-text">6. Configure RSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Configure-deploy"><span class="toc-text">7. Configure deploy</span></a></li></ol>
     </div>
 </div>
 
@@ -224,7 +235,7 @@
             
             
 
-<article class="read-next-card" style="background-image: url(/images/andrei-mike-1536816-unsplash.jpg)">
+<article class="read-next-card" style="background-image: url(/images/imleedh-ali-677414-unsplash.jpg)">
   <header class="read-next-card-header">
     <small class="read-next-card-header-sitetitle">&mdash; Anthony Ison &mdash;</small>
     <h3 class="read-next-card-header-title">Recent Posts</h3>
@@ -278,7 +289,7 @@
             
             
 
-<article class="read-next-card" style="background-image: url(/images/andrei-mike-1536816-unsplash.jpg)">
+<article class="read-next-card" style="background-image: url(/images/imleedh-ali-677414-unsplash.jpg)">
 	<header class="read-next-card-header" style="padding-bottom: 20px">
 		<h3 class="read-next-card-header-title">Tag Cloud</h3>
 	</header>
@@ -300,7 +311,7 @@
 <div id="search" class="search-overlay subscribe-overlay">
     <div class="search-form">
         
-        <img class="search-overlay-logo" src="https://i.loli.net/2017/11/26/5a19c0b50432e.png" alt="Anthony Ison">
+        <img class="search-overlay-logo" src="/images/Anthony-Square-Color.png" alt="Anthony Ison">
         
         <input id="local-search-input" class="search-input" type="text" name="search" placeholder="Search ...">
         <a class="search-overlay-close" href="#"></a>
@@ -346,7 +357,7 @@
 	<div class="floating-header-logo">
         <a href="/" title="Anthony Ison">
 			
-                <img src="https://i.loli.net/2017/11/26/5a19c0b50432e.png" alt="Anthony Ison icon">
+                <img src="/images/Anthony-Square-Color.png" alt="Anthony Ison icon">
 			
             <span>Anthony Ison</span>
         </a>

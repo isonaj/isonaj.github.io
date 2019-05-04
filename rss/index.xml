@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Anthony Ison</title>
+  
+  <subtitle>Software development and DevOps. Bringing solutions to life.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://anthonyison.com/"/>
+  <updated>2019-05-04T09:28:04.171Z</updated>
+  <id>http://anthonyison.com/</id>
+  
+  <author>
+    <name>Anthony Ison</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Migrating from Ghost to Hexo</title>
+    <link href="http://anthonyison.com/migrating-from-ghost-to-hexo/"/>
+    <id>http://anthonyison.com/migrating-from-ghost-to-hexo/</id>
+    <published>2019-05-03T11:27:56.000Z</published>
+    <updated>2019-05-04T09:28:04.171Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;It was surprisingly easy to migrate my blog out of ghost, but there were a few missed steps along the way. Often, I would find a better
+        
+      
+    
+    </summary>
+    
+    
+      <category term="ghost" scheme="http://anthonyison.com/tags/ghost/"/>
+    
+      <category term="hexo" scheme="http://anthonyison.com/tags/hexo/"/>
+    
+      <category term="blogging" scheme="http://anthonyison.com/tags/blogging/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Serverless markdown blogs with Hexo</title>
+    <link href="http://anthonyison.com/serverless-markdown-blogs-with-hexo/"/>
+    <id>http://anthonyison.com/serverless-markdown-blogs-with-hexo/</id>
+    <published>2019-05-03T11:27:32.000Z</published>
+    <updated>2019-05-04T09:25:51.671Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;Let me start this by saying I’m loving my ghost blog, and I get a kick out of running it on AKS. The thing is, the content only changes
+        
+      
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://anthonyison.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dynamic environment in your static Angular application</title>
+    <link href="http://anthonyison.com/dynamic-environment-in-your-static-angular-application/"/>
+    <id>http://anthonyison.com/dynamic-environment-in-your-static-angular-application/</id>
+    <published>2019-04-24T14:00:00.000Z</published>
+    <updated>2019-05-04T09:25:57.748Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as
+        
+      
+    
+    </summary>
+    
+    
+      <category term="dotnet" scheme="http://anthonyison.com/tags/dotnet/"/>
+    
+      <category term="angular" scheme="http://anthonyison.com/tags/angular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Automatic HTTPS on Kubernetes</title>
+    <link href="http://anthonyison.com/automatic-https-on-kubernetes/"/>
+    <id>http://anthonyison.com/automatic-https-on-kubernetes/</id>
+    <published>2019-02-16T14:00:00.000Z</published>
+    <updated>2019-05-04T09:25:57.754Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you
+        
+      
+    
+    </summary>
+    
+    
+      <category term="kubernetes" scheme="http://anthonyison.com/tags/kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Running Ghost on Kubernetes on Azure</title>
+    <link href="http://anthonyison.com/running-ghost-on-kubernetes-on-azure/"/>
+    <id>http://anthonyison.com/running-ghost-on-kubernetes-on-azure/</id>
+    <published>2019-01-15T14:00:00.000Z</published>
+    <updated>2019-05-04T09:25:57.744Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;In my &lt;a href=&quot;/creating-a-blog-with-ghost/&quot;&gt;previous post&lt;/a&gt;, I was looking into a few options for running my blog. I think at this
+        
+      
+    
+    </summary>
+    
+    
+      <category term="ghost" scheme="http://anthonyison.com/tags/ghost/"/>
+    
+      <category term="kubernetes" scheme="http://anthonyison.com/tags/kubernetes/"/>
+    
+      <category term="azure" scheme="http://anthonyison.com/tags/azure/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Creating a blog with Ghost</title>
+    <link href="http://anthonyison.com/creating-a-blog-with-ghost/"/>
+    <id>http://anthonyison.com/creating-a-blog-with-ghost/</id>
+    <published>2019-01-07T14:00:00.000Z</published>
+    <updated>2019-05-04T09:25:57.741Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;There seems to come a time in a software developer’s life where you look at creating a blog. It’s that time for me. I want a place where
+        
+      
+    
+    </summary>
+    
+    
+      <category term="ghost" scheme="http://anthonyison.com/tags/ghost/"/>
+    
+  </entry>
+  
+</feed>
