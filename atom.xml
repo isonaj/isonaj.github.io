@@ -138,9 +138,9 @@
     </summary>
     
     
-      <category term="ghost" scheme="http://anthonyison.com/tags/ghost/"/>
-    
       <category term="kubernetes" scheme="http://anthonyison.com/tags/kubernetes/"/>
+    
+      <category term="ghost" scheme="http://anthonyison.com/tags/ghost/"/>
     
       <category term="azure" scheme="http://anthonyison.com/tags/azure/"/>
     
