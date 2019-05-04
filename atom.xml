@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://anthonyison.com/"/>
-  <updated>2019-05-04T09:28:04.171Z</updated>
+  <updated>2019-05-04T13:12:17.294Z</updated>
   <id>http://anthonyison.com/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>Migrating from Ghost to Hexo</title>
     <link href="http://anthonyison.com/migrating-from-ghost-to-hexo/"/>
     <id>http://anthonyison.com/migrating-from-ghost-to-hexo/</id>
-    <published>2019-05-03T11:27:56.000Z</published>
-    <updated>2019-05-04T09:28:04.171Z</updated>
+    <published>2019-05-04T13:12:56.000Z</published>
+    <updated>2019-05-04T13:12:17.294Z</updated>
     
     <summary type="html">
     
@@ -49,7 +49,7 @@
     <link href="http://anthonyison.com/serverless-markdown-blogs-with-hexo/"/>
     <id>http://anthonyison.com/serverless-markdown-blogs-with-hexo/</id>
     <published>2019-05-03T11:27:32.000Z</published>
-    <updated>2019-05-04T09:25:51.671Z</updated>
+    <updated>2019-05-04T13:11:04.101Z</updated>
     
     <summary type="html">
     
@@ -73,7 +73,7 @@
     <link href="http://anthonyison.com/dynamic-environment-in-your-static-angular-application/"/>
     <id>http://anthonyison.com/dynamic-environment-in-your-static-angular-application/</id>
     <published>2019-04-24T14:00:00.000Z</published>
-    <updated>2019-05-04T09:25:57.748Z</updated>
+    <updated>2019-05-04T13:11:04.085Z</updated>
     
     <summary type="html">
     
@@ -99,7 +99,7 @@
     <link href="http://anthonyison.com/automatic-https-on-kubernetes/"/>
     <id>http://anthonyison.com/automatic-https-on-kubernetes/</id>
     <published>2019-02-16T14:00:00.000Z</published>
-    <updated>2019-05-04T09:25:57.754Z</updated>
+    <updated>2019-05-04T13:11:04.085Z</updated>
     
     <summary type="html">
     
@@ -123,7 +123,7 @@
     <link href="http://anthonyison.com/running-ghost-on-kubernetes-on-azure/"/>
     <id>http://anthonyison.com/running-ghost-on-kubernetes-on-azure/</id>
     <published>2019-01-15T14:00:00.000Z</published>
-    <updated>2019-05-04T09:25:57.744Z</updated>
+    <updated>2019-05-04T13:11:04.085Z</updated>
     
     <summary type="html">
     
@@ -138,9 +138,9 @@
     </summary>
     
     
-      <category term="kubernetes" scheme="http://anthonyison.com/tags/kubernetes/"/>
-    
       <category term="ghost" scheme="http://anthonyison.com/tags/ghost/"/>
+    
+      <category term="kubernetes" scheme="http://anthonyison.com/tags/kubernetes/"/>
     
       <category term="azure" scheme="http://anthonyison.com/tags/azure/"/>
     
@@ -151,7 +151,7 @@
     <link href="http://anthonyison.com/creating-a-blog-with-ghost/"/>
     <id>http://anthonyison.com/creating-a-blog-with-ghost/</id>
     <published>2019-01-07T14:00:00.000Z</published>
-    <updated>2019-05-04T09:25:57.741Z</updated>
+    <updated>2019-05-04T13:11:04.102Z</updated>
     
     <summary type="html">
     

@@ -61,7 +61,7 @@
 	<meta property="og:url" content="http://anthonyison.com/migrating-from-ghost-to-hexo/">
 
 	
-	<meta property="article:published_time" content="2019-05-03T21:05:00+08:00"> 
+	<meta property="article:published_time" content="2019-05-04T23:05:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
 	<meta property="article:published_first" content="Anthony Ison, /migrating-from-ghost-to-hexo/">
 	
@@ -148,8 +148,8 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-05-03T11:27:56.000Z" itemprop="datePublished">
-                    2019-05-3
+                <time class="post-full-meta-date" datetime="2019-05-04T13:12:56.000Z" itemprop="datePublished">
+                    2019-05-4
                 </time>
                 
                 <span class="date-divider">/</span>
@@ -180,6 +180,10 @@
 <p><em>FAILED!</em></p>
 <p>This got a little closer, and actually pulled content across, but now I’m out of options. Fortunately, I don’t have many posts and will manually migrate instead. I hope you have better luck.</p>
 <h2 id="5-Reattach-the-post-images"><a href="#5-Reattach-the-post-images" class="headerlink" title="5. Reattach the post images"></a>5. Reattach the post images</h2><p>Many of the migration tools will bring content across without images. So afterwards, you will need to copy the images in and link them to posts manually.</p>
+<p>Also, it’s worth configuring an image optimizer, using:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i hexo-filter-responsive-images --save</span><br></pre></td></tr></table></figure></p>
+<p>Then add to the _config.yaml:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo-filter-responsive-images</span></span><br><span class="line"><span class="attr">responsive_images:</span></span><br><span class="line"><span class="attr">  pattern:</span> <span class="string">'**/*.+(png|jpg|jpeg)'</span></span><br><span class="line"><span class="attr">  sizes:</span></span><br><span class="line"><span class="attr">    small:</span></span><br><span class="line"><span class="attr">      width:</span> <span class="number">800</span></span><br><span class="line"><span class="attr">      withoutEnlargement:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    large:</span></span><br><span class="line"><span class="attr">      width:</span> <span class="number">2000</span></span><br><span class="line"><span class="attr">      withoutEnlargement:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>To each of the blog post headers, add:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cover_img:</span> <span class="string">my-blog-post/small_cover.jpg</span></span><br><span class="line"><span class="attr">feature_img:</span> <span class="string">large_cover.jpg</span></span><br></pre></td></tr></table></figure></p>
+<p>where cover.jpg is the original image for the post cover.</p>
 <h2 id="6-Configure-RSS"><a href="#6-Configure-RSS" class="headerlink" title="6. Configure RSS"></a>6. Configure RSS</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
 <p>Add this to your _config.yaml:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feed:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">atom</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">atom.xml</span></span><br><span class="line"><span class="attr">  limit:</span> <span class="number">20</span></span><br><span class="line"><span class="attr">  hub:</span></span><br><span class="line"><span class="attr">  content:</span></span><br><span class="line"><span class="attr">  content_limit:</span> <span class="number">140</span></span><br><span class="line"><span class="attr">  content_limit_delim:</span> <span class="string">' '</span></span><br><span class="line"><span class="attr">  order_by:</span> <span class="bullet">-date</span></span><br><span class="line"><span class="attr">  icon:</span> <span class="string">icon.png</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="7-Configure-deploy"><a href="#7-Configure-deploy" class="headerlink" title="7. Configure deploy"></a>7. Configure deploy</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
