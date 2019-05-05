@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://anthonyison.com/"/>
-  <updated>2019-05-05T07:26:38.937Z</updated>
+  <updated>2019-05-05T07:56:11.288Z</updated>
   <id>https://anthonyison.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://anthonyison.com/migrating-from-ghost-to-hexo/"/>
     <id>https://anthonyison.com/migrating-from-ghost-to-hexo/</id>
     <published>2019-05-04T13:12:56.000Z</published>
-    <updated>2019-05-05T07:26:38.937Z</updated>
+    <updated>2019-05-05T07:56:11.288Z</updated>
     
     <summary type="html">
     
@@ -51,7 +51,7 @@ $ cd myblog
     <link href="https://anthonyison.com/serverless-markdown-blogs-with-hexo/"/>
     <id>https://anthonyison.com/serverless-markdown-blogs-with-hexo/</id>
     <published>2019-05-03T11:27:32.000Z</published>
-    <updated>2019-05-05T07:27:26.805Z</updated>
+    <updated>2019-05-05T07:56:11.286Z</updated>
     
     <summary type="html">
     
@@ -69,7 +69,7 @@ $ cd myblog
     <link href="https://anthonyison.com/dynamic-environment-in-your-static-angular-application/"/>
     <id>https://anthonyison.com/dynamic-environment-in-your-static-angular-application/</id>
     <published>2019-04-24T14:00:00.000Z</published>
-    <updated>2019-05-05T07:33:52.715Z</updated>
+    <updated>2019-05-05T07:56:11.283Z</updated>
     
     <summary type="html">
     
@@ -89,7 +89,7 @@ $ cd myblog
     <link href="https://anthonyison.com/automatic-https-on-kubernetes/"/>
     <id>https://anthonyison.com/automatic-https-on-kubernetes/</id>
     <published>2019-02-16T14:00:00.000Z</published>
-    <updated>2019-05-05T07:33:52.723Z</updated>
+    <updated>2019-05-05T07:56:11.284Z</updated>
     
     <summary type="html">
     
@@ -107,7 +107,7 @@ $ cd myblog
     <link href="https://anthonyison.com/running-ghost-on-kubernetes-on-azure/"/>
     <id>https://anthonyison.com/running-ghost-on-kubernetes-on-azure/</id>
     <published>2019-01-15T14:00:00.000Z</published>
-    <updated>2019-05-05T07:33:52.715Z</updated>
+    <updated>2019-05-05T07:56:11.283Z</updated>
     
     <summary type="html">
     
@@ -116,9 +116,9 @@ $ cd myblog
     </summary>
     
     
-      <category term="kubernetes" scheme="https://anthonyison.com/tags/kubernetes/"/>
-    
       <category term="ghost" scheme="https://anthonyison.com/tags/ghost/"/>
+    
+      <category term="kubernetes" scheme="https://anthonyison.com/tags/kubernetes/"/>
     
       <category term="azure" scheme="https://anthonyison.com/tags/azure/"/>
     
@@ -129,7 +129,7 @@ $ cd myblog
     <link href="https://anthonyison.com/creating-a-blog-with-ghost/"/>
     <id>https://anthonyison.com/creating-a-blog-with-ghost/</id>
     <published>2019-01-07T14:00:00.000Z</published>
-    <updated>2019-05-05T07:33:52.708Z</updated>
+    <updated>2019-05-05T07:56:11.285Z</updated>
     
     <summary type="html">
     
