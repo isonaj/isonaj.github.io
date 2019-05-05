@@ -9,8 +9,13 @@
 
 <head>
 	
-	
+
 	<link rel="stylesheet" href="/css/allinone.min.css">
+
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/themes/prism.min.css">
+	
+
 
 	
 	<!-- Global Site Tag (gtag.js) - Google Analytics -->
@@ -51,19 +56,24 @@
 	
 
 	
+	<link rel="alternate" href="https://isonaj.github.io/atom.xml" title="Anthony Ison">
+	
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
 	<meta property="og:title" content="Dynamic environment in your static Angular application | Anthony Ison">
 	<meta property="og:description" content>
 	<meta property="og:url" content="http://anthonyison.com/dynamic-environment-in-your-static-angular-application/">
+	<meta property="og:image" content="http://anthonyison.com/dynamic-environment-in-your-static-angular-application/small_mpho-mojapelo-127562-unsplash.jpg">
+	<meta name="twitter:card" content="summary_large_image">
 
 	
 	<meta property="article:published_time" content="2019-04-25T00:04:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
 	<meta property="article:published_first" content="Anthony Ison, /dynamic-environment-in-your-static-angular-application/">
+	<meta property="article:tag" content="[object Object]">
 	
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 <body class="post-template">
 	<div class="site-wrapper">
 		
@@ -181,20 +191,133 @@
 </ol>
 <h3 id="Option-1-Inject-bootstrap-settings-into-the-index-html"><a href="#Option-1-Inject-bootstrap-settings-into-the-index-html" class="headerlink" title="Option 1: Inject bootstrap settings into the index.html"></a>Option 1: Inject bootstrap settings into the index.html</h3><p>This was my first attempt at solving the problem. I added a comment in the index.html and created an MVC endpoint to load the index.html file, replace the comment with a script block to create a settings object and return the updated html page. It was good for keeping the number of requests down, but it felt a bit hacky.</p>
 <h3 id="Option-2-A-separate-bootstrap-script-file"><a href="#Option-2-A-separate-bootstrap-script-file" class="headerlink" title="Option 2: A separate bootstrap script file"></a>Option 2: A separate bootstrap script file</h3><p>This approach was inspired by <a href="https://www.jvandemo.com/how-to-configure-your-angularjs-application-using-environment-variables/" target="_blank" rel="noopener">this post</a>. The basic idea is to pull a separate self-executing script that contains our bootstrap settings from the <code>index.html</code>.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;My Awesome Angular app&lt;/title&gt;</span><br><span class="line">    &lt;base href=&quot;/&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; </span><br><span class="line">          content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;</span><br><span class="line">    &lt;!-- Load environment variables --&gt;</span><br><span class="line">    &lt;script src=&quot;assets/bootstrap.js&quot;&gt;&lt;/script&gt;  </span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;app-root&gt;&lt;/app-root&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p>Next, create the <code>bootstrap.js</code> file in your assets folder. It should look something like this:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">window</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.bootstrapSettings = &#123;</span><br><span class="line">    apiUrl: <span class="string">'https://localhost:44384'</span>,</span><br><span class="line">    production: <span class="literal">false</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;(<span class="keyword">this</span>));</span><br></pre></td></tr></table></figure></p>
+<pre class=" language-markup"><code class="language-markup"><span class="token doctype">&lt;!doctype html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>My Awesome Angular app<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>base</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> 
+          <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width<span class="token punctuation">=</span>device-width, initial-scale<span class="token punctuation">=</span>1, shrink-to-fit<span class="token punctuation">=</span>no<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!-- Load environment variables --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>assets/bootstrap.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>  
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>app-root</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>app-root</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>Next, create the <code>bootstrap.js</code> file in your assets folder. It should look something like this:</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>window<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  window<span class="token punctuation">.</span>bootstrapSettings <span class="token operator">=</span> <span class="token punctuation">{</span>
+    apiUrl<span class="token punctuation">:</span> <span class="token string">'https://localhost:44384'</span><span class="token punctuation">,</span>
+    production<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <p>When the angular app loads, we now have a bootstrap object available to pull settings from. In this case, I can reference <code>window.bootstrapSettings.apiUrl</code> to find my api location, but I’m trying to use <code>environment.apiUrl</code>.</p>
 <p>Next, we need to update <code>environment.ts</code> to bring in the bootstrap settings.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> environment = <span class="built_in">Object</span>.assign(&#123;</span><br><span class="line">    production: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  (<span class="built_in">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).bootstrapSettings);</span><br></pre></td></tr></table></figure>
+<pre class=" language-typescript"><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">const</span> environment <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    production<span class="token punctuation">:</span> <span class="token keyword">false</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">(</span>window as <span class="token keyword">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>bootstrapSettings<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <p>At this point, we can build once and serve from different static sites by simply applying a different <code>assets/bootstrap.js</code> file with the new settings during deployment.</p>
 <p>This is good, but we’re serving from dotnet core, so we can do better. (If you’re using node, the idea is not much different). The basic idea is to avoid serving the static bootstrap file and instead, send a bootstrap file based on our appsettings file, which we can easily override from our environment (web app, container, etc) using the middleware below.</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EnvironmentBootstrap</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> apiUrl &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">EnvironmentBootstrapExtensions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IApplicationBuilder <span class="title">UseEnvironmentBootstrap</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">		<span class="keyword">this</span> IApplicationBuilder builder, <span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> builder.UseMiddleware&lt;EnvironmentBootstrapMiddleware&gt;(path);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EnvironmentBootstrapMiddleware</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> RequestDelegate _next;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> EnvironmentBootstrap _environment;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> <span class="keyword">string</span> _endpointPath;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EnvironmentBootstrapMiddleware</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">    	RequestDelegate next, </span></span></span><br><span class="line"><span class="function"><span class="params">        IOptions&lt;EnvironmentBootstrap&gt; options, </span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _next = next;</span><br><span class="line">        _endpointPath = path;</span><br><span class="line">        _environment = options.Value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Invoke</span>(<span class="params">HttpContext httpContext</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// Short circuit on request for bootstrap.js</span></span><br><span class="line">        <span class="keyword">if</span> (httpContext.Request.Path</span><br><span class="line">            .Equals(_endpointPath, StringComparison.Ordinal))</span><br><span class="line">        &#123;</span><br><span class="line">            httpContext.Response.ContentType = <span class="string">"application/javascript"</span>;</span><br><span class="line">            <span class="keyword">await</span> httpContext.Response.WriteAsync(</span><br><span class="line">            	<span class="string">"(function (window) &#123; window.bootstrapSettings = "</span> +</span><br><span class="line">            	JsonConvert.SerializeObject(_environment) + </span><br><span class="line">            	<span class="string">";&#125;(this));"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">// Pass to next item in the pipeline</span></span><br><span class="line">            <span class="keyword">await</span> _next.Invoke(httpContext);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Finally, activate the pipeline in the Startup.cs file:<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Startup</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        services.Configure&lt;EnvironmentBootstrap&gt;(</span><br><span class="line">            Configuration.GetSection(<span class="string">"client"</span>));</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">                    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="comment">// Bootstrap the bootstrap.js file ahead of UseStaticFiles</span></span><br><span class="line">        app.UseEnvironmentBootstrap(<span class="string">"/assets/bootstrap.js"</span>);</span><br><span class="line">        app.UseStaticFiles();</span><br><span class="line">        app.UseSpaStaticFiles();</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EnvironmentBootstrap</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">string</span> apiUrl <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">EnvironmentBootstrapExtensions</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> IApplicationBuilder <span class="token function">UseEnvironmentBootstrap</span><span class="token punctuation">(</span>
+        <span class="token keyword">this</span> IApplicationBuilder builder<span class="token punctuation">,</span> <span class="token keyword">string</span> path<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token generic-method function">UseMiddleware<span class="token punctuation">&lt;</span>EnvironmentBootstrapMiddleware<span class="token punctuation">></span></span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EnvironmentBootstrapMiddleware</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> RequestDelegate _next<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> EnvironmentBootstrap _environment<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> <span class="token keyword">string</span> _endpointPath<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">EnvironmentBootstrapMiddleware</span><span class="token punctuation">(</span>
+        RequestDelegate next<span class="token punctuation">,</span> 
+        IOptions<span class="token operator">&lt;</span>EnvironmentBootstrap<span class="token operator">></span> options<span class="token punctuation">,</span> 
+        <span class="token keyword">string</span> path<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        _next <span class="token operator">=</span> next<span class="token punctuation">;</span>
+        _endpointPath <span class="token operator">=</span> path<span class="token punctuation">;</span>
+        _environment <span class="token operator">=</span> options<span class="token punctuation">.</span>Value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">async</span> Task <span class="token function">Invoke</span><span class="token punctuation">(</span>HttpContext httpContext<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Short circuit on request for bootstrap.js</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>httpContext<span class="token punctuation">.</span>Request<span class="token punctuation">.</span>Path
+            <span class="token punctuation">.</span><span class="token function">Equals</span><span class="token punctuation">(</span>_endpointPath<span class="token punctuation">,</span> StringComparison<span class="token punctuation">.</span>Ordinal<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            httpContext<span class="token punctuation">.</span>Response<span class="token punctuation">.</span>ContentType <span class="token operator">=</span> <span class="token string">"application/javascript"</span><span class="token punctuation">;</span>
+            <span class="token keyword">await</span> httpContext<span class="token punctuation">.</span>Response<span class="token punctuation">.</span><span class="token function">WriteAsync</span><span class="token punctuation">(</span>
+                <span class="token string">"(function (window) { window.bootstrapSettings = "</span> <span class="token operator">+</span>
+                JsonConvert<span class="token punctuation">.</span><span class="token function">SerializeObject</span><span class="token punctuation">(</span>_environment<span class="token punctuation">)</span> <span class="token operator">+</span> 
+                <span class="token string">";}(this));"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+            <span class="token comment" spellcheck="true">// Pass to next item in the pipeline</span>
+            <span class="token keyword">await</span> _next<span class="token punctuation">.</span><span class="token function">Invoke</span><span class="token punctuation">(</span>httpContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Finally, activate the pipeline in the Startup.cs file:</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Startup</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">ConfigureServices</span><span class="token punctuation">(</span>IServiceCollection services<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// ...</span>
+        services<span class="token punctuation">.</span><span class="token generic-method function">Configure<span class="token punctuation">&lt;</span>EnvironmentBootstrap<span class="token punctuation">></span></span><span class="token punctuation">(</span>
+            Configuration<span class="token punctuation">.</span><span class="token function">GetSection</span><span class="token punctuation">(</span><span class="token string">"client"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">Configure</span><span class="token punctuation">(</span>IApplicationBuilder app<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// ...</span>
+        <span class="token comment" spellcheck="true">// Bootstrap the bootstrap.js file ahead of UseStaticFiles</span>
+        app<span class="token punctuation">.</span><span class="token function">UseEnvironmentBootstrap</span><span class="token punctuation">(</span><span class="token string">"/assets/bootstrap.js"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        app<span class="token punctuation">.</span><span class="token function">UseStaticFiles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        app<span class="token punctuation">.</span><span class="token function">UseSpaStaticFiles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>That’s it! The project can now be built once and deployed to different environments, with angular client environment settings available to be configured from the environment itself. For an Azure Web app, set an Application Setting ‘client:apiUrl’ to override the client’s <code>apiUrl</code> environment setting.</p>
 <p>What do you think? Is there a better solution? What do you like or dislike about this approach?</p>
 
                 </div>
             </section>
+
+            
+
+            
+            <section class="post-full-comments">
+                <div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+	this.page.url = "/";  
+	this.page.identifier = "ghost-5cbfbe3b21b29c00018dd251"
+};
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://anthonyison.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
+</script>
+            </section>        
         </article>
     </div>
 
@@ -376,6 +499,19 @@
     </div>
     <span class="floating-header-divider">&mdash;</span>
     <div class="floating-header-title">Dynamic environment in your static Angular application</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+                <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+            </svg>
+        </div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Automatic%20HTTPS%20on%20Kubernetes&amp;url=https://anthonyison.com/automatic-https-on-kubernetes/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/automatic-https-on-kubernetes/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+        </a>
+    </div>
     <progress class="progress" value="0">
         <div class="progress-container">
             <span class="progress-bar"></span>
@@ -394,14 +530,6 @@
 
 
 
-<script src="/js/lightgallery.min.js"></script>
-<link rel="stylesheet" href="/css/lightgallery.min.css">
-<script>
-    lightGallery(document.getElementById('lightgallery'), {
-        selector: '.post-img'
-    });
-</script>
-
 
 
 
@@ -413,6 +541,19 @@
 <script>searchFunc("/")</script>
 
 
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-csharp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script>
 
 
 

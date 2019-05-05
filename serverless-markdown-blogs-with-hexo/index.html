@@ -9,8 +9,13 @@
 
 <head>
 	
-	
+
 	<link rel="stylesheet" href="/css/allinone.min.css">
+
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/themes/prism.min.css">
+	
+
 
 	
 	<!-- Global Site Tag (gtag.js) - Google Analytics -->
@@ -51,19 +56,24 @@
 	
 
 	
+	<link rel="alternate" href="https://isonaj.github.io/atom.xml" title="Anthony Ison">
+	
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
 	<meta property="og:title" content="Serverless markdown blogs with Hexo | Anthony Ison">
 	<meta property="og:description" content>
 	<meta property="og:url" content="http://anthonyison.com/serverless-markdown-blogs-with-hexo/">
+	<meta property="og:image" content="http://anthonyison.com/serverless-markdown-blogs-with-hexo/small_lauren-mancke-60627-unsplash.jpg">
+	<meta name="twitter:card" content="summary_large_image">
 
 	
 	<meta property="article:published_time" content="2019-05-03T21:05:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
 	<meta property="article:published_first" content="Anthony Ison, /serverless-markdown-blogs-with-hexo/">
+	<meta property="article:tag" content="[object Object]">
 	
-</head>
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 <body class="post-template">
 	<div class="site-wrapper">
 		
@@ -177,20 +187,54 @@
 </blockquote>
 <h1 id="Jekyll"><a href="#Jekyll" class="headerlink" title="Jekyll"></a>Jekyll</h1><p>This is far and away the most popular. It has a thiving community and is well supported by Github Pages. The main disadvantage is that it becomes exponentially slower as pages are added, which wouldn’t likely be an issue for my blog but is worth noting.</p>
 <h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h1><p>Hexo is number 2 in popularity (mostly in China) and is growing fast. It also has many themes, and most of the demo sites are in Chinese.</p>
-<h1 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h1><p>Since it’s built on node, Hexo is super easy to install (assuming you already have node installed!) We will be using npm to install.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// Install Hexo:</span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br><span class="line">// Create a site:</span><br><span class="line">hexo init my-site</span><br><span class="line"></span><br><span class="line">// Create a post:</span><br><span class="line">hexo new post &quot;This is going to be a great post&quot;</span><br><span class="line"></span><br><span class="line">// Serve your site locally:</span><br><span class="line">hexo serve</span><br><span class="line"></span><br><span class="line">// Generate the static site:</span><br><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
-<p>You can also:</p>
+<h2 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h2><p>Since it’s built on node, Hexo is super easy to install (assuming you already have node installed!) We will be using npm to install.</p>
+<pre><code>// Install Hexo:
+npm install hexo-cli -g
+
+// Create a site:
+hexo init my-site
+
+// Create a post:
+hexo new post &quot;This is going to be a great post&quot;
+
+// Serve your site locally:
+hexo serve
+
+// Generate the static site:
+hexo generate
+</code></pre><p>You can also:</p>
 <ul>
 <li>Create a draft with <code>hexo new draft &quot;This is a draft post&quot;</code></li>
 <li>Publish a draft with <code>hexo publish post this-is-a-draft-post</code></li>
 <li>Deploy your site: <code>hexo deploy</code></li>
 </ul>
-<h3 id="Themes"><a href="#Themes" class="headerlink" title="Themes"></a>Themes</h3><h3 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h3><h3 id="Migrators"><a href="#Migrators" class="headerlink" title="Migrators"></a>Migrators</h3><p>There are migrators available and you can pull them in with npm install. I quickly found migrators for Wordpress and Ghost blogs. </p>
+<h2 id="Themes"><a href="#Themes" class="headerlink" title="Themes"></a>Themes</h2><p>There are many themes around. Usually, you pull a git repo into your themes/theme-name folder. Themes basically wrap the whole presentation process, which means each theme has specific capabilities. (eg. some have google analytics, some have disqus comments). If you want to mix and match, you quickly find yourself editing your theme.</p>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>There are different types of plugins. They seem to hook into the build process and provide various services. I haven’t looked into them too much yet.</p>
+<h2 id="Migrators"><a href="#Migrators" class="headerlink" title="Migrators"></a>Migrators</h2><p>There are migrators available and you can pull them in with npm install. I quickly found migrators for Wordpress and Ghost blogs. </p>
 <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>Hexo is node-based and provides a familiar interface for an Angular developer. It is a fantasic tool for getting a blog up and running and has capability to migrate from existing platforms. Since it is git based, it’s a bit harder to manage from my phone, however I LOVE that my markdown content is in git so I can review changes and I know it won’t be lost in a corrupt database.</p>
 <p>What do you think? Would you use Hexo?</p>
 
                 </div>
             </section>
+
+            
+
+            
+            <section class="post-full-comments">
+                <div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+	this.page.url = "/";  
+	this.page.identifier = "ghost-5c3e7b94f2870c0001c5791a"
+};
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://anthonyison.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
+</script>
+            </section>        
         </article>
     </div>
 
@@ -227,7 +271,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jekyll"><span class="toc-text">Jekyll</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Installing-Hexo"><span class="toc-text">Installing Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Themes"><span class="toc-text">Themes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plugins"><span class="toc-text">Plugins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Migrators"><span class="toc-text">Migrators</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jekyll"><span class="toc-text">Jekyll</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-Hexo"><span class="toc-text">Installing Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Themes"><span class="toc-text">Themes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plugins"><span class="toc-text">Plugins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Migrators"><span class="toc-text">Migrators</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li></ol>
     </div>
 </div>
 
@@ -372,6 +416,19 @@
     </div>
     <span class="floating-header-divider">&mdash;</span>
     <div class="floating-header-title">Serverless markdown blogs with Hexo</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this 
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+                <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+            </svg>
+        </div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Automatic%20HTTPS%20on%20Kubernetes&amp;url=https://anthonyison.com/automatic-https-on-kubernetes/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/automatic-https-on-kubernetes/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+        </a>
+    </div>
     <progress class="progress" value="0">
         <div class="progress-container">
             <span class="progress-bar"></span>
@@ -390,14 +447,6 @@
 
 
 
-<script src="/js/lightgallery.min.js"></script>
-<link rel="stylesheet" href="/css/lightgallery.min.css">
-<script>
-    lightGallery(document.getElementById('lightgallery'), {
-        selector: '.post-img'
-    });
-</script>
-
 
 
 
@@ -409,6 +458,19 @@
 <script>searchFunc("/")</script>
 
 
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-csharp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/components/prism-markup.min.js"></script>
 
 
 

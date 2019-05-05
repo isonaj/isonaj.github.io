@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://anthonyison.com/"/>
-  <updated>2019-05-04T13:12:17.294Z</updated>
+  <updated>2019-05-05T05:45:15.889Z</updated>
   <id>http://anthonyison.com/</id>
   
   <author>
@@ -21,17 +21,19 @@
     <link href="http://anthonyison.com/migrating-from-ghost-to-hexo/"/>
     <id>http://anthonyison.com/migrating-from-ghost-to-hexo/</id>
     <published>2019-05-04T13:12:56.000Z</published>
-    <updated>2019-05-04T13:12:17.294Z</updated>
+    <updated>2019-05-05T05:45:15.889Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;It was surprisingly easy to migrate my blog out of ghost, but there were a few missed steps along the way. Often, I would find a better
-        
-      
+      It was surprisingly easy to migrate my blog out of ghost, but there were a few missed steps along the way. Often, I would find a better way after I had done the heavy lifting.
+
+1. Install Hexo and create the blog
+$ npm install hexo-cli -g
+$ hexo init myblog
+$ cd myblog
+
+
+2. Install the hexo-casper t
     
     </summary>
     
@@ -49,17 +51,11 @@
     <link href="http://anthonyison.com/serverless-markdown-blogs-with-hexo/"/>
     <id>http://anthonyison.com/serverless-markdown-blogs-with-hexo/</id>
     <published>2019-05-03T11:27:32.000Z</published>
-    <updated>2019-05-04T13:11:04.101Z</updated>
+    <updated>2019-05-05T05:44:57.436Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;Let me start this by saying I’m loving my ghost blog, and I get a kick out of running it on AKS. The thing is, the content only changes
-        
-      
+      Let me start this by saying I’m loving my ghost blog, and I get a kick out of running it on AKS. The thing is, the content only changes when I post and so I’m thinking about caching and I realise the whole blog can be cached. It’s not an API. I don’t have changing data. (Ok, TECHNICALLY I have a db,
     
     </summary>
     
@@ -73,17 +69,11 @@
     <link href="http://anthonyison.com/dynamic-environment-in-your-static-angular-application/"/>
     <id>http://anthonyison.com/dynamic-environment-in-your-static-angular-application/</id>
     <published>2019-04-24T14:00:00.000Z</published>
-    <updated>2019-05-04T13:33:49.944Z</updated>
+    <updated>2019-05-05T05:39:56.049Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as
-        
-      
+      I keep hitting the same problem when building Angular applications. Environment settings! They are easy to set up in development, but as you target different environments, the old “one file per environment” really doesn’t cut it. I don’t want to rebuild my application just to deploy to production an
     
     </summary>
     
@@ -99,17 +89,11 @@
     <link href="http://anthonyison.com/automatic-https-on-kubernetes/"/>
     <id>http://anthonyison.com/automatic-https-on-kubernetes/</id>
     <published>2019-02-16T14:00:00.000Z</published>
-    <updated>2019-05-04T13:11:04.085Z</updated>
+    <updated>2019-05-05T05:35:25.871Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you
-        
-      
+      This post starts with a slight regret that I didn’t get Ghost running on a Web App. One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. Of course, I’d still need to organise a certificate for my domain. Hold on, let me stop and back up a 
     
     </summary>
     
@@ -123,17 +107,11 @@
     <link href="http://anthonyison.com/running-ghost-on-kubernetes-on-azure/"/>
     <id>http://anthonyison.com/running-ghost-on-kubernetes-on-azure/</id>
     <published>2019-01-15T14:00:00.000Z</published>
-    <updated>2019-05-04T13:11:04.085Z</updated>
+    <updated>2019-05-05T05:41:16.189Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;In my &lt;a href=&quot;/creating-a-blog-with-ghost/&quot;&gt;previous post&lt;/a&gt;, I was looking into a few options for running my blog. I think at this
-        
-      
+      In my previous post, I was looking into a few options for running my blog. I think at this time, I’m going to keep it on Azure because I can run it for free. I suspect I would make a different choice if not for my bonus credits. I will need some benchmark figures to choose a provider, however kubern
     
     </summary>
     
@@ -151,17 +129,14 @@
     <link href="http://anthonyison.com/creating-a-blog-with-ghost/"/>
     <id>http://anthonyison.com/creating-a-blog-with-ghost/</id>
     <published>2019-01-07T14:00:00.000Z</published>
-    <updated>2019-05-04T13:11:04.102Z</updated>
+    <updated>2019-05-05T05:38:44.848Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;There seems to come a time in a software developer’s life where you look at creating a blog. It’s that time for me. I want a place where
-        
-      
+      There seems to come a time in a software developer’s life where you look at creating a blog. It’s that time for me. I want a place where I can write up some of my experiments for later reference, and if that can help others along the way, all the better!
+
+Considerations
+ 1. I don’t want to pay anyth
     
     </summary>
     
