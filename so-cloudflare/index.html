@@ -182,6 +182,8 @@
 <li>Add an A record to cloudflare to point to your IP (eg. for AKS) or CNAME to redirect to your alternate domain (eg. GitHub pages or web app)</li>
 <li>Wait for the change to take effect. This can take up to 48 hours.</li>
 </ol>
+<p>Once CDN is in place, we’ve got one small problem. When we change the content, we need to be able to purge the cache. Cloudflare provides an API for achieving this. We just need to add it to the build pipeline. One way of doing it would be to create a Logic App that punches the API whenever there’s a new commit on the github pages repo.</p>
+<p>I might do that later on…</p>
 
                 </div>
             </section>
