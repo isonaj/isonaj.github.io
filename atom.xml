@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://anthonyison.com/"/>
-  <updated>2019-05-05T07:56:11.288Z</updated>
+  <updated>2019-05-05T10:40:42.397Z</updated>
   <id>https://anthonyison.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>So... Cloudflare...</title>
+    <link href="https://anthonyison.com/so-cloudflare/"/>
+    <id>https://anthonyison.com/so-cloudflare/</id>
+    <published>2019-05-05T10:40:42.000Z</published>
+    <updated>2019-05-05T10:40:42.397Z</updated>
+    
+    <summary type="html">
+    
+      I went to a great talk by Troy Hunt in Brisbane a hile ago. Well, it was great at the time. It didn’t take long before I started to realise that most of the struggles I’ve had with HTTPS my blog could have actually been side stepped quite nicely by using Cloudflare.
+
+Let me be clear. This wasn’t the
+    
+    </summary>
+    
+    
+      <category term="CDN" scheme="https://anthonyison.com/tags/cdn/"/>
+    
+  </entry>
   
   <entry>
     <title>Migrating from Ghost to Hexo</title>
@@ -116,9 +136,9 @@ $ cd myblog
     </summary>
     
     
-      <category term="ghost" scheme="https://anthonyison.com/tags/ghost/"/>
-    
       <category term="kubernetes" scheme="https://anthonyison.com/tags/kubernetes/"/>
+    
+      <category term="ghost" scheme="https://anthonyison.com/tags/ghost/"/>
     
       <category term="azure" scheme="https://anthonyison.com/tags/azure/"/>
     
