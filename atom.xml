@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://anthonyison.com/"/>
-  <updated>2019-05-06T12:00:34.547Z</updated>
+  <updated>2019-05-19T23:00:29.845Z</updated>
   <id>https://anthonyison.com/</id>
   
   <author>
@@ -15,6 +15,22 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Serverless what? Why do we need it?</title>
+    <link href="https://anthonyison.com/serverless-what-why-do-we-need-it/"/>
+    <id>https://anthonyison.com/serverless-what-why-do-we-need-it/</id>
+    <published>2019-05-19T22:58:24.000Z</published>
+    <updated>2019-05-19T23:00:29.845Z</updated>
+    
+    <summary type="html">
+    
+      “Serverless” was one of those terms that left me scratching my head when I first heard it. How on earth do you run a server… without a server??? That’s some crazy marketing spin! What I quickly learned is that serverless is referring to how much infrastructure you need to manage. That is, none. Nada
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>So... Cloudflare...</title>

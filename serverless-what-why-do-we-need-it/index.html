@@ -31,7 +31,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Migrating from Ghost to Hexo | Anthony Ison</title>
+	<title>Serverless what? Why do we need it? | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -61,16 +61,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Migrating from Ghost to Hexo | Anthony Ison">
+	<meta property="og:title" content="Serverless what? Why do we need it? | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/migrating-from-ghost-to-hexo/">
-	<meta property="og:image" content="https://anthonyison.com//migrating-from-ghost-to-hexo/small_harshil-gudka-556417-unsplash.jpg">
+	<meta property="og:url" content="https://anthonyison.com/serverless-what-why-do-we-need-it/">
+	<meta property="og:image" content="https://anthonyison.com//serverless-what-why-do-we-need-it/small_madhu-shesharam-669293-unsplash.jpg">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-05-04T23:05:00+08:00"> 
+	<meta property="article:published_time" content="2019-05-20T08:05:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /migrating-from-ghost-to-hexo/">
+	<meta property="article:published_first" content="Anthony Ison, /serverless-what-why-do-we-need-it/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -152,110 +152,51 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-05-04T13:12:56.000Z" itemprop="datePublished">
-                    2019-05-04
+                <time class="post-full-meta-date" datetime="2019-05-19T22:58:24.000Z" itemprop="datePublished">
+                    2019-05-20
                 </time>
                 
                 
-                <span class="date-divider">/</span>
-                <a href="/tags/ghost/">ghost</a>
-                
-                <span class="date-divider">/</span>
-                <a href="/tags/hexo/">hexo</a>
-                
-                <span class="date-divider">/</span>
-                <a href="/tags/blogging/">blogging</a>
-                
                 
             </section>
-            <h1 class="post-full-title">Migrating from Ghost to Hexo</h1>
+            <h1 class="post-full-title">Serverless what? Why do we need it?</h1>
         </header>
         <article class="post-full ">
             
-            <figure class="post-full-image" style="background-image: url(harshil-gudka-556417-unsplash.jpg)">
+            <figure class="post-full-image" style="background-image: url(madhu-shesharam-669293-unsplash.jpg)">
             </figure>
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>It was surprisingly easy to migrate my blog out of ghost, but there were a few missed steps along the way. Often, I would find a better way after I had done the heavy lifting.</p>
-<h2 id="1-Install-Hexo-and-create-the-blog"><a href="#1-Install-Hexo-and-create-the-blog" class="headerlink" title="1. Install Hexo and create the blog"></a>1. Install Hexo and create the blog</h2><pre><code>$ npm install hexo-cli -g
-$ hexo init myblog
-$ cd myblog
-</code></pre><h2 id="2-Install-the-hexo-casper-theme"><a href="#2-Install-the-hexo-casper-theme" class="headerlink" title="2. Install the hexo-casper theme"></a>2. Install the hexo-casper theme</h2><pre><code>$ git clone https://github.com/xzhih/hexo-theme-casper.git themes/hexo-casper
-</code></pre><h2 id="3-Configure-the-theme-and-site"><a href="#3-Configure-the-theme-and-site" class="headerlink" title="3. Configure the theme and site"></a>3. Configure the theme and site</h2><p>Edit _config.yaml</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Site</span>
-<span class="token key atrule">title</span><span class="token punctuation">:</span> Anthony Ison
-<span class="token key atrule">subtitle</span><span class="token punctuation">:</span> Software development and DevOps. Bringing solutions to life.
-<span class="token key atrule">description</span><span class="token punctuation">:</span> My meandering thoughts on development<span class="token punctuation">,</span> devops and technology
-<span class="token key atrule">keywords</span><span class="token punctuation">:</span> software development<span class="token punctuation">,</span>devops<span class="token punctuation">,</span>azure<span class="token punctuation">,</span>kubernetes<span class="token punctuation">,</span>angular<span class="token punctuation">,</span>serverless<span class="token punctuation">,</span>docker
-<span class="token key atrule">author</span><span class="token punctuation">:</span> Anthony Ison
-<span class="token key atrule">language</span><span class="token punctuation">:</span> en
-<span class="token key atrule">timezone</span><span class="token punctuation">:</span> Australia/Brisbane  <span class="token comment" spellcheck="true"># From http://momentjs.com/timezone/</span>
-<span class="token key atrule">url</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//anthonyison.com
-<span class="token key atrule">root</span><span class="token punctuation">:</span> /
-
-<span class="token comment" spellcheck="true"># Set these to create lowercase, title-only permalinks (like ghost)</span>
-<span class="token key atrule">permalink</span><span class="token punctuation">:</span> <span class="token punctuation">:</span>title/
-<span class="token key atrule">filename_case</span><span class="token punctuation">:</span> <span class="token number">1</span>
-
-<span class="token comment" spellcheck="true"># consider creating a folder with each post to hold any assets</span>
-<span class="token key atrule">post_asset_folder</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-</code></pre>
-<p>Edit themes/hexo-casper/_config.yaml</p>
-<h2 id="4-Migrate-posts-from-ghost-to-hexo"><a href="#4-Migrate-posts-from-ghost-to-hexo" class="headerlink" title="4. Migrate posts from ghost to hexo"></a>4. Migrate posts from ghost to hexo</h2><p>In Ghost:<br>Labs &gt; Export content</p>
-<pre><code>$ npm install hexo-migrator-ghost --save
-$ hexo migrate ghost my-ghost.json
-</code></pre><p><em>FAILED!</em></p>
-<pre><code>$ npm install hexo-migrator-tryghost --save
-$ hexo migrate ghost my-ghost.json
-</code></pre><p><em>FAILED!</em></p>
-<p>These probably failed because I was running Ghost 2.x and the export format has changed. If you’ve got an earlier version, maybe this will work for you.</p>
-<pre><code>$ docker run -it -v $(pwd):/temp golang
-$ go get -v github.com/jqs7/ghost-hexo-migrator
-$ cd /temp
-$ ghost-hexo-migrator my-ghost.json
-</code></pre><p><em>FAILED!</em></p>
-<p>This got a little closer, and actually pulled content across, but now I’m out of options. Fortunately, I don’t have many posts and will manually migrate instead. I hope you have better luck.</p>
-<h2 id="5-Reattach-the-post-images"><a href="#5-Reattach-the-post-images" class="headerlink" title="5. Reattach the post images"></a>5. Reattach the post images</h2><p>Many of the migration tools will bring content across without images. So afterwards, you will need to copy the images in and link them to posts manually.</p>
-<p>Also, it’s worth configuring an image optimizer, using:</p>
-<pre><code>$ npm i hexo-filter-responsive-images --save
-</code></pre><p>Then add to the _config.yaml:</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># hexo-filter-responsive-images</span>
-<span class="token key atrule">responsive_images</span><span class="token punctuation">:</span>
-  <span class="token key atrule">pattern</span><span class="token punctuation">:</span> <span class="token string">'**/*.+(png|jpg|jpeg)'</span>
-  <span class="token key atrule">sizes</span><span class="token punctuation">:</span>
-    <span class="token key atrule">small</span><span class="token punctuation">:</span>
-      <span class="token key atrule">width</span><span class="token punctuation">:</span> <span class="token number">800</span>
-      <span class="token key atrule">withoutEnlargement</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-    <span class="token key atrule">large</span><span class="token punctuation">:</span>
-      <span class="token key atrule">width</span><span class="token punctuation">:</span> <span class="token number">2000</span>
-      <span class="token key atrule">withoutEnlargement</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-</code></pre>
-<p>To each of the blog post headers, add:</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">cover_img</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>blog<span class="token punctuation">-</span>post/small_cover.jpg
-<span class="token key atrule">feature_img</span><span class="token punctuation">:</span> large_cover.jpg
-</code></pre>
-<p>where cover.jpg is the original image for the post cover.</p>
-<h2 id="6-Configure-RSS"><a href="#6-Configure-RSS" class="headerlink" title="6. Configure RSS"></a>6. Configure RSS</h2><pre><code>$ npm install hexo-generator-feed --save
-</code></pre><p>Add this to your _config.yaml:</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">feed</span><span class="token punctuation">:</span>
-  <span class="token key atrule">type</span><span class="token punctuation">:</span> atom
-  <span class="token key atrule">path</span><span class="token punctuation">:</span> atom.xml
-  <span class="token key atrule">limit</span><span class="token punctuation">:</span> <span class="token number">20</span>
-  <span class="token key atrule">hub</span><span class="token punctuation">:</span>
-  <span class="token key atrule">content</span><span class="token punctuation">:</span>
-  <span class="token key atrule">content_limit</span><span class="token punctuation">:</span> <span class="token number">140</span>
-  <span class="token key atrule">content_limit_delim</span><span class="token punctuation">:</span> <span class="token string">' '</span>
-  <span class="token key atrule">order_by</span><span class="token punctuation">:</span> <span class="token punctuation">-</span>date
-  <span class="token key atrule">icon</span><span class="token punctuation">:</span> icon.png
-</code></pre>
-<h2 id="7-Configure-deploy"><a href="#7-Configure-deploy" class="headerlink" title="7. Configure deploy"></a>7. Configure deploy</h2><pre><code>$ npm install hexo-deployer-git --save
-</code></pre><p>Edit _config.yaml</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">deploy</span><span class="token punctuation">:</span>
-  <span class="token key atrule">type</span><span class="token punctuation">:</span> git
-  <span class="token key atrule">repo</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//github.com/isonaj/isonaj.github.io.git
-  <span class="token key atrule">branch</span><span class="token punctuation">:</span> master
-</code></pre>
+                    <p>“Serverless” was one of those terms that left me scratching my head when I first heard it. How on earth do you run a server… without a server??? That’s some crazy marketing spin! What I quickly learned is that serverless is referring to how much infrastructure you need to manage. That is, none. Nada.</p>
+<p>So who cares? I mean, I’m running on PaaS. I can change the number of servers with a slider, or set rules to automatically add and remove servers as my traffic changes. Isn’t that good enough? Not according to <a href="https://www.troyhunt.com/serverless-to-the-max-doing-big-things-for-small-dollars-with-cloudflare-workers-and-azure-functions/" target="_blank" rel="noopener">Troy Hunt</a>. When your traffic spikes (like, when your site is on the news and a million people pick up their phone at the same time and hit your site), you can go from “too much cloud” to “not enough cloud” very quickly. It’s in this environment of rapidly changing traffic (and realistically, that’s when it counts), that serverless really shines.</p>
+<h1 id="So-what-is-it"><a href="#So-what-is-it" class="headerlink" title="So what is it?"></a>So what is it?</h1><p>Alright, so what IS serverless? Let’s consider what you might be using now. You’ve got a few VMs on a scale set, or you’ve got a few VMs as nodes of a Kubernetes cluster, or maybe you have some PaaS offering where you pick the number of machines backing it. You’ve got some rules in place to scale up as traffic increases and then back down to reduce costs when it falls again. Each of these scenarios have:</p>
+<ul>
+<li>a fixed monthly costs per backing VM</li>
+<li>a maximum traffic threshold</li>
+<li>increasing latency as the traffic approaches the threshold</li>
+<li>rules to increase and decrease the number of backing VMs to trade off running cost vs latency</li>
+</ul>
+<p>Let’s say you increase your VMs by 10x or 100x. Assuming your architecture can scale, your latency issues have just vanished. Your servers are idling with unlimited resources compared to the current load. HOWEVER, your running costs have also increased by 10x or 100x. But the servers are just idling. So, what if you only paid for the activity you caused? That fraction of a ms of CPU. That couple of KB of RAM as you process an incoming request. Assuming the price is right, wouldn’t that be better? Assuming the costs are around VM rate * Utilisation, you’re instantly ahead! No more scaling of resources. Costs are directly related to resources used. Of and one final thing. Those resources available? Well, that’s a datacenter worth of resources. Your armageddon-style traffic spike is barely a blip on their radar.</p>
+<p>That is Serverless.</p>
+<h1 id="How-do-I-use-it"><a href="#How-do-I-use-it" class="headerlink" title="How do I use it?"></a>How do I use it?</h1><p>Unfortunately, serverless doesn’t come for free. Architecturally, you don’t run your server any more. And I mean software server, not the VM. Instead, you need to present a function based API (eg. Azure Functions or AWS Lambda) and that is effectively injected into the provider’s service to execute  as configured. If you have followed a <a href="https://youtu.be/_lwCVE_XgqI?list=PL7soaAB-BQAbAFa1XZkg7wOvDHorQ7KiO" target="_blank" rel="noopener">Clean Code Architecture</a>, it’s probably simple to extract your application logic into a Functions application. If you’ve got application code in your controllers, or using Filters, etc, well, that will take more.</p>
+<p>Some services are Serverless already and some are not. If you want to build serverless, you’re looking at:</p>
+<ul>
+<li>Storage</li>
+<li>Azure Functions</li>
+<li>Service Bus</li>
+<li>SignalR service</li>
+</ul>
+<p>If you want to bring your serverless architecture to its knees, try:</p>
+<ul>
+<li>SQL Server</li>
+<li>Web apps</li>
+<li>AKS (for now)</li>
+<li>Cosmos DB?</li>
+</ul>
+<p>I’m not really sure where Cosmos DB fits atm. There’s worldwide distribution, but I think it is resource bound.</p>
+<h1 id="Final-words"><a href="#Final-words" class="headerlink" title="Final words"></a>Final words</h1><p>Serverless brings an extraordinary level of burst tolerance to your application, which will bring resilience and performance under extreme loads. As with any architectural decision, it’s not all or nothing. You can have parts of a system that are serverless, with other parts not, such as a Web App that sends messages to a Service Bus. With a serverless backing, the web app will likely now provide greater resilience under load. Use load testing to measure where your bottlenecks are. Importantly, look for any part of your architecture where serverless is hitting resource bound components, such as Azure Functions hitting SQL Server. Make sure you have a fallback strategy for when the resource bound component is at maximum load.</p>
+<p>Serverless is actually not a new idea and there are many serverless services available. Effective use of serverless components in your architecture will massively increase the scalability of your application.</p>
 
                 </div>
             </section>
@@ -267,8 +208,8 @@ $ ghost-hexo-migrator my-ghost.json
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/migrating-from-ghost-to-hexo/";  
-	this.page.identifier = "r2vNFnGU5hT3R8RucLvwA3S6rPs="
+	this.page.url = "https://anthonyison.com/serverless-what-why-do-we-need-it/";  
+	this.page.identifier = "h4buwvjUdOKoByU08qTf3cAaMV0="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -285,14 +226,10 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="So... Cloudflare..." href="/so-cloudflare/">
-            ← So... Cloudflare...
-        </a>
-        
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="Serverless markdown blogs with Hexo" href="/serverless-markdown-blogs-with-hexo/">
-            Serverless markdown blogs with Hexo →
+        <a class="next-post" title="So... Cloudflare..." href="/so-cloudflare/">
+            So... Cloudflare... →
         </a>
         
     </nav>
@@ -314,7 +251,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Install-Hexo-and-create-the-blog"><span class="toc-text">1. Install Hexo and create the blog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Install-the-hexo-casper-theme"><span class="toc-text">2. Install the hexo-casper theme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Configure-the-theme-and-site"><span class="toc-text">3. Configure the theme and site</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Migrate-posts-from-ghost-to-hexo"><span class="toc-text">4. Migrate posts from ghost to hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Reattach-the-post-images"><span class="toc-text">5. Reattach the post images</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Configure-RSS"><span class="toc-text">6. Configure RSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Configure-deploy"><span class="toc-text">7. Configure deploy</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#So-what-is-it"><span class="toc-text">So what is it?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#How-do-I-use-it"><span class="toc-text">How do I use it?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Final-words"><span class="toc-text">Final words</span></a></li></ol>
     </div>
 </div>
 
@@ -462,7 +399,7 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Migrating from Ghost to Hexo</div>
+    <div class="floating-header-title">Serverless what? Why do we need it?</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
