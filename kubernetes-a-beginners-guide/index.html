@@ -31,7 +31,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>So... Cloudflare... | Anthony Ison</title>
+	<title>Kubernetes: A Beginner's Guide | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -61,16 +61,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="So... Cloudflare... | Anthony Ison">
+	<meta property="og:title" content="Kubernetes: A Beginner's Guide | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/so-cloudflare/">
+	<meta property="og:url" content="https://anthonyison.com/kubernetes-a-beginners-guide/">
 	<meta property="og:image" content="https://anthonyison.com/">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-05-05T20:05:00+08:00"> 
+	<meta property="article:published_time" content="2019-06-04T22:06:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /so-cloudflare/">
+	<meta property="article:published_first" content="Anthony Ison, /kubernetes-a-beginners-guide/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -157,44 +157,127 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-05-05T10:40:42.000Z" itemprop="datePublished">
-                    2019-05-05
+                <time class="post-full-meta-date" datetime="2019-06-04T12:45:13.000Z" itemprop="datePublished">
+                    2019-06-04
                 </time>
                 
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/cdn/">CDN</a>
+                <a href="/tags/kubernetes/">kubernetes</a>
                 
                 
             </section>
-            <h1 class="post-full-title">So... Cloudflare...</h1>
+            <h1 class="post-full-title">Kubernetes: A Beginner's Guide</h1>
         </header>
         <article class="post-full ">
             
-            <figure class="post-full-image" style="background-image: url(jakob-owens-1417197-unsplash.jpg)">
+            <figure class="post-full-image" style="background-image: url(joseph-barrientos-93565-unsplash.jpg)">
             </figure>
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>I went to a great talk by Troy Hunt in Brisbane a while ago. Well, it was great at the time. It didn’t take long before I started to realise that most of the struggles I’ve had with HTTPS my blog could have actually been side stepped quite nicely by using <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">Cloudflare</a>.</p>
-<p>Let me be clear. This wasn’t the first time I heard of Cloudflare. To be honest, I didn’t actually know what it was before now though, and Troy has a way of presenting things so that they seem really quite simple. Cloudflare seems to provide a service that just puts a bow on hosted services: Free SSL, CDN/caching, DNS, traffic management. Cloudflare aim to have an edge within 10ms of every client on the planet.</p>
-<p>Since I already had my HTTPS sorted, I didn’t worry too much about it at the time. Now, I’m looking for CDN and it wouldn’t hurt to have an overlay on my site that allows some modifications to requests and responses (like HTTP/2, which Cloudflare seem to enable by default).</p>
-<p>Getting set up is easy enough.</p>
-<ol>
-<li>Create an account with <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">Cloudflare</a>.</li>
-<li>Add a site (eg. anthonyison.com).</li>
-<li>Set up the DNS servers with your domain provider.</li>
-<li>Add an A record to cloudflare to point to your IP (eg. for AKS) or CNAME to redirect to your alternate domain (eg. GitHub pages or web app)</li>
-<li>Wait for the change to take effect. This can take up to 48 hours.</li>
-</ol>
-<p>Once CDN is in place, we’ve got one small problem. When we change the content, we need to be able to purge the cache. Cloudflare provides an API for achieving this. We just need to add it to the build pipeline. One way of doing it would be to create a Logic App that punches the API whenever there’s a new commit on the github pages repo.</p>
-<p>I might do that later on…</p>
-<p>For now, I’ve hosted both blogs, just for comparison. I’m running <a href="https://developers.google.com/web/tools/lighthouse/" target="_blank" rel="noopener">Lighthouse</a> against both to see if there’s much of a difference.</p>
-<p>Running Ghost:<br><img alt="Ghost Summary" class="post-img b-lazy" href="/so-cloudflare/ghost_summary.png" data-src="/so-cloudflare/ghost_summary.png"><br><img alt="Ghost Performance" class="post-img b-lazy" href="/so-cloudflare/ghost_performance.png" data-src="/so-cloudflare/ghost_performance.png"></p>
-<p>Running Hexo on Github Pages:<br><img alt="Ghost Summary" class="post-img b-lazy" href="/so-cloudflare/github_summary.png" data-src="/so-cloudflare/github_summary.png"><br><img alt="Ghost Performance" class="post-img b-lazy" href="/so-cloudflare/github_performance.png" data-src="/so-cloudflare/github_performance.png"></p>
-<p>Running Hexo on Github Pages behind Cloudflare:<br><img alt="Ghost Summary" class="post-img b-lazy" href="/so-cloudflare/cloudflare_summary.png" data-src="/so-cloudflare/cloudflare_summary.png"><br><img alt="Ghost Performance" class="post-img b-lazy" href="/so-cloudflare/cloudflare_performance.png" data-src="/so-cloudflare/cloudflare_performance.png"></p>
-<p>With Cloudflare in place, I have CDN, HTTPS, HTTP/2 in place. I’ve enable Rocket Loader to improve paint time and auto-minify so that I can pull that from my build process. I can enable HSTS automatically, but not sure it’s necessary?</p>
-<p>For now, I think the numbers are heading in the right direction, even though I seem to have introduced a couple of new issues while migrating to hexo.</p>
+                    <p>Kubernetes is a container orchestration platform and has been described as “the OS of the cloud”. It builds on container-based services by providing many features such as volumes for stateful services, resilience and scaling, monitoring, automated zero-downtime upgrades. It runs on a cluster of nodes (VMs) and allocates services to nodes based on either hard limits (eg. my service must run on linux) and prioritised preferences (eg. put these two services on the same VM). If you are running your services in containers, Kubernetes will likely make your life easier.</p>
+<h1 id="Containers"><a href="#Containers" class="headerlink" title="Containers"></a>Containers</h1><p>The first important step is to ensure your software is running in a container. A container is a way of packaging your service, along with any dependencies, removing the reliance of specific libraries, etc existing on the OS. I’m mostly assuming you know what a container is, what the benefits are and how to run one in this blog post.</p>
+<h1 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h1><p>Assuming you have a container already (and if you haven’t you can just use one of mine to follow along), the first step is to create your cluster. Sorry, that part is up to you. Come back here when you’re done. You can take a look at <a href="/kubernetes-setting-up-a-cluster-on-aks">this page</a> for assistance with Azure.</p>
+<h2 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h2><p>Pods are the basic building blocks of a Kubernetes system and it’s probably fair to say everything else supports Pods in keeping their services running and available. A Pod runs one or more containers and defines ports, volumes, config settings, etc to expose a container service.</p>
+<p>To create a pod, you will need a yaml file that defines its structure. If you’re not sure what yaml is, it’s like a json file with way fewer characters. It uses file layout to express relationships between properties, so take care of those spaces! Anyway, here’s our first yaml file:</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>pod
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccore
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> isonaj/basiccore
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">beta.kubernetes.io/os</span><span class="token punctuation">:</span> linux
+</code></pre>
+<p>Alright, that is not terribly clear because it’s got ‘basiccore’ all over it. This yaml file has 4 parts to it: apiVersion, kind, metadata and spec. We are asking for a <code>Pod</code> kind of component, from <code>v1</code> of the API. The metadata says that the name of the pod should be <code>basiccore-pod</code> and it should have one label called <code>app</code> with the value <code>basiccore</code>. Inside this pod, I want a single container running image <code>isonaj/basiccore</code> (with port <code>80</code> exposed) and the container should be called <code>basiccore</code>. The nodeSelector part is just to ensure that the linux container runs on a Linux node. (with AKS supporting windows nodepools, it helps to be sure)</p>
+<p>Now, run that on the cluster using <code>kubectl apply -f pod.yaml</code>. You can check what is happening by running <code>kubectl get pods</code>. If it shows an error, use <code>kubectl describe pod basiccore-pod</code> to find out more.</p>
+<p>Once you’re finished, there’s nothing more to see. We won’t actually be using this to go further. Nobody expects the spanish inquision and nobody starts a pod on its own. Delete your pod with <code>kubectl delete pod basiccore-pod</code>.</p>
+<h2 id="OPTIONAL-Pods-Windows-containers"><a href="#OPTIONAL-Pods-Windows-containers" class="headerlink" title="OPTIONAL - Pods (Windows containers)"></a>OPTIONAL - Pods (Windows containers)</h2><p>If you’ve installed a Windows server in your cluster, things can get a little complicated. The thing is Windows ain’t Windows. You need to ensure the Host OS is the same version as the Container OS and these are released twice a year.<br>So, I ran <code>kubectl describe node &lt;nodepool&gt;</code> and saw that my host OS is 10.0.17763.379 (which is 1809). For the container, I start it with <code>docker run isonaj/basiccorewin -d</code> and then attach a command prompt with <code>docker exec -it &lt;containerId&gt; cmd</code> This shows the container OS version at the top: 10.0.17134.766 (which is version 1803). At this point, I need to upgrade my laptop, because I can’t pull an 1809 image. My system is 10.0.17134.766 (1803). I can’t run a windows version later than my host.</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccorewin<span class="token punctuation">-</span>pod
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccorewin
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccorewin
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> isonaj/basiccorewin
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">beta.kubernetes.io/os</span><span class="token punctuation">:</span> windows
+</code></pre>
+<h2 id="Deployments"><a href="#Deployments" class="headerlink" title="Deployments"></a>Deployments</h2><p>So let’s start over. Nobody starts a pod by itself, because there’s a much better construct for running pods and that is a Deployment.</p>
+<p>Let’s jump straight into the yaml:</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>deployment
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">2</span>
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>pod
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccore
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> isonaj/basiccore
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+      <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+        <span class="token key atrule">beta.kubernetes.io/os</span><span class="token punctuation">:</span> linux
+</code></pre>
+<p>It’s a bit bigger than the Pod yaml. Let’s work through from the top. Deployments weren’t available in v1. It was added in <code>extensions/v1beta1</code>. Next, we’re creating a <code>Deployment</code>, not a <code>Pod</code> and giving it a name of <code>basiccore-deployment</code>. The <code>spec</code> for a deployment consists of the number of replicas and the template. We are starting 2 Pods with this one and the template is the yaml we used to create the Pod earlier.</p>
+<p>Let’s take a look:</p>
+<pre><code>$ kubectl get deployments
+NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
+basiccore-deployment   2/2     2            2           33s
+
+$ kubectl get pods
+NAME                                   READY   STATUS             RESTARTS   AGE
+basiccore-deployment-c46759d6d-5qw96   1/1     Running            0          7s
+basiccore-deployment-c46759d6d-f94lk   1/1     Running            0          7s
+</code></pre><h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><p>We’ve just spent all of this time starting and stopping pods, but we haven’t actually connected to it yet. We need a way to get in, and get directed to the pod. For this, we use a Service component. A service component is basically a load balancer that sits across the nodes and pods and directs the incoming requests where they are supposed to go.</p>
+<blockquote>
+<p>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods. - kubernetes.io</p>
+</blockquote>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>service
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">type</span><span class="token punctuation">:</span> LoadBalancer
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccore
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
+    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+</code></pre>
+<p>This service will open up a port in our cluster and load balance any traffic across the pods in the selector. In this case, we’re creating a service with a <code>type</code> of <code>LoadBalancer</code> targetting any pod with the metadata <code>app</code> of <code>basiccore</code> (which we applied in the deployment template).</p>
+<p>Run <code>kubectl apply -f basiccore-service.yaml</code> to apply the service and then <code>kubectl get services</code> to see the current state.</p>
+<pre><code>$ kubectl get services
+NAME                TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+basiccore-service   LoadBalancer   10.0.55.65   &lt;pending&gt;     80:30376/TCP   5m52s
+
+$ kubectl get services
+NAME                TYPE           CLUSTER-IP   EXTERNAL-IP    PORT(S)        AGE
+basiccore-service   LoadBalancer   10.0.55.65   13.75.220.78   80:30376/TCP   8m12s
+</code></pre><p>Once the External IP is displayed, put that into your browser, and there it is. A container, in a pod, accessible from the outside world. </p>
 
                 </div>
             </section>
@@ -206,8 +289,8 @@
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/so-cloudflare/";  
-	this.page.identifier = "MCrn6AY3nEWu2DuEjB61Hk3BqUc="
+	this.page.url = "https://anthonyison.com/kubernetes-a-beginners-guide/";  
+	this.page.identifier = "MzSKZwtL0sMGhLqU6/gl/LJ2xP0="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -224,14 +307,10 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Serverless what? Why do we need it?" href="/serverless-what-why-do-we-need-it/">
-            ← Serverless what? Why do we need it?
-        </a>
-        
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="Migrating from Ghost to Hexo" href="/migrating-from-ghost-to-hexo/">
-            Migrating from Ghost to Hexo →
+        <a class="next-post" title="Serverless what? Why do we need it?" href="/serverless-what-why-do-we-need-it/">
+            Serverless what? Why do we need it? →
         </a>
         
     </nav>
@@ -253,7 +332,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Containers"><span class="toc-text">Containers</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#First-steps"><span class="toc-text">First steps</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pods"><span class="toc-text">Pods</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OPTIONAL-Pods-Windows-containers"><span class="toc-text">OPTIONAL - Pods (Windows containers)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deployments"><span class="toc-text">Deployments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Services"><span class="toc-text">Services</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -403,7 +482,7 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">So... Cloudflare...</div>
+    <div class="floating-header-title">Kubernetes: A Beginner's Guide</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
