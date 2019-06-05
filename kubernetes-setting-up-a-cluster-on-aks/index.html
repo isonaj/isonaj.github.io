@@ -31,7 +31,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Automatic HTTPS on Kubernetes | Anthony Ison</title>
+	<title>Kubernetes: Setting up a cluster on AKS | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -61,16 +61,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Automatic HTTPS on Kubernetes | Anthony Ison">
+	<meta property="og:title" content="Kubernetes: Setting up a cluster on AKS | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/automatic-https-on-kubernetes/">
-	<meta property="og:image" content="https://anthonyison.com//automatic-https-on-kubernetes/small_1200px-Rusty_Padlock.jpg">
+	<meta property="og:url" content="https://anthonyison.com/kubernetes-setting-up-a-cluster-on-aks/">
+	<meta property="og:image" content="https://anthonyison.com//kubernetes-setting-up-a-cluster-on-aks/small_taylor-vick-1612625-unsplash.jpg">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-02-17T00:02:00+08:00"> 
+	<meta property="article:published_time" content="2019-06-04T22:06:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /automatic-https-on-kubernetes/">
+	<meta property="article:published_first" content="Anthony Ison, /kubernetes-setting-up-a-cluster-on-aks/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -157,8 +157,8 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-02-16T14:00:00.000Z" itemprop="datePublished">
-                    2019-02-17
+                <time class="post-full-meta-date" datetime="2019-06-04T12:45:12.000Z" itemprop="datePublished">
+                    2019-06-04
                 </time>
                 
                 
@@ -167,98 +167,31 @@
                 
                 
             </section>
-            <h1 class="post-full-title">Automatic HTTPS on Kubernetes</h1>
+            <h1 class="post-full-title">Kubernetes: Setting up a cluster on AKS</h1>
         </header>
         <article class="post-full ">
             
-            <figure class="post-full-image" style="background-image: url(1200px-Rusty_Padlock.jpg)">
+            <figure class="post-full-image" style="background-image: url(taylor-vick-1612625-unsplash.jpg)">
             </figure>
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. Of course, I’d still need to organise a certificate for my domain. Hold on, let me stop and back up a minute.</p>
-<p>What the heck is this HTTPS and certificate stuff? Basically, HTTPS will guarantee that the communication between the client and server can’t be read or changed by anyone between the client and server. So, usernames and passwords are safe to send. While that’s important, it’s probably more important that your pages cannot be changed either. It’s a bit like a message written in code with the king’s seal. Since the code (HTTPS) is known to you and the king, you know it cannot be read. The seal (certificate) proves the authenticity.</p>
-<p>As I set out on this adventure, it looks like I need cert-manager and the best way to install this appears to be to use helm, which I installed with Chocolatey.</p>
-<pre><code>choco install kubernetes-helm
-helm init
-</code></pre><h2 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h2><p>We are going to install cert-manager which will perform all of the magic of fetching certificates and storing them for use in our various services. We need to set up the config for cert-manager, so that we can provide the link to Lets Encrypt. Save the following in a file, say issuer.yaml, and run <code>kubectl apply -f issuer.yaml</code> to apply. (Make sure you update with your email first!)</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> certmanager.k8s.io/v1alpha1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterIssuer
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">acme</span><span class="token punctuation">:</span>
-    <span class="token key atrule">server</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//acme<span class="token punctuation">-</span>v02.api.letsencrypt.org/directory    
-    <span class="token key atrule">email</span><span class="token punctuation">:</span> youremail@gmail.com
-    <span class="token key atrule">privateKeySecretRef</span><span class="token punctuation">:</span>
-      <span class="token key atrule">name</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-    <span class="token key atrule">http01</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+                    <p>Most cloud providers provide a managed Kubernetes cluster at this point. Each time I come back to look at Kubernetes, I feel like I’ve forgotten something (or everything). This post is a cheat sheet for getting a cluster up and running on Azure (using AKS) with recommended extras.  </p>
+<h1 id="Creating-a-Cluster"><a href="#Creating-a-Cluster" class="headerlink" title="Creating a Cluster"></a>Creating a Cluster</h1><h2 id="Getting-ready"><a href="#Getting-ready" class="headerlink" title="Getting ready"></a>Getting ready</h2><p>Firstly, let’s install the latest Azure CLI. Check <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank" rel="noopener">here</a> for the latest version. Run <code>az --version</code> to see what version you have if you have it installed already. Next, <code>az login</code> and <code>az account set -s &lt;subscriptionId&gt;</code> so that you’re ready to go.</p>
+<p>Create the resource group: (location is important. some areas have no AKS support yet eg. australiasoutheast)</p>
+<pre><code>az group create --name myResourceGroup --location australiaeast
+</code></pre><h2 id="Create-a-Linux-only-cluster"><a href="#Create-a-Linux-only-cluster" class="headerlink" title="Create a Linux-only cluster"></a>Create a Linux-only cluster</h2><p>Create the AKS cluster:</p>
+<pre><code>az aks create \
+    --resource-group myResourceGroup \
+    --name myAKSCluster \
+    --node-count 1 \
+    --enable-addons monitoring \
+    --generate-ssh-keys
+</code></pre><h2 id="Connect-kubectl-to-your-cluster"><a href="#Connect-kubectl-to-your-cluster" class="headerlink" title="Connect kubectl to your cluster"></a>Connect kubectl to your cluster</h2><p>Install latest kubectl using <code>az aks install-cli</code>. (You may need to update your path to find the correct kubectl.exe)</p>
+<pre><code>az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
+</code></pre><p>Connect to the Kubernetes Dashboard:</p>
+<pre><code>az aks browse --resource-group myResourceGroup --name myAKSCluster
 </code></pre>
-<h2 id="Installing-cert-manager"><a href="#Installing-cert-manager" class="headerlink" title="Installing cert manager"></a>Installing cert manager</h2><pre><code>kubectl apply -f \
-    https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml
-
-helm install --name cert-manager --namespace ingress \
-    --set ingressShim.defaultIssuerName=letsencrypt-prod 
-    --set ingressShim.defaultIssuerKind=ClusterIssuer 
-    stable/cert-manager
-</code></pre><p>I ran into issues installing cert-manager with a ‘cluster-admin’ not found error. I found instructions on <a href="https://docs.bitnami.com/azure/get-started-aks/" target="_blank" rel="noopener">this page</a> which helped me create a cluster admin role, create a service account and assign tiller to it.</p>
-<h2 id="Installing-nginx-ingress"><a href="#Installing-nginx-ingress" class="headerlink" title="Installing nginx-ingress"></a>Installing nginx-ingress</h2><p>The next step is to configure an Ingress to manage the TLS endpoint, that is to manage my HTTPS endpoint with certificate connected to my domain. Without this step, I found I could set up my Ingress entry, but the address would stay empty.</p>
-<pre><code>helm install stable/nginx-ingress \
-    --name nginx \
-    --set rbac.create=true \
-    --namespace ingress
-</code></pre><p>Once installed, I can see a LoadBalancer entry which has my External IP on it.</p>
-<h2 id="Update-the-Service"><a href="#Update-the-Service" class="headerlink" title="Update the Service"></a>Update the Service</h2><p>In the previous post, we set the service up as a LoadBalancer type. We don’t need that any more since we have a new IP on our LoadBalancer nginx-ingress service. Update the service.yaml and change LoadBalancer to a NodePort and run <code>kubectl apply -f service.yaml</code>. This will make sure we can only access our service through our TLS ingress service.</p>
-<h2 id="Generate-Certificate-and-Ingress-for-Service"><a href="#Generate-Certificate-and-Ingress-for-Service" class="headerlink" title="Generate Certificate and Ingress for Service"></a>Generate Certificate and Ingress for Service</h2><p>Apply the following updates to the kubernetes cluster.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">certmanager.k8s.io/cluster-issuer</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">tls</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> anthonyison.com
-    <span class="token key atrule">secretName</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>crt
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> anthonyison.com
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> anthonyison
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-</code></pre>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> certmanager.k8s.io/v1alpha1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Certificate
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>crt
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">secretName</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>crt
-  <span class="token key atrule">dnsNames</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> anthonyison.com
-  <span class="token key atrule">acme</span><span class="token punctuation">:</span>
-    <span class="token key atrule">config</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">http01</span><span class="token punctuation">:</span>
-        <span class="token key atrule">ingressClass</span><span class="token punctuation">:</span> nginx
-      <span class="token key atrule">domains</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> anthonyison.com
-  <span class="token key atrule">issuerRef</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-    <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterIssuer
-</code></pre>
-<p>That’s it!  Hit your domain and confirm that https is working. You should be able to click on the padlock in the address bar and click on Certificate to see the details. You should see a certificate issued by Lets Encrypt to your domain name.</p>
-<p>So, I started off with some regret that I wasn’t running in a Web App. While it took quite a while to work through many of the issues that showed up along the way, it is actually pretty easy once it’s set up, and furthermore, I don’t have to think about my certificates ever again. I think maybe it’s not as bad as I thought. No regrets, right?</p>
-<h3 id="References"><a href="#References" class="headerlink" title="References:"></a>References:</h3><ol>
-<li><a href="https://itnext.io/automated-tls-with-cert-manager-and-letsencrypt-for-kubernetes-7daaa5e0cae4" target="_blank" rel="noopener">Automated TLS with Cert Manager and Lets Encrypt for Kubernetes</a></li>
-<li><a href="https://akomljen.com/get-automatic-https-with-lets-encrypt-and-kubernetes-ingress/" target="_blank" rel="noopener">Get automatic HTTPS with Lets Encrpyt and Kubernetes Ingress</a></li>
-<li><a href="https://runnable.com/blog/how-to-use-lets-encrypt-on-kubernetes" target="_blank" rel="noopener">How to use Lets Encrypt on Kubernetes (without Cert Manager)</a></li>
-<li><a href="https://docs.bitnami.com/azure/get-started-aks/" target="_blank" rel="noopener">Configuring AKS</a></li>
-<li><a href="https://dzone.com/articles/secure-your-kubernetes-services-using-cert-manager" target="_blank" rel="noopener">Secure your Kubernetes Services using Cert Manager</a></li>
-</ol>
-
                 </div>
             </section>
 
@@ -269,8 +202,8 @@ helm install --name cert-manager --namespace ingress \
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/automatic-https-on-kubernetes/";  
-	this.page.identifier = "ghost-5c68a96a21b29c00018dd0fd"
+	this.page.url = "https://anthonyison.com/kubernetes-setting-up-a-cluster-on-aks/";  
+	this.page.identifier = "gINcTfXWKX68PAMSZnx4iaQlYUw="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -287,14 +220,14 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Dynamic environment in your static Angular application" href="/dynamic-environment-in-your-static-angular-application/">
-            ← Dynamic environment in your static Angular application
+        <a class="prev-post" title="Kubernetes: A Beginner's Guide" href="/kubernetes-a-beginners-guide/">
+            ← Kubernetes: A Beginner's Guide
         </a>
         
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="Running Ghost on Kubernetes on Azure" href="/running-ghost-on-kubernetes-on-azure/">
-            Running Ghost on Kubernetes on Azure →
+        <a class="next-post" title="Serverless what? Why do we need it?" href="/serverless-what-why-do-we-need-it/">
+            Serverless what? Why do we need it? →
         </a>
         
     </nav>
@@ -316,7 +249,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#First-steps"><span class="toc-text">First steps</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-cert-manager"><span class="toc-text">Installing cert manager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-nginx-ingress"><span class="toc-text">Installing nginx-ingress</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update-the-Service"><span class="toc-text">Update the Service</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-Certificate-and-Ingress-for-Service"><span class="toc-text">Generate Certificate and Ingress for Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-text">References:</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Creating-a-Cluster"><span class="toc-text">Creating a Cluster</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Getting-ready"><span class="toc-text">Getting ready</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-a-Linux-only-cluster"><span class="toc-text">Create a Linux-only cluster</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connect-kubectl-to-your-cluster"><span class="toc-text">Connect kubectl to your cluster</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -468,7 +401,7 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Automatic HTTPS on Kubernetes</div>
+    <div class="floating-header-title">Kubernetes: Setting up a cluster on AKS</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
