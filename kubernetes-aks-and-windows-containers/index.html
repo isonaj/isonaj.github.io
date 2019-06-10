@@ -34,7 +34,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Running Ghost on Kubernetes on Azure | Anthony Ison</title>
+	<title>Kubernetes: AKS and Windows Containers | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -64,16 +64,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Running Ghost on Kubernetes on Azure | Anthony Ison">
+	<meta property="og:title" content="Kubernetes: AKS and Windows Containers | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/running-ghost-on-kubernetes-on-azure/">
-	<meta property="og:image" content="https://anthonyison.com//running-ghost-on-kubernetes-on-azure/small_Jenkin-blog-image-2.png">
+	<meta property="og:url" content="https://anthonyison.com/kubernetes-aks-and-windows-containers/">
+	<meta property="og:image" content="https://anthonyison.com//kubernetes-aks-and-windows-containers/small_vidar-nordli-mathisen-667388-unsplash.jpg">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-01-16T00:01:00+08:00"> 
+	<meta property="article:published_time" content="2019-06-10T14:06:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /running-ghost-on-kubernetes-on-azure/">
+	<meta property="article:published_first" content="Anthony Ison, /kubernetes-aks-and-windows-containers/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -167,95 +167,80 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-01-15T14:00:00.000Z" itemprop="datePublished">
-                    2019-01-16
+                <time class="post-full-meta-date" datetime="2019-06-10T04:52:07.000Z" itemprop="datePublished">
+                    2019-06-10
                 </time>
                 
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/kubernetes/">kubernetes</a>
-                
-                <span class="date-divider">/</span>
-                <a href="/tags/ghost/">ghost</a>
-                
-                <span class="date-divider">/</span>
-                <a href="/tags/azure/">azure</a>
+                <a href="/tags/kubernetes/">Kubernetes</a>
                 
                 
             </section>
-            <h1 class="post-full-title">Running Ghost on Kubernetes on Azure</h1>
+            <h1 class="post-full-title">Kubernetes: AKS and Windows Containers</h1>
         </header>
         <article class="post-full ">
             
-            <figure class="post-full-image" style="background-image: url(Jenkin-blog-image-2.png)">
+            <figure class="post-full-image" style="background-image: url(vidar-nordli-mathisen-667388-unsplash.jpg)">
             </figure>
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>In my <a href="/creating-a-blog-with-ghost/">previous post</a>, I was looking into a few options for running my blog. I think at this time, I’m going to keep it on Azure because I can run it for free. I suspect I would make a different choice if not for my bonus credits. I will need some benchmark figures to choose a provider, however kubernetes should give me the platform I need to change in the future if necessary.</p>
-<p>I have a basic level of understanding of how kubernetes hangs together and would love to hear your feedback if you would do things differently. The basic idea is to run a ghost container and provide persistent storage for the content. In the future, I would like to use nginx to reverse proxy incoming traffic and to provide HTTPS for my site.</p>
-<p>I have used AKS to generate a kubernetes cluster and my kubectl is configured to connect to it. First, I need to configure my storage. For this, I use a yaml file.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
+                    <p>When I first heard about Windows containers, I got really excited by the idea of packaging ASP.Net legacy apps and ASP.Net Core apps consistently, without the need to remote into a VM and apply extra libraries. I soon found that Windows containers were quickly followed by a “yeah, but”. Windows node support has recently been added to Kubernetes and AKS. I don’t think it’s quite ready for production, but it sure does look promising.</p>
+<h1 id="Why-use-Windows-Containers"><a href="#Why-use-Windows-Containers" class="headerlink" title="Why use Windows Containers?"></a>Why use Windows Containers?</h1><p>Firstly, we need to realise that Windows ain’t Windows. There are 2 types of windows containers: </p>
+<ul>
+<li>Windows Server Core</li>
+<li>Nano Server</li>
+</ul>
+<h2 id="Windows-Server-Core"><a href="#Windows-Server-Core" class="headerlink" title="Windows Server Core"></a>Windows Server Core</h2><p>Windows Server Core is mostly your standard Windows Server. If you’re running .Net Framework services, you’re looking here. Unfortunately, the containers are HUGE! (<del>12 gig</del> 5 gig for a container)  That said, it’s come a long way in the last few years. Overall, I like Windows Server Core because it allows legacy .Net Framework applications to be packaged and deployed in modern ways and these are the applications that usually really need it.</p>
+<h2 id="Nano-Server"><a href="#Nano-Server" class="headerlink" title="Nano Server"></a>Nano Server</h2><p>Nano Server solves the bloat problem with the Windows containers, coming in at a more respectable 300-ish megs, which is really exciting! “Yeah, but” it doesn’t support .Net framework. SO it’s pretty much for .Net Core projects. The problem with this is .Net Core projects really SHOULD target Linux instead. There are use cases for Nano Server, such as combining .Net Framework and .Net Core projects together on a single windows server. So, if you absolutely MUST run on Windows, Nano server has your back, though I would consider this a last resort option.</p>
+<h1 id="The-problem-with-Windows-containers"><a href="#The-problem-with-Windows-containers" class="headerlink" title="The problem with Windows containers"></a>The problem with Windows containers</h1><p>I’ve already said that I don’t think Windows containers are quite ready for production. This is mostly due to <a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility" target="_blank" rel="noopener">Windows container compatibility</a>. Without Hyper-V, which is not yet supported in Kubernetes, a windows container will only run on a matching host OS version. This means your host OS and container OS needs to be matched (which isn’t too bad, I guess), but it also means they should be upgraded at the same time. ie. Upgrade the Windows OS on your nodes and watch your current services fail to start.</p>
+<h1 id="Use-them-anyway"><a href="#Use-them-anyway" class="headerlink" title="Use them anyway"></a>Use them anyway</h1><p>To be honest, I’m inclined to start using Windows containers anyway. Windows Server 2019 is out. Hyper-V is coming to Kubernetes. I’m expecting Microsoft to have a migration path available soon. Realistically, it will be a while before the Host OS is upgrading and I’m expecting these issues to be solved by then. Either way, I think it’s close enough that I’m prepared to look a lot closer, perhaps even as far as a staging environment.</p>
+<h2 id="Create-a-Cluster-in-AKS"><a href="#Create-a-Cluster-in-AKS" class="headerlink" title="Create a Cluster in AKS"></a>Create a Cluster in AKS</h2><blockquote>
+<p>This requires: <code>az extension add --name aks-preview</code> to work.</p>
+</blockquote>
+<p>Create the cluster:<br>NOTE: Password must be min 12 chars, and have Uppercase, Lowercase, numeric and Special chars</p>
+<pre><code>az aks create \
+    --resource-group myResourceGroup \
+    --name myAKSCluster \
+    --node-count 1 \
+    --enable-addons monitoring \
+    --kubernetes-version 1.14.0 \
+    --generate-ssh-keys \
+    --windows-admin-password $PASSWORD_WIN \
+    --windows-admin-username azureuser \
+    --enable-vmss \
+    --network-plugin azure
+</code></pre><h2 id="Create-Windows-nodepool"><a href="#Create-Windows-nodepool" class="headerlink" title="Create Windows nodepool"></a>Create Windows nodepool</h2><pre><code>az aks nodepool add \
+    --resource-group myResourceGroup \
+    --cluster-name myAKSCluster \
+    --os-type Windows \
+    --name npwin \
+    --node-count 1 \
+    --kubernetes-version 1.14.0
+</code></pre><h2 id="Pods-Windows-containers"><a href="#Pods-Windows-containers" class="headerlink" title="Pods (Windows containers)"></a>Pods (Windows containers)</h2><p>Right, let’s create a Pod. Of course, normally you would create a pod with a Deployment object, but we’re just testing things out.</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>content
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> ReadWriteOnce
-  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
-    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
-      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 5Gi
-  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> default
-</code></pre>
-<p>Using <code>kubectl apply -f volume.yaml</code> we can generate the volume claim to be used in the next step. Next, we will generate a deployment for the the ghost container, linking it to the anthonyison-content volume.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccorewin<span class="token punctuation">-</span>pod
   <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccorewin
 <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> ghost<span class="token punctuation">:</span>2.9.1<span class="token punctuation">-</span>alpine
-        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> Always
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">2368</span>
-        <span class="token key atrule">env</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> url
-          <span class="token key atrule">value</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//anthonyison.com
-        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/lib/ghost/content
-          <span class="token key atrule">name</span><span class="token punctuation">:</span> content
-      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> content
-        <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
-          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>content
+  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccorewin
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> isonaj/basiccorewin<span class="token punctuation">:</span><span class="token number">1803</span>
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
+  <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
+    <span class="token key atrule">beta.kubernetes.io/os</span><span class="token punctuation">:</span> windows
 </code></pre>
-<p>So now we have a ghost container running in Kubernetes with an external mounted volume for storing content. However, it’s not exposed as yet. We do that with a Service. The <code>service.yaml</code> is below.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">type</span><span class="token punctuation">:</span> LoadBalancer
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
-    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">2368</span>
-</code></pre>
-<p>And that’s actually all there is to it. By running <code>kubectl get services</code> you can see the External IP. If you put that in the browser, you will go to the new blog. Better still, put the IP into your DNS A record, and your domain name will direct to the new site.</p>
+<h2 id="My-Windows-Pod-won’t-start"><a href="#My-Windows-Pod-won’t-start" class="headerlink" title="My Windows Pod won’t start"></a>My Windows Pod won’t start</h2><p>The Windows pod has been created and applied, but it won’t start correctly. Instead, <code>kubectl get pods</code> is showing the pod in a RunContainerError state. Have a closer look by running <code>kubectl describe pod &lt;podName&gt;</code>. You’re looking for ‘Failed to start container’ and the error message following. If it is ‘The container operating system does not match the host operating system’ then you have a Host OS/Container OS version mismatch.</p>
+<blockquote>
+<p>The container operating system does not match the host operating system.</p>
+</blockquote>
+<p>So, I ran <code>kubectl describe node &lt;nodepool&gt;</code> and saw that my host OS is 10.0.17763.379 (which is 1809). For the container, run <code>docker inspect isonaj/basiccorewin:1803</code> and look for OsVersion. This shows my container OS version to be 10.0.17134.766 (which is version 1803). To resolve this situation, I built a new container with an OS that matches the host I want to run on. (1809)</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>I don’t think Windows containers are quite production ready, but I think they’re getting pretty close to what I need. If you can match the container versions to the version of the host they will be deployed to, they seem to run quite happily. I think it’s worth getting used to putting .Net Framework applications into containers and even hosting in staging. I don’t think it will be long before they’re ready for production.</p>
 
                 </div>
             </section>
@@ -267,8 +252,8 @@
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/running-ghost-on-kubernetes-on-azure/";  
-	this.page.identifier = "ghost-5c3e7b94f2870c0001c5791e"
+	this.page.url = "https://anthonyison.com/kubernetes-aks-and-windows-containers/";  
+	this.page.identifier = "stlrQK5JFwxu4so29E9sbIUpPAg="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -285,14 +270,10 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Automatic HTTPS on Kubernetes" href="/automatic-https-on-kubernetes/">
-            ← Automatic HTTPS on Kubernetes
-        </a>
-        
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="Creating a blog with Ghost" href="/creating-a-blog-with-ghost/">
-            Creating a blog with Ghost →
+        <a class="next-post" title="Kubernetes: A Beginner's Guide" href="/kubernetes-a-beginners-guide/">
+            Kubernetes: A Beginner's Guide →
         </a>
         
     </nav>
@@ -314,7 +295,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Why-use-Windows-Containers"><span class="toc-text">Why use Windows Containers?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-Server-Core"><span class="toc-text">Windows Server Core</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nano-Server"><span class="toc-text">Nano Server</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-problem-with-Windows-containers"><span class="toc-text">The problem with Windows containers</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Use-them-anyway"><span class="toc-text">Use them anyway</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-a-Cluster-in-AKS"><span class="toc-text">Create a Cluster in AKS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-Windows-nodepool"><span class="toc-text">Create Windows nodepool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pods-Windows-containers"><span class="toc-text">Pods (Windows containers)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Windows-Pod-won’t-start"><span class="toc-text">My Windows Pod won’t start</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li></ol>
     </div>
 </div>
 
@@ -468,17 +449,17 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Running Ghost on Kubernetes on Azure</div>
+    <div class="floating-header-title">Kubernetes: AKS and Windows Containers</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
                 <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
             </svg>
         </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Running Ghost on Kubernetes on Azure&amp;url=https://anthonyison.com/running-ghost-on-kubernetes-on-azure/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Kubernetes: AKS and Windows Containers&amp;url=https://anthonyison.com/kubernetes-aks-and-windows-containers/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/running-ghost-on-kubernetes-on-azure/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/kubernetes-aks-and-windows-containers/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
         </a>
     </div>

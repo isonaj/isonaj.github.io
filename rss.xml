@@ -9,8 +9,26 @@
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>Software development and DevOps. Bringing solutions to life.</description>
-    <pubDate>Wed, 05 Jun 2019 03:57:54 GMT</pubDate>
+    <pubDate>Mon, 10 Jun 2019 04:52:07 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Kubernetes: AKS and Windows Containers</title>
+      <link>https://anthonyison.com/kubernetes-aks-and-windows-containers/</link>
+      <guid>https://anthonyison.com/kubernetes-aks-and-windows-containers/</guid>
+      <pubDate>Mon, 10 Jun 2019 04:52:07 GMT</pubDate>
+      <description>
+      
+        When I first heard about Windows containers, I got really excited by the idea of packaging ASP.Net legacy apps and ASP.Net Core apps consistently, without the need to remote into a VM and apply extra libraries. I soon found that Windows containers were quickly followed by a “yeah, but”. Windows node
+      
+      </description>
+      
+      <enclosure url="https://anthonyison.com//kubernetes-aks-and-windows-containers/small_vidar-nordli-mathisen-667388-unsplash.jpg" type="image" />
+      <media:content url="https://anthonyison.com//kubernetes-aks-and-windows-containers/small_vidar-nordli-mathisen-667388-unsplash.jpg" medium="image"/>
+      
+      
+      <comments>https://anthonyison.com/kubernetes-aks-and-windows-containers/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Kubernetes: A Beginner&#39;s Guide</title>
