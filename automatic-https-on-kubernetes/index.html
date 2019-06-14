@@ -189,9 +189,10 @@
                     <p>This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. Of course, I’d still need to organise a certificate for my domain. Hold on, let me stop and back up a minute.</p>
 <p>What the heck is this HTTPS and certificate stuff? Basically, HTTPS will guarantee that the communication between the client and server can’t be read or changed by anyone between the client and server. So, usernames and passwords are safe to send. While that’s important, it’s probably more important that your pages cannot be changed either. It’s a bit like a message written in code with the king’s seal. Since the code (HTTPS) is known to you and the king, you know it cannot be read. The seal (certificate) proves the authenticity.</p>
 <p>As I set out on this adventure, it looks like I need cert-manager and the best way to install this appears to be to use helm, which I installed with Chocolatey.</p>
-<pre><code>choco install kubernetes-helm
-helm init
-</code></pre><h2 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h2><p>We are going to install cert-manager which will perform all of the magic of fetching certificates and storing them for use in our various services. We need to set up the config for cert-manager, so that we can provide the link to Lets Encrypt. Save the following in a file, say issuer.yaml, and run <code>kubectl apply -f issuer.yaml</code> to apply. (Make sure you update with your email first!)</p>
+<pre class=" language-bash"><code class="language-bash">$ choco <span class="token function">install</span> kubernetes-helm
+$ helm init
+</code></pre>
+<h2 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h2><p>We are going to install cert-manager which will perform all of the magic of fetching certificates and storing them for use in our various services. We need to set up the config for cert-manager, so that we can provide the link to Lets Encrypt. Save the following in a file, say issuer.yaml, and run <code>kubectl apply -f issuer.yaml</code> to apply. (Make sure you update with your email first!)</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> certmanager.k8s.io/v1alpha1
 <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterIssuer
 <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
@@ -204,20 +205,22 @@ helm init
       <span class="token key atrule">name</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
     <span class="token key atrule">http01</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Installing-cert-manager"><a href="#Installing-cert-manager" class="headerlink" title="Installing cert manager"></a>Installing cert manager</h2><pre><code>kubectl apply -f \
+<h2 id="Installing-cert-manager"><a href="#Installing-cert-manager" class="headerlink" title="Installing cert manager"></a>Installing cert manager</h2><pre class=" language-bash"><code class="language-bash">$ kubectl apply -f \
     https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml
 
-helm install --name cert-manager --namespace ingress \
-    --set ingressShim.defaultIssuerName=letsencrypt-prod 
-    --set ingressShim.defaultIssuerKind=ClusterIssuer 
+$ helm <span class="token function">install</span> --name cert-manager --namespace ingress \
+    --set ingressShim.defaultIssuerName<span class="token operator">=</span>letsencrypt-prod 
+    --set ingressShim.defaultIssuerKind<span class="token operator">=</span>ClusterIssuer 
     stable/cert-manager
-</code></pre><p>I ran into issues installing cert-manager with a ‘cluster-admin’ not found error. I found instructions on <a href="https://docs.bitnami.com/azure/get-started-aks/" target="_blank" rel="noopener">this page</a> which helped me create a cluster admin role, create a service account and assign tiller to it.</p>
+</code></pre>
+<p>I ran into issues installing cert-manager with a ‘cluster-admin’ not found error. I found instructions on <a href="https://docs.bitnami.com/azure/get-started-aks/" target="_blank" rel="noopener">this page</a> which helped me create a cluster admin role, create a service account and assign tiller to it.</p>
 <h2 id="Installing-nginx-ingress"><a href="#Installing-nginx-ingress" class="headerlink" title="Installing nginx-ingress"></a>Installing nginx-ingress</h2><p>The next step is to configure an Ingress to manage the TLS endpoint, that is to manage my HTTPS endpoint with certificate connected to my domain. Without this step, I found I could set up my Ingress entry, but the address would stay empty.</p>
-<pre><code>helm install stable/nginx-ingress \
+<pre class=" language-bash"><code class="language-bash">$ helm <span class="token function">install</span> stable/nginx-ingress \
     --name nginx \
-    --set rbac.create=true \
+    --set rbac.create<span class="token operator">=</span>true \
     --namespace ingress
-</code></pre><p>Once installed, I can see a LoadBalancer entry which has my External IP on it.</p>
+</code></pre>
+<p>Once installed, I can see a LoadBalancer entry which has my External IP on it.</p>
 <h2 id="Update-the-Service"><a href="#Update-the-Service" class="headerlink" title="Update the Service"></a>Update the Service</h2><p>In the previous post, we set the service up as a LoadBalancer type. We don’t need that any more since we have a new IP on our LoadBalancer nginx-ingress service. Update the service.yaml and change LoadBalancer to a NodePort and run <code>kubectl apply -f service.yaml</code>. This will make sure we can only access our service through our TLS ingress service.</p>
 <h2 id="Generate-Certificate-and-Ingress-for-Service"><a href="#Generate-Certificate-and-Ingress-for-Service" class="headerlink" title="Generate Certificate and Ingress for Service"></a>Generate Certificate and Ingress for Service</h2><p>Apply the following updates to the kubernetes cluster.</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1

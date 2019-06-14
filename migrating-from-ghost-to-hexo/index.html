@@ -193,11 +193,13 @@
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
                     <p>It was surprisingly easy to migrate my blog out of ghost, but there were a few missed steps along the way. Often, I would find a better way after I had done the heavy lifting.</p>
-<h2 id="1-Install-Hexo-and-create-the-blog"><a href="#1-Install-Hexo-and-create-the-blog" class="headerlink" title="1. Install Hexo and create the blog"></a>1. Install Hexo and create the blog</h2><pre><code>$ npm install hexo-cli -g
+<h2 id="1-Install-Hexo-and-create-the-blog"><a href="#1-Install-Hexo-and-create-the-blog" class="headerlink" title="1. Install Hexo and create the blog"></a>1. Install Hexo and create the blog</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-cli -g
 $ hexo init myblog
-$ cd myblog
-</code></pre><h2 id="2-Install-the-hexo-casper-theme"><a href="#2-Install-the-hexo-casper-theme" class="headerlink" title="2. Install the hexo-casper theme"></a>2. Install the hexo-casper theme</h2><pre><code>$ git clone https://github.com/xzhih/hexo-theme-casper.git themes/hexo-casper
-</code></pre><h2 id="3-Configure-the-theme-and-site"><a href="#3-Configure-the-theme-and-site" class="headerlink" title="3. Configure the theme and site"></a>3. Configure the theme and site</h2><p>Edit _config.yaml</p>
+$ <span class="token function">cd</span> myblog
+</code></pre>
+<h2 id="2-Install-the-hexo-casper-theme"><a href="#2-Install-the-hexo-casper-theme" class="headerlink" title="2. Install the hexo-casper theme"></a>2. Install the hexo-casper theme</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">git</span> clone https://github.com/xzhih/hexo-theme-casper.git themes/hexo-casper
+</code></pre>
+<h2 id="3-Configure-the-theme-and-site"><a href="#3-Configure-the-theme-and-site" class="headerlink" title="3. Configure the theme and site"></a>3. Configure the theme and site</h2><p>Edit _config.yaml</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Site</span>
 <span class="token key atrule">title</span><span class="token punctuation">:</span> Anthony Ison
 <span class="token key atrule">subtitle</span><span class="token punctuation">:</span> Software development and DevOps. Bringing solutions to life.
@@ -218,23 +220,27 @@ $ cd myblog
 </code></pre>
 <p>Edit themes/hexo-casper/_config.yaml</p>
 <h2 id="4-Migrate-posts-from-ghost-to-hexo"><a href="#4-Migrate-posts-from-ghost-to-hexo" class="headerlink" title="4. Migrate posts from ghost to hexo"></a>4. Migrate posts from ghost to hexo</h2><p>In Ghost:<br>Labs &gt; Export content</p>
-<pre><code>$ npm install hexo-migrator-ghost --save
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-migrator-ghost --save
 $ hexo migrate ghost my-ghost.json
-</code></pre><p><em>FAILED!</em></p>
-<pre><code>$ npm install hexo-migrator-tryghost --save
+</code></pre>
+<p><em>FAILED!</em></p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-migrator-tryghost --save
 $ hexo migrate ghost my-ghost.json
-</code></pre><p><em>FAILED!</em></p>
+</code></pre>
+<p><em>FAILED!</em></p>
 <p>These probably failed because I was running Ghost 2.x and the export format has changed. If you’ve got an earlier version, maybe this will work for you.</p>
-<pre><code>$ docker run -it -v $(pwd):/temp golang
+<pre class=" language-bash"><code class="language-bash">$ docker run -it -v <span class="token variable"><span class="token variable">$(</span><span class="token function">pwd</span><span class="token variable">)</span></span>:/temp golang
 $ go get -v github.com/jqs7/ghost-hexo-migrator
-$ cd /temp
+$ <span class="token function">cd</span> /temp
 $ ghost-hexo-migrator my-ghost.json
-</code></pre><p><em>FAILED!</em></p>
+</code></pre>
+<p><em>FAILED!</em></p>
 <p>This got a little closer, and actually pulled content across, but now I’m out of options. Fortunately, I don’t have many posts and will manually migrate instead. I hope you have better luck.</p>
 <h2 id="5-Reattach-the-post-images"><a href="#5-Reattach-the-post-images" class="headerlink" title="5. Reattach the post images"></a>5. Reattach the post images</h2><p>Many of the migration tools will bring content across without images. So afterwards, you will need to copy the images in and link them to posts manually.</p>
 <p>Also, it’s worth configuring an image optimizer, using:</p>
-<pre><code>$ npm i hexo-filter-responsive-images --save
-</code></pre><p>Then add to the _config.yaml:</p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> i hexo-filter-responsive-images --save
+</code></pre>
+<p>Then add to the _config.yaml:</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># hexo-filter-responsive-images</span>
 <span class="token key atrule">responsive_images</span><span class="token punctuation">:</span>
   <span class="token key atrule">pattern</span><span class="token punctuation">:</span> <span class="token string">'**/*.+(png|jpg|jpeg)'</span>
@@ -251,8 +257,9 @@ $ ghost-hexo-migrator my-ghost.json
 <span class="token key atrule">feature_img</span><span class="token punctuation">:</span> large_cover.jpg
 </code></pre>
 <p>where cover.jpg is the original image for the post cover.</p>
-<h2 id="6-Configure-RSS"><a href="#6-Configure-RSS" class="headerlink" title="6. Configure RSS"></a>6. Configure RSS</h2><pre><code>$ npm install hexo-generator-feed --save
-</code></pre><p>Add this to your _config.yaml:</p>
+<h2 id="6-Configure-RSS"><a href="#6-Configure-RSS" class="headerlink" title="6. Configure RSS"></a>6. Configure RSS</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-generator-feed --save
+</code></pre>
+<p>Add this to your _config.yaml:</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">feed</span><span class="token punctuation">:</span>
   <span class="token key atrule">type</span><span class="token punctuation">:</span> atom
   <span class="token key atrule">path</span><span class="token punctuation">:</span> atom.xml
@@ -264,8 +271,9 @@ $ ghost-hexo-migrator my-ghost.json
   <span class="token key atrule">order_by</span><span class="token punctuation">:</span> <span class="token punctuation">-</span>date
   <span class="token key atrule">icon</span><span class="token punctuation">:</span> icon.png
 </code></pre>
-<h2 id="7-Configure-deploy"><a href="#7-Configure-deploy" class="headerlink" title="7. Configure deploy"></a>7. Configure deploy</h2><pre><code>$ npm install hexo-deployer-git --save
-</code></pre><p>Edit _config.yaml</p>
+<h2 id="7-Configure-deploy"><a href="#7-Configure-deploy" class="headerlink" title="7. Configure deploy"></a>7. Configure deploy</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-deployer-git --save
+</code></pre>
+<p>Edit _config.yaml</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">deploy</span><span class="token punctuation">:</span>
   <span class="token key atrule">type</span><span class="token punctuation">:</span> git
   <span class="token key atrule">repo</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//github.com/isonaj/isonaj.github.io.git

@@ -189,19 +189,28 @@
                     <p>Most cloud providers provide a managed Kubernetes cluster at this point. Each time I come back to look at Kubernetes, I feel like I’ve forgotten something (or everything). This post is a cheat sheet for getting a cluster up and running on Azure (using AKS) with recommended extras.  </p>
 <h1 id="Creating-a-Cluster"><a href="#Creating-a-Cluster" class="headerlink" title="Creating a Cluster"></a>Creating a Cluster</h1><h2 id="Getting-ready"><a href="#Getting-ready" class="headerlink" title="Getting ready"></a>Getting ready</h2><p>Firstly, let’s install the latest Azure CLI. Check <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank" rel="noopener">here</a> for the latest version. Run <code>az --version</code> to see what version you have if you have it installed already. Next, <code>az login</code> and <code>az account set -s &lt;subscriptionId&gt;</code> so that you’re ready to go.</p>
 <p>Create the resource group: (location is important. some areas have no AKS support yet eg. australiasoutheast)</p>
-<pre><code>az group create --name myResourceGroup --location australiaeast
-</code></pre><h2 id="Create-a-Linux-only-cluster"><a href="#Create-a-Linux-only-cluster" class="headerlink" title="Create a Linux-only cluster"></a>Create a Linux-only cluster</h2><p>Create the AKS cluster:</p>
-<pre><code>az aks create \
+<pre class=" language-bash"><code class="language-bash">$ az group create --name myResourceGroup --location australiaeast
+</code></pre>
+<h2 id="Create-a-Linux-only-cluster"><a href="#Create-a-Linux-only-cluster" class="headerlink" title="Create a Linux-only cluster"></a>Create a Linux-only cluster</h2><p>Create the AKS cluster:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token variable">$az</span> aks create \
     --resource-group myResourceGroup \
     --name myAKSCluster \
     --node-count 1 \
     --enable-addons monitoring \
     --generate-ssh-keys
-</code></pre><h2 id="Connect-kubectl-to-your-cluster"><a href="#Connect-kubectl-to-your-cluster" class="headerlink" title="Connect kubectl to your cluster"></a>Connect kubectl to your cluster</h2><p>Install latest kubectl using <code>az aks install-cli</code>. (You may need to update your path to find the correct kubectl.exe)</p>
-<pre><code>az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
-</code></pre><p>Connect to the Kubernetes Dashboard:</p>
-<pre><code>az aks browse --resource-group myResourceGroup --name myAKSCluster
 </code></pre>
+<h2 id="Connect-kubectl-to-your-cluster"><a href="#Connect-kubectl-to-your-cluster" class="headerlink" title="Connect kubectl to your cluster"></a>Connect kubectl to your cluster</h2><p>Install latest kubectl using <code>az aks install-cli</code>. (You may need to update your path to find the correct kubectl.exe)</p>
+<pre class=" language-bash"><code class="language-bash">$ az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
+</code></pre>
+<p>Connect to the Kubernetes Dashboard:</p>
+<pre class=" language-bash"><code class="language-bash">$ az aks browse --resource-group myResourceGroup --name myAKSCluster
+</code></pre>
+<p>If you get permissions errors (due to RBAC), you can give cluster-admin permissions with:</p>
+<pre class=" language-bash"><code class="language-bash">$ kubectl create clusterrolebinding kubernetes-dashboard \
+    -n kube-system --clusterrole<span class="token operator">=</span>cluster-admin \
+    --serviceaccount<span class="token operator">=</span>kube-system:kubernetes-dashboard
+</code></pre>
+
                 </div>
             </section>
 

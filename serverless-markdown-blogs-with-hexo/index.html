@@ -199,21 +199,22 @@
 <h1 id="Jekyll"><a href="#Jekyll" class="headerlink" title="Jekyll"></a>Jekyll</h1><p>This is far and away the most popular. It has a thiving community and is well supported by Github Pages. The main disadvantage is that it becomes exponentially slower as pages are added, which wouldn’t likely be an issue for my blog but is worth noting.</p>
 <h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h1><p>Hexo is number 2 in popularity (mostly in China) and is growing fast. It also has many themes, and most of the demo sites are in Chinese.</p>
 <h2 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h2><p>Since it’s built on node, Hexo is super easy to install (assuming you already have node installed!) We will be using npm to install.</p>
-<pre><code>// Install Hexo:
-npm install hexo-cli -g
+<pre class=" language-bash"><code class="language-bash">// Install Hexo:
+$ <span class="token function">npm</span> <span class="token function">install</span> hexo-cli -g
 
 // Create a site:
-hexo init my-site
+$ hexo init my-site
 
 // Create a post:
-hexo new post &quot;This is going to be a great post&quot;
+$ hexo new post <span class="token string">"This is going to be a great post"</span>
 
 // Serve your site locally:
-hexo serve
+$ hexo serve
 
 // Generate the static site:
-hexo generate
-</code></pre><p>You can also:</p>
+$ hexo generate
+</code></pre>
+<p>You can also:</p>
 <ul>
 <li>Create a draft with <code>hexo new draft &quot;This is a draft post&quot;</code></li>
 <li>Publish a draft with <code>hexo publish post this-is-a-draft-post</code></li>

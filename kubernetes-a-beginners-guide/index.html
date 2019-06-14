@@ -235,7 +235,7 @@
 </code></pre>
 <p>It’s a bit bigger than the Pod yaml. Let’s work through from the top. Deployments weren’t available in v1. It was added in <code>extensions/v1beta1</code>. Next, we’re creating a <code>Deployment</code>, not a <code>Pod</code> and giving it a name of <code>basiccore-deployment</code>. The <code>spec</code> for a deployment consists of the number of replicas and the template. We are starting 2 Pods with this one and the template is the yaml we used to create the Pod earlier.</p>
 <p>Let’s take a look:</p>
-<pre><code>$ kubectl get deployments
+<pre class=" language-bash"><code class="language-bash">$ kubectl get deployments
 NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
 basiccore-deployment   2/2     2            2           33s
 
@@ -243,7 +243,8 @@ $ kubectl get pods
 NAME                                   READY   STATUS             RESTARTS   AGE
 basiccore-deployment-c46759d6d-5qw96   1/1     Running            0          7s
 basiccore-deployment-c46759d6d-f94lk   1/1     Running            0          7s
-</code></pre><h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><p>We’ve just spent all of this time starting and stopping pods, but we haven’t actually connected to it yet. We need a way to get in, and get directed to the pod. For this, we use a Service component. </p>
+</code></pre>
+<h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><p>We’ve just spent all of this time starting and stopping pods, but we haven’t actually connected to it yet. We need a way to get in, and get directed to the pod. For this, we use a Service component. </p>
 <blockquote>
 <p>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods. - kubernetes.io</p>
 </blockquote>
@@ -264,14 +265,15 @@ basiccore-deployment-c46759d6d-f94lk   1/1     Running            0          7s
 </code></pre>
 <p>This service will open up a port in our cluster and load balance any traffic across the pods in the selector. In this case, we’re creating a service with a <code>type</code> of <code>LoadBalancer</code> targetting any pod with the metadata <code>app</code> of <code>basiccore</code> (which we applied in the deployment template).</p>
 <p>Run <code>kubectl apply -f basiccore-service.yaml</code> to apply the service and then <code>kubectl get services</code> to see the current state.</p>
-<pre><code>$ kubectl get services
-NAME                TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-basiccore-service   LoadBalancer   10.0.55.65   &lt;pending&gt;     80:30376/TCP   5m52s
+<pre class=" language-bash"><code class="language-bash">$ kubectl get services
+NAME                TYPE           CLUSTER-IP   EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>        AGE
+basiccore-service   LoadBalancer   10.0.55.65   <span class="token operator">&lt;</span>pending<span class="token operator">></span>     80:30376/TCP   5m52s
 
 $ kubectl get services
-NAME                TYPE           CLUSTER-IP   EXTERNAL-IP    PORT(S)        AGE
+NAME                TYPE           CLUSTER-IP   EXTERNAL-IP    PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>        AGE
 basiccore-service   LoadBalancer   10.0.55.65   13.75.220.78   80:30376/TCP   8m12s
-</code></pre><p>Once the External IP is displayed, put that into your browser, and there it is. A container, in a pod, accessible from the outside world. </p>
+</code></pre>
+<p>Once the External IP is displayed, put that into your browser, and there it is. A container, in a pod, accessible from the outside world. </p>
 
                 </div>
             </section>
