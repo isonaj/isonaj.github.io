@@ -199,7 +199,7 @@ $ <span class="token function">cd</span> myblog
 </code></pre>
 <h2 id="2-Install-the-hexo-casper-theme"><a href="#2-Install-the-hexo-casper-theme" class="headerlink" title="2. Install the hexo-casper theme"></a>2. Install the hexo-casper theme</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">git</span> clone https://github.com/xzhih/hexo-theme-casper.git themes/hexo-casper
 </code></pre>
-<h2 id="3-Configure-the-theme-and-site"><a href="#3-Configure-the-theme-and-site" class="headerlink" title="3. Configure the theme and site"></a>3. Configure the theme and site</h2><p>Edit _config.yaml</p>
+<h2 id="3-Configure-the-theme-and-site"><a href="#3-Configure-the-theme-and-site" class="headerlink" title="3. Configure the theme and site"></a>3. Configure the theme and site</h2><p>Edit <code>_config.yaml</code></p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Site</span>
 <span class="token key atrule">title</span><span class="token punctuation">:</span> Anthony Ison
 <span class="token key atrule">subtitle</span><span class="token punctuation">:</span> Software development and DevOps. Bringing solutions to life.
@@ -218,7 +218,7 @@ $ <span class="token function">cd</span> myblog
 <span class="token comment" spellcheck="true"># consider creating a folder with each post to hold any assets</span>
 <span class="token key atrule">post_asset_folder</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
 </code></pre>
-<p>Edit themes/hexo-casper/_config.yaml</p>
+<p>Edit <code>themes/hexo-casper/_config.yaml</code></p>
 <h2 id="4-Migrate-posts-from-ghost-to-hexo"><a href="#4-Migrate-posts-from-ghost-to-hexo" class="headerlink" title="4. Migrate posts from ghost to hexo"></a>4. Migrate posts from ghost to hexo</h2><p>In Ghost:<br>Labs &gt; Export content</p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-migrator-ghost --save
 $ hexo migrate ghost my-ghost.json
@@ -240,7 +240,7 @@ $ ghost-hexo-migrator my-ghost.json
 <p>Also, it’s worth configuring an image optimizer, using:</p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> i hexo-filter-responsive-images --save
 </code></pre>
-<p>Then add to the _config.yaml:</p>
+<p>Then add to the <code>_config.yaml</code>:</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># hexo-filter-responsive-images</span>
 <span class="token key atrule">responsive_images</span><span class="token punctuation">:</span>
   <span class="token key atrule">pattern</span><span class="token punctuation">:</span> <span class="token string">'**/*.+(png|jpg|jpeg)'</span>
@@ -256,10 +256,10 @@ $ ghost-hexo-migrator my-ghost.json
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">image</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>blog<span class="token punctuation">-</span>post/small_cover.jpg
 <span class="token key atrule">feature_img</span><span class="token punctuation">:</span> large_cover.jpg
 </code></pre>
-<p>where cover.jpg is the original image for the post cover.</p>
+<p>where <code>cover.jpg</code> is the original image for the post cover.</p>
 <h2 id="6-Configure-RSS"><a href="#6-Configure-RSS" class="headerlink" title="6. Configure RSS"></a>6. Configure RSS</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-generator-feed --save
 </code></pre>
-<p>Add this to your _config.yaml:</p>
+<p>Add this to your <code>_config.yaml</code>:</p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">feed</span><span class="token punctuation">:</span>
   <span class="token key atrule">type</span><span class="token punctuation">:</span> atom
   <span class="token key atrule">path</span><span class="token punctuation">:</span> atom.xml
@@ -273,7 +273,7 @@ $ ghost-hexo-migrator my-ghost.json
 </code></pre>
 <h2 id="7-Configure-deploy"><a href="#7-Configure-deploy" class="headerlink" title="7. Configure deploy"></a>7. Configure deploy</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-deployer-git --save
 </code></pre>
-<p>Edit _config.yaml</p>
+<p>Edit <code>_config.yaml</code></p>
 <pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">deploy</span><span class="token punctuation">:</span>
   <span class="token key atrule">type</span><span class="token punctuation">:</span> git
   <span class="token key atrule">repo</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//github.com/isonaj/isonaj.github.io.git
