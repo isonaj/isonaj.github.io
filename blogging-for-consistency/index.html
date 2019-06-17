@@ -34,7 +34,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Running Ghost on Kubernetes on Azure | Anthony Ison</title>
+	<title>Blogging for consistency | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -43,7 +43,7 @@
 	<meta name="description" content>
 
 	
-	<meta name="keywords" content>
+	<meta name="keywords" content="blogging">
 	
 
 	
@@ -64,16 +64,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Running Ghost on Kubernetes on Azure | Anthony Ison">
+	<meta property="og:title" content="Blogging for consistency | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/running-ghost-on-kubernetes-on-azure/">
-	<meta property="og:image" content="https://anthonyison.com//running-ghost-on-kubernetes-on-azure/small_Jenkin-blog-image-2.png">
+	<meta property="og:url" content="https://anthonyison.com/blogging-for-consistency/">
+	<meta property="og:image" content="https://anthonyison.com//blogging-for-consistency/small_david-iskander-599066-unsplash.jpg">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-01-16T00:01:00+08:00"> 
+	<meta property="article:published_time" content="2019-06-17T11:06:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /running-ghost-on-kubernetes-on-azure/">
+	<meta property="article:published_first" content="Anthony Ison, /blogging-for-consistency/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -167,95 +167,46 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-01-15T14:00:00.000Z" itemprop="datePublished">
-                    2019-01-16
+                <time class="post-full-meta-date" datetime="2019-06-17T01:25:27.000Z" itemprop="datePublished">
+                    2019-06-17
                 </time>
                 
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/kubernetes/">kubernetes</a>
-                
-                <span class="date-divider">/</span>
-                <a href="/tags/ghost/">ghost</a>
-                
-                <span class="date-divider">/</span>
-                <a href="/tags/azure/">azure</a>
+                <a href="/tags/blogging/">blogging</a>
                 
                 
             </section>
-            <h1 class="post-full-title">Running Ghost on Kubernetes on Azure</h1>
+            <h1 class="post-full-title">Blogging for consistency</h1>
         </header>
         <article class="post-full ">
             
-            <figure class="post-full-image" style="background-image: url(Jenkin-blog-image-2.png)">
+            <figure class="post-full-image" style="background-image: url(david-iskander-599066-unsplash.jpg)">
             </figure>
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>In my <a href="/creating-a-blog-with-ghost/">previous post</a>, I was looking into a few options for running my blog. I think at this time, I’m going to keep it on Azure because I can run it for free. I suspect I would make a different choice if not for my bonus credits. I will need some benchmark figures to choose a provider, however kubernetes should give me the platform I need to change in the future if necessary.</p>
-<p>I have a basic level of understanding of how kubernetes hangs together and would love to hear your feedback if you would do things differently. The basic idea is to run a ghost container and provide persistent storage for the content. In the future, I would like to use nginx to reverse proxy incoming traffic and to provide HTTPS for my site.</p>
-<p>I have used AKS to generate a kubernetes cluster and my kubectl is configured to connect to it. First, I need to configure my storage. For this, I use a yaml file.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> PersistentVolumeClaim
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>content
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">accessModes</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> ReadWriteOnce
-  <span class="token key atrule">resources</span><span class="token punctuation">:</span>
-    <span class="token key atrule">requests</span><span class="token punctuation">:</span>
-      <span class="token key atrule">storage</span><span class="token punctuation">:</span> 5Gi
-  <span class="token key atrule">storageClassName</span><span class="token punctuation">:</span> default
-</code></pre>
-<p>Using <code>kubectl apply -f volume.yaml</code> we can generate the volume claim to be used in the next step. Next, we will generate a deployment for the the ghost container, linking it to the anthonyison-content volume.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> apps/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">1</span>
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
-      <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> ghost<span class="token punctuation">:</span>2.9.1<span class="token punctuation">-</span>alpine
-        <span class="token key atrule">imagePullPolicy</span><span class="token punctuation">:</span> Always
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">2368</span>
-        <span class="token key atrule">env</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> url
-          <span class="token key atrule">value</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//anthonyison.com
-        <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">mountPath</span><span class="token punctuation">:</span> /var/lib/ghost/content
-          <span class="token key atrule">name</span><span class="token punctuation">:</span> content
-      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> content
-        <span class="token key atrule">persistentVolumeClaim</span><span class="token punctuation">:</span>
-          <span class="token key atrule">claimName</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>content
-</code></pre>
-<p>So now we have a ghost container running in Kubernetes with an external mounted volume for storing content. However, it’s not exposed as yet. We do that with a Service. The <code>service.yaml</code> is below.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">type</span><span class="token punctuation">:</span> LoadBalancer
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> anthonyison
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
-    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">2368</span>
-</code></pre>
-<p>And that’s actually all there is to it. By running <code>kubectl get services</code> you can see the External IP. If you put that in the browser, you will go to the new blog. Better still, put the IP into your DNS A record, and your domain name will direct to the new site.</p>
+                    <p>I’ve written a few blog posts now and I try to get feedback each time. The feedback has been great and helps me to improve. I’m building up a list of things to think about as I’m writing. In this blog, I want to focus on the feedback and highlight some of the small things that are really the big things.</p>
+<h1 id="Quality"><a href="#Quality" class="headerlink" title="Quality"></a>Quality</h1><p>It might seem like I should start with content, but I’ve found the experience of your reader has little to do with the content of the blog. I mean, yes, content IS important, but there are things that will lose you readers before they have even started getting into your content.</p>
+<h2 id="Fix-the-broken-bits"><a href="#Fix-the-broken-bits" class="headerlink" title="Fix the broken bits"></a>Fix the broken bits</h2><p>If there is something that doesn’t work, and you know it doesn’t work, fix it. This might seem obvious, but I have overlooked it a couple of times now. It’s just embarrassing to ask for feedback and be given a list of things that you already know aren’t up to scratch.</p>
+<h2 id="Meet-expectations"><a href="#Meet-expectations" class="headerlink" title="Meet expectations"></a>Meet expectations</h2><p>There is a baseline for features that you need to consider on your blog.</p>
+<ul>
+<li>Comments (give your readers a place to interact with you and your content)</li>
+<li>RSS</li>
+<li>Email subscription</li>
+<li>Links to easily share posts on social media</li>
+<li>SEO - Your readers deserve to <a href="https://www.hanselman.com/blog/EmbraceAuthorshipTheImportanceOfRelmeAndRelauthorOnYourContentsSEOAndGoogle.aspx" target="_blank" rel="noopener">find you</a>.</li>
+</ul>
+<h2 id="Consistency-Make-a-checklist"><a href="#Consistency-Make-a-checklist" class="headerlink" title="Consistency: Make a checklist"></a>Consistency: Make a checklist</h2><p>Of course, you should have your own checklist. Here’s some of the things I have been getting feedback on:</p>
+<ul>
+<li>Filenames should be <code>highlighted</code></li>
+<li>Specify your code block types (hint: html is <code>markup</code> and command line is <code>bash</code>)</li>
+<li>When writing command line code blocks, begin each command with <code>$</code> and split across lines for long statements. Identify the line break with <code>\</code>. If adding a comment, use <code>#</code>.</li>
+<li>Make sure your posts have an introduction and summary.</li>
+<li>Think about your titles. You will have them for a long time. I don’t like clickbait, but you should still try to get people to click. (<a href="/so-cloudflare">So.. Cloudflare…</a> is a good example of a bad title)</li>
+</ul>
+<h1 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h1><p>Finally! It’s time to talk about content and yes, content is important. But it’s also not. Of all of the advice I’ve been given on content, the common theme seems to be to write about something you are actually interested in. If you’re interested in what you’re writing about, it will show in your writing. People will FEEL it when they read your blog. This ties back into the experience of your readers. Even if I don’t understand or am uninterested in a particular topic, I may still read if the writing style takes me on a ride; if I can be put in the shoes of the writer. Convince your readers that you are invested and they will invest as well.</p>
+<p>Do you already have a checklist that you go through before posting? What else do you find important in a blog?</p>
 
                 </div>
             </section>
@@ -267,8 +218,8 @@
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/running-ghost-on-kubernetes-on-azure/";  
-	this.page.identifier = "ghost-5c3e7b94f2870c0001c5791e"
+	this.page.url = "https://anthonyison.com/blogging-for-consistency/";  
+	this.page.identifier = "DgSQGx7WqE1gUKaBxTA+V244zA8="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -285,14 +236,10 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Automatic HTTPS on Kubernetes" href="/automatic-https-on-kubernetes/">
-            ← Automatic HTTPS on Kubernetes
-        </a>
-        
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="Creating a blog with Ghost" href="/creating-a-blog-with-ghost/">
-            Creating a blog with Ghost →
+        <a class="next-post" title="Kubernetes: AKS and Windows Containers" href="/kubernetes-aks-and-windows-containers/">
+            Kubernetes: AKS and Windows Containers →
         </a>
         
     </nav>
@@ -314,7 +261,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Quality"><span class="toc-text">Quality</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fix-the-broken-bits"><span class="toc-text">Fix the broken bits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Meet-expectations"><span class="toc-text">Meet expectations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consistency-Make-a-checklist"><span class="toc-text">Consistency: Make a checklist</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Content"><span class="toc-text">Content</span></a></li></ol>
     </div>
 </div>
 
@@ -470,17 +417,17 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Running Ghost on Kubernetes on Azure</div>
+    <div class="floating-header-title">Blogging for consistency</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
                 <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
             </svg>
         </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Running Ghost on Kubernetes on Azure&amp;url=https://anthonyison.com/running-ghost-on-kubernetes-on-azure/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Blogging for consistency&amp;url=https://anthonyison.com/blogging-for-consistency/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/running-ghost-on-kubernetes-on-azure/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/blogging-for-consistency/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
         </a>
     </div>

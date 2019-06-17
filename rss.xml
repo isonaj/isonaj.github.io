@@ -9,8 +9,26 @@
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>Software development and DevOps. Bringing solutions to life.</description>
-    <pubDate>Fri, 14 Jun 2019 01:55:01 GMT</pubDate>
+    <pubDate>Mon, 17 Jun 2019 02:16:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Blogging for consistency</title>
+      <link>https://anthonyison.com/blogging-for-consistency/</link>
+      <guid>https://anthonyison.com/blogging-for-consistency/</guid>
+      <pubDate>Mon, 17 Jun 2019 01:25:27 GMT</pubDate>
+      <description>
+      
+        I’ve written a few blog posts now and I try to get feedback each time. The feedback has been great and helps me to improve. I’m building up a list of things to think about as I’m writing. In this blog, I want to focus on the feedback and highlight some of the small things that are really the big thi
+      
+      </description>
+      
+      <enclosure url="https://anthonyison.com//blogging-for-consistency/small_david-iskander-599066-unsplash.jpg" type="image" />
+      <media:content url="https://anthonyison.com//blogging-for-consistency/small_david-iskander-599066-unsplash.jpg" medium="image"/>
+      
+      
+      <comments>https://anthonyison.com/blogging-for-consistency/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Kubernetes: AKS and Windows Containers</title>
