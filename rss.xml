@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0"
   xmlns:atom="http://www.w3.org/2005/Atom"
-  xmlns:content="http://purl.org/rss/1.0/modules/content/"
-  xmlns:media="http://search.yahoo.com/mrss/">
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Anthony Ison</title>
     <link>https://anthonyison.com/</link>
@@ -23,10 +22,6 @@
       
       </description>
       
-      <enclosure url="https://anthonyison.com//blogging-for-consistency/small_david-iskander-599066-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//blogging-for-consistency/small_david-iskander-599066-unsplash.jpg" medium="image"/>
-      
-      
       <comments>https://anthonyison.com/blogging-for-consistency/#disqus_thread</comments>
     </item>
     
@@ -41,10 +36,6 @@
       
       </description>
       
-      <enclosure url="https://anthonyison.com//kubernetes-aks-and-windows-containers/small_vidar-nordli-mathisen-667388-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//kubernetes-aks-and-windows-containers/small_vidar-nordli-mathisen-667388-unsplash.jpg" medium="image"/>
-      
-      
       <comments>https://anthonyison.com/kubernetes-aks-and-windows-containers/#disqus_thread</comments>
     </item>
     
@@ -58,10 +49,6 @@
         Kubernetes is a container orchestration platform and has been described as “the OS of the cloud”. It builds on container-based services by providing many features such as volumes for stateful services, resilience and scaling, monitoring, automated zero-downtime upgrades. It runs on a cluster of node
       
       </description>
-      
-      <enclosure url="https://anthonyison.com//kubernetes-a-beginners-guide/small_joseph-barrientos-93565-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//kubernetes-a-beginners-guide/small_joseph-barrientos-93565-unsplash.jpg" medium="image"/>
-      
       
       <comments>https://anthonyison.com/kubernetes-a-beginners-guide/#disqus_thread</comments>
     </item>
@@ -79,10 +66,6 @@ Creating a Clust
       
       </description>
       
-      <enclosure url="https://anthonyison.com//kubernetes-setting-up-a-cluster-on-aks/small_taylor-vick-1612625-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//kubernetes-setting-up-a-cluster-on-aks/small_taylor-vick-1612625-unsplash.jpg" medium="image"/>
-      
-      
       <comments>https://anthonyison.com/kubernetes-setting-up-a-cluster-on-aks/#disqus_thread</comments>
     </item>
     
@@ -97,10 +80,6 @@ Creating a Clust
       
       </description>
       
-      <enclosure url="https://anthonyison.com//serverless-what-why-do-we-need-it/small_bandwidth-close-up-connection-1148820.jpg" type="image" />
-      <media:content url="https://anthonyison.com//serverless-what-why-do-we-need-it/small_bandwidth-close-up-connection-1148820.jpg" medium="image"/>
-      
-      
       <comments>https://anthonyison.com/serverless-what-why-do-we-need-it/#disqus_thread</comments>
     </item>
     
@@ -111,15 +90,11 @@ Creating a Clust
       <pubDate>Sun, 05 May 2019 10:40:42 GMT</pubDate>
       <description>
       
-        I went to a great talk by Troy Hunt in Brisbane a while ago. Well, it was great at the time. It didn’t take long before I started to realise that most of the struggles I’ve had with HTTPS my blog could have actually been side stepped quite nicely by using Cloudflare.
+        I went to a great talk by Troy Hunt in Brisbane a while ago. Well, it was great at the time. It didn’t take long before I started to realise that most of the struggles I’ve had with HTTPS on my blog could have actually been side stepped quite nicely by using Cloudflare.
 
-Let me be clear. This wasn’t th
+Let me be clear. This wasn’t
       
       </description>
-      
-      <enclosure url="https://anthonyison.com//so-cloudflare/small_jakob-owens-1417197-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//so-cloudflare/small_jakob-owens-1417197-unsplash.jpg" medium="image"/>
-      
       
       <comments>https://anthonyison.com/so-cloudflare/#disqus_thread</comments>
     </item>
@@ -143,10 +118,6 @@ $ cd myblog
       
       </description>
       
-      <enclosure url="https://anthonyison.com//migrating-from-ghost-to-hexo/small_harshil-gudka-556417-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//migrating-from-ghost-to-hexo/small_harshil-gudka-556417-unsplash.jpg" medium="image"/>
-      
-      
       <comments>https://anthonyison.com/migrating-from-ghost-to-hexo/#disqus_thread</comments>
     </item>
     
@@ -160,10 +131,6 @@ $ cd myblog
         Let me start this by saying I’m loving my ghost blog, and I get a kick out of running it on AKS. The thing is, the content only changes when I post and so I’m thinking about caching and I realise the whole blog can be cached. It’s not an API. I don’t have changing data. (Ok, TECHNICALLY I have a db,
       
       </description>
-      
-      <enclosure url="https://anthonyison.com//serverless-markdown-blogs-with-hexo/small_lauren-mancke-60627-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//serverless-markdown-blogs-with-hexo/small_lauren-mancke-60627-unsplash.jpg" medium="image"/>
-      
       
       <comments>https://anthonyison.com/serverless-markdown-blogs-with-hexo/#disqus_thread</comments>
     </item>
@@ -179,10 +146,6 @@ $ cd myblog
       
       </description>
       
-      <enclosure url="https://anthonyison.com//dynamic-environment-in-your-static-angular-application/small_mpho-mojapelo-127562-unsplash.jpg" type="image" />
-      <media:content url="https://anthonyison.com//dynamic-environment-in-your-static-angular-application/small_mpho-mojapelo-127562-unsplash.jpg" medium="image"/>
-      
-      
       <comments>https://anthonyison.com/dynamic-environment-in-your-static-angular-application/#disqus_thread</comments>
     </item>
     
@@ -197,10 +160,6 @@ $ cd myblog
       
       </description>
       
-      <enclosure url="https://anthonyison.com//automatic-https-on-kubernetes/small_1200px-Rusty_Padlock.jpg" type="image" />
-      <media:content url="https://anthonyison.com//automatic-https-on-kubernetes/small_1200px-Rusty_Padlock.jpg" medium="image"/>
-      
-      
       <comments>https://anthonyison.com/automatic-https-on-kubernetes/#disqus_thread</comments>
     </item>
     
@@ -214,10 +173,6 @@ $ cd myblog
         In my previous post, I was looking into a few options for running my blog. I think at this time, I’m going to keep it on Azure because I can run it for free. I suspect I would make a different choice if not for my bonus credits. I will need some benchmark figures to choose a provider, however kubern
       
       </description>
-      
-      <enclosure url="https://anthonyison.com//running-ghost-on-kubernetes-on-azure/small_Jenkin-blog-image-2.png" type="image" />
-      <media:content url="https://anthonyison.com//running-ghost-on-kubernetes-on-azure/small_Jenkin-blog-image-2.png" medium="image"/>
-      
       
       <comments>https://anthonyison.com/running-ghost-on-kubernetes-on-azure/#disqus_thread</comments>
     </item>
@@ -235,10 +190,6 @@ Considerations
  1. I don’t want to pay anyth
       
       </description>
-      
-      <enclosure url="https://anthonyison.com//creating-a-blog-with-ghost/small_getting_started.jpg" type="image" />
-      <media:content url="https://anthonyison.com//creating-a-blog-with-ghost/small_getting_started.jpg" medium="image"/>
-      
       
       <comments>https://anthonyison.com/creating-a-blog-with-ghost/#disqus_thread</comments>
     </item>
