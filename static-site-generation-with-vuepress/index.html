@@ -34,7 +34,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Serverless what? Why do we need it? | Anthony Ison</title>
+	<title>Static Site Generation with Vuepress | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -64,16 +64,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Serverless what? Why do we need it? | Anthony Ison">
+	<meta property="og:title" content="Static Site Generation with Vuepress | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/serverless-what-why-do-we-need-it/">
-	<meta property="og:image" content="https://anthonyison.com//serverless-what-why-do-we-need-it/small_cover.jpg">
+	<meta property="og:url" content="https://anthonyison.com/static-site-generation-with-vuepress/">
+	<meta property="og:image" content="https://anthonyison.com//static-site-generation-with-vuepress/small_cover.jpg">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-05-20T08:05:00+08:00"> 
+	<meta property="article:published_time" content="2019-07-10T22:07:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /serverless-what-why-do-we-need-it/">
+	<meta property="article:published_first" content="Anthony Ison, /static-site-generation-with-vuepress/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -167,17 +167,20 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-05-19T22:58:24.000Z" itemprop="datePublished">
-                    2019-05-20
+                <time class="post-full-meta-date" datetime="2019-07-10T12:20:34.000Z" itemprop="datePublished">
+                    2019-07-10
                 </time>
                 
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/serverless/">serverless</a>
+                <a href="/tags/blogging/">blogging</a>
+                
+                <span class="date-divider">/</span>
+                <a href="/tags/vuejs/">vuejs</a>
                 
                 
             </section>
-            <h1 class="post-full-title">Serverless what? Why do we need it?</h1>
+            <h1 class="post-full-title">Static Site Generation with Vuepress</h1>
         </header>
         <article class="post-full ">
             
@@ -186,34 +189,76 @@
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>“Serverless” was one of those terms that left me scratching my head when I first heard it. How on earth do you run a server… without a server??? That’s some crazy marketing spin! What I quickly learned is that serverless is referring to how much infrastructure you need to manage. That is, none. Nada.</p>
-<p>So who cares? I mean, I’m running on PaaS. I can change the number of servers with a slider, or set rules to automatically add and remove servers as my traffic changes. Isn’t that good enough? Not according to <a href="https://www.troyhunt.com/serverless-to-the-max-doing-big-things-for-small-dollars-with-cloudflare-workers-and-azure-functions/" target="_blank" rel="noopener">Troy Hunt</a>. When your traffic spikes (like, when your site is on the news and a million people pick up their phone at the same time and hit your site), you can go from “too much cloud” to “not enough cloud” very quickly. It’s in this environment of rapidly changing traffic (and realistically, that’s when it counts), that serverless really shines.</p>
-<h1 id="So-what-is-it"><a href="#So-what-is-it" class="headerlink" title="So what is it?"></a>So what is it?</h1><p>Alright, so what IS serverless? Let’s consider what you might be using now. You’ve got a few VMs on a scale set, or you’ve got a few VMs as nodes of a Kubernetes cluster, or maybe you have some PaaS offering where you pick the number of machines backing it. You’ve got some rules in place to scale up as traffic increases and then back down to reduce costs when it falls again. Each of these scenarios have:</p>
+                    <p>When I was reviewing static site generators, <a href="https://vuepress.vuejs.org/" target="_blank" rel="noopener">Vuepress</a> caught my eye but I passed over it quickly because their web site admitted that they <a href="https://vuepress.vuejs.org/guide/#todo" target="_blank" rel="noopener">lacked blogging support</a>. I really like the approach though. It uses the Vue.js server side processing to generate static sites. It’s time to have a closer look.</p>
+<h1 id="Creating-content"><a href="#Creating-content" class="headerlink" title="Creating content"></a>Creating content</h1><p>My first measure of a tool is how easy it is to get started. For Vuepress, that means I want to create a couple of posts. It’s really easy to create some quick content, like so:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Create a folder for the blog</span>
+$ <span class="token function">mkdir</span> myblog
+$ <span class="token function">cd</span> myblog
+
+<span class="token comment" spellcheck="true"># Create a package.json file and add vuepress</span>
+$ <span class="token function">npm</span> init    <span class="token comment" spellcheck="true"># Enter through to accept all defaults</span>
+$ <span class="token function">npm</span> i vuepress --save
+</code></pre>
+<p>Create the following files:<br><code>post1.md</code>:</p>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> My first post</span>
+Here is some content
+</code></pre>
+<p><code>post2.md</code>:</p>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> My second post</span>
+Here is some more content
+</code></pre>
+<p><code>index.md</code>:</p>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> Index</span>
+<span class="token list punctuation">*</span> <span class="token url">[First post](/post1.md)</span>
+<span class="token list punctuation">*</span> <span class="token url">[Second post](/post2.md)</span>
+</code></pre>
+<p>Next, we need to configure npm to run vuepress for us. Edit the newly created <code>package.json</code> file in the current folder and change the scripts section to:</p>
+<pre class=" language-js"><code class="language-js">  <span class="token string">"scripts"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"dev"</span><span class="token punctuation">:</span> <span class="token string">"vuepress dev"</span><span class="token punctuation">,</span>
+    <span class="token string">"build"</span><span class="token punctuation">:</span> <span class="token string">"vuepress build"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre>
+<p>You can now run <code>npm run dev</code> to serve your blog.</p>
+<p>Ok, so it wasn’t THAT easy to get started. I would really prefer to see some kind of init stage here instead, but it’s not too bad and you only have to get set up once. I’m guessing these concerns would be addressed if/when they add blogging support. </p>
+<p>Looking at the new site, it’s pretty barebones but it already has a search box that can look up my posts by title, so there’s that. What we have at this point is basically a wiki page. While that’s ok, I actually just want to create blog posts. I don’t want to have to build links from my main page to each post.</p>
+<p>Let’s take a look at themes.</p>
+<h1 id="Adding-a-theme"><a href="#Adding-a-theme" class="headerlink" title="Adding a theme"></a>Adding a theme</h1><p>Vuepress provides a clear separation between the content and the theme. The theme pieces will all live in the <code>.vuepress</code> folder. That is, any site configuration, layouts, components, etc can be found in this folder. Let’s try out some of this now.</p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>Create the <code>.vuepress</code> folder and add a <code>config.js</code> file with the following:</p>
+<pre class=" language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">'My Vuepress Blog'</span><span class="token punctuation">,</span>
+    description<span class="token punctuation">:</span> <span class="token string">'Taking Vuepress for a spin'</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Default-Layout"><a href="#Default-Layout" class="headerlink" title="Default Layout"></a>Default Layout</h2><p>You can easily export the starting default theme by running <code>node_modules\.bin\vuepress extract</code>. This will save the default layout in the <code>.vuepress\theme</code> folder. I’m not going to open up themes too much just yet. That would be a whole blog post to itself, but if you’re interested in digging in, I recommend <a href="https://www.amie-chen.com/blog/20190211-build-a-site-with-vuepress-part2.html" target="_blank" rel="noopener">this post</a>.</p>
+<h1 id="Downloading-a-theme"><a href="#Downloading-a-theme" class="headerlink" title="Downloading a theme"></a>Downloading a theme</h1><p>If you’re like me, you’re not interested in the absolute nitty gritty of the theme. You just want to generate content. What I like about Vuepress is that the theme is Vue.js and I can have a good crack at trying to maintain my theme, or tweak the theme as needed.</p>
+<p>As you can see in my blog, I am captivated by the Casper theme and fortunately, Vuepress has a Casper theme <a href="https://github.com/alexander-heimbuch/vuepress-theme-casper" target="_blank" rel="noopener">here</a>. In my mind though, this theme leaves a lot to be desired when compared to my current (tweaked) hexo casper theme. This one requires the reading time to be added to the frontmatter, but that could possibly be automated with <a href="https://github.com/darrenjennings/vuepress-plugin-reading-time" target="_blank" rel="noopener">this plugin</a>.</p>
+<h1 id="Blogging-support"><a href="#Blogging-support" class="headerlink" title="Blogging support"></a>Blogging support</h1><p>In <a href="/blogging-for-consistency">this post</a>, I looked at some of the expectations for a blog. Let’s take a look at which parts we can hit with Vuepress.</p>
+<h2 id="Comments"><a href="#Comments" class="headerlink" title="Comments"></a>Comments</h2><p>I use Disqus for comments. It uses JS to plugin to your page so should be able to run pretty much anywhere.</p>
+<h2 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h2><p>Vuepress has a plugin for doing RSS feeds <a href="https://github.com/webmasterish/vuepress-plugin-feed" target="_blank" rel="noopener">here</a>. I have no idea of the quality of the feed. RSS seems to be a bit of a mashup these days and I’ve had to hack the one I use with Hexo to get it to work in the places where it’s missed a step.</p>
+<h2 id="Email-subscriptions"><a href="#Email-subscriptions" class="headerlink" title="Email subscriptions"></a>Email subscriptions</h2><p>I don’t currently do email subscriptions, but I imagine you can easily offload this to an external service like <a href="https://mailchimp.com" target="_blank" rel="noopener">MailChimp</a>.</p>
+<h1 id="Vuepress-vs-Hexo"><a href="#Vuepress-vs-Hexo" class="headerlink" title="Vuepress vs Hexo"></a>Vuepress vs Hexo</h1><p>Alright, I would never have looked into Vuepress if this wasn’t in the back of my mind. Let’s take a look at some of the strengths and weaknesses of the two.</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>Pros:</p>
 <ul>
-<li>a fixed monthly costs per backing VM</li>
-<li>a maximum traffic threshold</li>
-<li>increasing latency as the traffic approaches the threshold</li>
-<li>rules to increase and decrease the number of backing VMs to trade off running cost vs latency</li>
+<li>Simple to create new posts</li>
+<li>Flexible theme options<br>Cons: </li>
+<li>Themes have inconsistent technologies</li>
+<li>Most of the community seems to be Chinese (different social media stacks, language barriers)</li>
+<li>Easier for non-developers (slightly?)</li>
 </ul>
-<p>Let’s say you increase your VMs by 10x or 100x. Assuming your architecture can scale, your latency issues have just vanished. Your servers are idling with unlimited resources compared to the current load. HOWEVER, your running costs have also increased by 10x or 100x. But the servers are just idling. So, what if you only paid for the activity you caused? That fraction of a ms of CPU. That couple of KB of RAM as you process an incoming request. Assuming the price is right, wouldn’t that be better? Assuming the costs are around VM rate * Utilisation, you’re instantly ahead! No more scaling of resources. Costs are directly related to resources used. Oh, and one final thing. The available resources is now a DATACENTER worth of resources. Your armageddon-style traffic spike is barely a blip on their radar.</p>
-<p>That is Serverless.</p>
-<h1 id="How-do-I-use-it"><a href="#How-do-I-use-it" class="headerlink" title="How do I use it?"></a>How do I use it?</h1><p>Unfortunately, serverless doesn’t necessarily come for free. Architecturally, you don’t run your server any more. And I mean software server, not the VM. Instead, you need to present a function based API (eg. Azure Functions or AWS Lambda) and that is effectively injected into the provider’s service to execute  as configured. If you have followed a <a href="https://youtu.be/_lwCVE_XgqI?list=PL7soaAB-BQAbAFa1XZkg7wOvDHorQ7KiO" target="_blank" rel="noopener">Clean Code Architecture</a>, it’s probably simple to extract your application logic into a Functions application. If you’ve got application code in your controllers, or using Filters, etc, well, that will take more.</p>
-<p>Some services are Serverless already and some are not. If you want to build serverless, you’re looking at:</p>
+<h2 id="Vuepress"><a href="#Vuepress" class="headerlink" title="Vuepress"></a>Vuepress</h2><p>Pros:</p>
 <ul>
-<li>Storage</li>
-<li>Azure Functions</li>
-<li>Service Bus</li>
-<li>SignalR service</li>
-<li>AKS (with virtual kubelet)</li>
+<li>Easy to create new posts</li>
+<li>Themes have consistent Vue.js approach</li>
+<li>Seems to have a thriving community<br>Cons:</li>
+<li>Very developer centric</li>
 </ul>
-<p>If you want to bring your serverless architecture to its knees, try:</p>
+<p>I guess when the chips are down, there is not a whole lot between them. If you’re not a developer with an interest in <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a>, you might not be that interested in Vuepress. For me, I like the accessibility provided for creating themes. There seems to be less magic happening in Vuepress than there seems to be with Hexo. If I were starting over, maybe I’d look at Vuepress more seriously, but I’m happy with my current process with Hexo.</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>Is Vuepress worth considering for blogs? I think so. There seems to be a thriving community, and it provides a great balance between content and theming concerns. I prefer the Vue.js components to most other templating engines, though I would probably jump at an Angular-based static site generator if I found one. Finally, if you want to take a look at a whole lot of resources related to Vuepress, <a href="https://github.com/ulivz/awesome-vuepress" target="_blank" rel="noopener">this</a> is a great place to start.</p>
+<p>Other references:</p>
 <ul>
-<li>SQL Server (for now - <a href="https://docs.microsoft.com/en-us/azure/sql-database/sql-database-serverless" target="_blank" rel="noopener">serverless is coming</a>)</li>
-<li>Web apps</li>
+<li><a href="https://willwillems.com/posts/building-a-website-with-vuepress.html" target="_blank" rel="noopener">https://willwillems.com/posts/building-a-website-with-vuepress.html</a></li>
+<li><a href="https://willwillems.com/posts/write-a-custom-theme-with-vuepress.html" target="_blank" rel="noopener">https://willwillems.com/posts/write-a-custom-theme-with-vuepress.html</a></li>
 </ul>
-<p>I’ve had a hard time putting AKS in either bucket at the moment. It runs on specific nodes (so not serverless), but there’s also a virtual Kubelet that lets you use ACI as a serverless overflow. Personally, I prefer the Azure Function pricing model over the ACI pricing model and the cost of spinning up a function is MUCH lower than spinning up a container, however it might keep up if your site had a massive traffic spike. Probably somewhere between “pure” serverless and PaaS, but this is just a guess. So, it may be possible to use containers, AKS and Virtual Kubelet to take you some of the way towards stability within rapid traffic spikes, depending on your service startup time.</p>
-<h1 id="Final-words"><a href="#Final-words" class="headerlink" title="Final words"></a>Final words</h1><p>Serverless brings an extraordinary level of burst tolerance to your application, which will bring resilience and performance under extreme loads. As with any architectural decision, it’s not all or nothing. You can have parts of a system that are serverless, with other parts not, such as a Web App that sends messages to a Service Bus. With a serverless backing, the web app will likely provide greater resilience under load. Use load testing to measure where your bottlenecks are. Importantly, look for any part of your architecture where serverless is hitting resource bound components. Make sure you have a fallback strategy for when the resource bound component is at maximum load.</p>
-<p>Serverless is actually not a new idea and there are many serverless services available. Please refer to the <a href="https://azure.microsoft.com/en-us/solutions/serverless/" target="_blank" rel="noopener">Azure Serverless services</a> for more info. Effective use of serverless components in your architecture will massively increase the scalability of your application.</p>
 
                 </div>
             </section>
@@ -225,8 +270,8 @@
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/serverless-what-why-do-we-need-it/";  
-	this.page.identifier = "h4buwvjUdOKoByU08qTf3cAaMV0="
+	this.page.url = "https://anthonyison.com/static-site-generation-with-vuepress/";  
+	this.page.identifier = "g0ZW0BkRk+Kv2w8yM4GuvONq/jU="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -243,14 +288,10 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Kubernetes: Setting up a cluster on AKS" href="/kubernetes-setting-up-a-cluster-on-aks/">
-            ← Kubernetes: Setting up a cluster on AKS
-        </a>
-        
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="So... Cloudflare..." href="/so-cloudflare/">
-            So... Cloudflare... →
+        <a class="next-post" title="Blogging for consistency" href="/blogging-for-consistency/">
+            Blogging for consistency →
         </a>
         
     </nav>
@@ -272,7 +313,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#So-what-is-it"><span class="toc-text">So what is it?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#How-do-I-use-it"><span class="toc-text">How do I use it?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Final-words"><span class="toc-text">Final words</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Creating-content"><span class="toc-text">Creating content</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Adding-a-theme"><span class="toc-text">Adding a theme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Configuration"><span class="toc-text">Configuration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Default-Layout"><span class="toc-text">Default Layout</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Downloading-a-theme"><span class="toc-text">Downloading a theme</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Blogging-support"><span class="toc-text">Blogging support</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Comments"><span class="toc-text">Comments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RSS"><span class="toc-text">RSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Email-subscriptions"><span class="toc-text">Email subscriptions</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Vuepress-vs-Hexo"><span class="toc-text">Vuepress vs Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vuepress"><span class="toc-text">Vuepress</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li></ol>
     </div>
 </div>
 
@@ -430,17 +471,17 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Serverless what? Why do we need it?</div>
+    <div class="floating-header-title">Static Site Generation with Vuepress</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
                 <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
             </svg>
         </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Serverless what? Why do we need it?&amp;url=https://anthonyison.com/serverless-what-why-do-we-need-it/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Static Site Generation with Vuepress&amp;url=https://anthonyison.com/static-site-generation-with-vuepress/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/serverless-what-why-do-we-need-it/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/static-site-generation-with-vuepress/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
         </a>
     </div>

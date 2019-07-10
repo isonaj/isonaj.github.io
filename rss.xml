@@ -8,8 +8,23 @@
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>Software development and DevOps. Bringing solutions to life.</description>
-    <pubDate>Mon, 17 Jun 2019 02:16:16 GMT</pubDate>
+    <pubDate>Wed, 10 Jul 2019 12:25:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Static Site Generation with Vuepress</title>
+      <link>https://anthonyison.com/static-site-generation-with-vuepress/</link>
+      <guid>https://anthonyison.com/static-site-generation-with-vuepress/</guid>
+      <pubDate>Wed, 10 Jul 2019 12:20:34 GMT</pubDate>
+      <description>
+      
+        When I was reviewing static site generators, Vuepress caught my eye but I passed over it quickly because their web site admitted that they lacked blogging support. I really like the approach though. It uses the Vue.js server side processing to generate static sites. It’s time to have a closer look.
+
+      
+      </description>
+      
+      <comments>https://anthonyison.com/static-site-generation-with-vuepress/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Blogging for consistency</title>
