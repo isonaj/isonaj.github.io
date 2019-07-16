@@ -8,7 +8,7 @@
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>Software development and DevOps. Bringing solutions to life.</description>
-    <pubDate>Wed, 10 Jul 2019 12:25:37 GMT</pubDate>
+    <pubDate>Tue, 16 Jul 2019 01:59:41 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -18,7 +18,7 @@
       <pubDate>Wed, 10 Jul 2019 12:20:34 GMT</pubDate>
       <description>
       
-        When I was reviewing static site generators, Vuepress caught my eye but I passed over it quickly because their web site admitted that they lacked blogging support. I really like the approach though. It uses the Vue.js server side processing to generate static sites. It’s time to have a closer look.
+        When I was reviewing static site generators, Vuepress caught my eye but I passed over it quickly because their web site admitted that they lacked blogging support. I really like the approach though. It uses the Vue.js server-side processing to generate static sites. It’s time to have a closer look.
 
       
       </description>
