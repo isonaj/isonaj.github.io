@@ -173,10 +173,10 @@
                 
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/vuejs/">vuejs</a>
+                <a href="/tags/blogging/">blogging</a>
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/blogging/">blogging</a>
+                <a href="/tags/vuejs/">vuejs</a>
                 
                 
             </section>
@@ -189,7 +189,10 @@
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>When I was reviewing static site generators, <a href="https://vuepress.vuejs.org/" target="_blank" rel="noopener">Vuepress</a> caught my eye but I passed over it quickly because their web site admitted that they <a href="https://vuepress.vuejs.org/guide/#todo" target="_blank" rel="noopener">lacked blogging support</a>. I really like the approach though. It uses the <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a> server-side processing to generate static sites. It’s time to have a closer look.</p>
+                    <p>When I was reviewing static site generators, <a href="https://vuepress.vuejs.org/" target="_blank" rel="noopener">Vuepress</a> caught my eye but I passed over it quickly because their web site admitted that they <a href="https://vuepress.vuejs.org/guide/#todo" target="_blank" rel="noopener">lacked blogging support</a>. I really liked the approach though. It uses the <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a> server-side processing to generate static sites. It’s time to have a closer look.</p>
+<blockquote>
+<p><strong>UPDATE 2019-07-18:</strong> “Vuepress lacks blogging support” is no longer accurate. Vuepress has added A LOT of features in <a href="https://medium.com/@_ulivz/intro-to-vuepress-1-x-7e2b7885f95f" target="_blank" rel="noopener">version 1.0</a> that addresses the issues I experienced while writing this post. Stay tuned for another post on Vuepress soon!</p>
+</blockquote>
 <h1 id="Creating-content"><a href="#Creating-content" class="headerlink" title="Creating content"></a>Creating content</h1><p>My first measure of a tool is how easy it is to get started. For Vuepress, that means I want to create a couple of posts. It’s really easy to create some quick content, like so:</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Create a folder for the blog</span>
 $ <span class="token function">mkdir</span> myblog
@@ -199,15 +202,15 @@ $ <span class="token function">cd</span> myblog
 $ <span class="token function">npm</span> init    <span class="token comment" spellcheck="true"># Enter through to accept all defaults</span>
 $ <span class="token function">npm</span> i vuepress --save
 </code></pre>
-<p>Create the following files:<br><em>post1.md:</em></p>
+<p>Create the following files:<br><strong>post1.md:</strong></p>
 <pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> My first post</span>
 Here is some content
 </code></pre>
-<p><em>post2.md:</em></p>
+<p><strong>post2.md:</strong></p>
 <pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> My second post</span>
 Here is some more content
 </code></pre>
-<p><em>index.md:</em></p>
+<p><strong>index.md:</strong></p>
 <pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span> Index</span>
 <span class="token list punctuation">*</span> <span class="token url">[First post](/post1.md)</span>
 <span class="token list punctuation">*</span> <span class="token url">[Second post](/post2.md)</span>
@@ -229,35 +232,35 @@ Here is some more content
   description<span class="token punctuation">:</span> <span class="token string">'Taking Vuepress for a spin'</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Default-Layout"><a href="#Default-Layout" class="headerlink" title="Default Layout"></a>Default Layout</h2><p>You can easily export the starting default theme by running <code>node_modules\.bin\vuepress extract</code>. This will save the default layout in the <code>.vuepress\theme</code> folder. I’m not going to open up themes too much just yet. That would be a whole blog post to itself, but if you’re interested in digging in, I recommend <a href="https://www.amie-chen.com/blog/20190211-build-a-site-with-vuepress-part2.html" target="_blank" rel="noopener">this post</a>.</p>
-<p><img alt="Vuepress site with default layout" class="post-img b-lazy" href="screenshot1.png" data-src="screenshot1.png"><br><em>Figure: Vuepress site with default layout</em></p>
+<h2 id="Default-Layout"><a href="#Default-Layout" class="headerlink" title="Default Layout"></a>Default Layout</h2><p>You can easily export the starting default theme by running <code>npx vuepress extract</code>. This will save the default layout in the <code>.vuepress\theme</code> folder. I’m not going to open up themes too much just yet. That would be a whole blog post to itself, but if you’re interested in digging in, I recommend <a href="https://www.amie-chen.com/blog/20190211-build-a-site-with-vuepress-part2.html" target="_blank" rel="noopener">this post</a>.</p>
+<p><img alt="Vuepress site with default layout" class="post-img b-lazy" href="screenshot1.png" data-src="screenshot1.png"><br><strong>Figure: Vuepress site with default layout</strong></p>
 <h1 id="Downloading-a-theme"><a href="#Downloading-a-theme" class="headerlink" title="Downloading a theme"></a>Downloading a theme</h1><p>If you’re like me, you’re not interested in the absolute nitty-gritty of the theme. You just want to generate content. What I like about Vuepress is that the theme is Vue.js and I can have a good crack at trying to maintain my theme, or tweak the theme as needed.</p>
 <p>As you can see in my blog, I am captivated by the Casper theme and fortunately, Vuepress has a Casper theme <a href="https://github.com/alexander-heimbuch/vuepress-theme-casper" target="_blank" rel="noopener">here</a>. In my mind though, this theme leaves a lot to be desired when compared to my current (tweaked) hexo casper theme. This one requires the reading time to be added to the frontmatter, but that could possibly be automated with <a href="https://github.com/darrenjennings/vuepress-plugin-reading-time" target="_blank" rel="noopener">this plugin</a>.</p>
-<p><img alt="Vuepress site with Casper layout" class="post-img b-lazy" href="screenshot2.png" data-src="screenshot2.png"><br><em>Figure: Vuepress site with Casper layout</em></p>
+<p><img alt="Vuepress site with Casper layout" class="post-img b-lazy" href="screenshot2.png" data-src="screenshot2.png"><br><strong>Figure: Vuepress site with Casper layout</strong></p>
 <h1 id="Blogging-support"><a href="#Blogging-support" class="headerlink" title="Blogging support"></a>Blogging support</h1><p>In <a href="/blogging-for-consistency">this post</a>, I looked at some of the expectations for a blog. Let’s take a look at which parts we can hit with Vuepress.</p>
 <h2 id="Comments"><a href="#Comments" class="headerlink" title="Comments"></a>Comments</h2><p>I use Disqus for comments. It uses JS to plugin to your page so should be able to run pretty much anywhere.</p>
 <h2 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h2><p>Vuepress has a plugin for doing RSS feeds <a href="https://github.com/webmasterish/vuepress-plugin-feed" target="_blank" rel="noopener">here</a>. I have no idea of the quality of the feed. RSS seems to be a bit of a mashup these days and I’ve had to hack the one I use with Hexo to get it to work in the places where it’s missed a step.</p>
 <h2 id="Email-subscriptions"><a href="#Email-subscriptions" class="headerlink" title="Email subscriptions"></a>Email subscriptions</h2><p>I don’t currently do email subscriptions, but I imagine you can easily offload this to an external service like <a href="https://mailchimp.com" target="_blank" rel="noopener">MailChimp</a> or <a href="https://tinyletter.com/" target="_blank" rel="noopener">TinyLetter</a>.</p>
 <h1 id="Vuepress-vs-Hexo"><a href="#Vuepress-vs-Hexo" class="headerlink" title="Vuepress vs Hexo"></a>Vuepress vs Hexo</h1><p>Alright, I would never have looked into Vuepress if this wasn’t in the back of my mind. Let’s take a look at some of the strengths and weaknesses of the two.</p>
-<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p><em>Pros:</em></p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p><strong>Pros:</strong></p>
 <ul>
 <li>Simple to create new posts</li>
 <li>Flexible theme options</li>
 </ul>
-<p><em>Cons:</em> </p>
+<p><strong>Cons:</strong> </p>
 <ul>
 <li>Themes have inconsistent technologies</li>
 <li>Most of the community seems to be Chinese (different social media stacks, language barriers)</li>
 <li>Easier for non-developers (slightly?)</li>
 </ul>
-<h2 id="Vuepress"><a href="#Vuepress" class="headerlink" title="Vuepress"></a>Vuepress</h2><p><em>Pros:</em></p>
+<h2 id="Vuepress"><a href="#Vuepress" class="headerlink" title="Vuepress"></a>Vuepress</h2><p><strong>Pros:</strong></p>
 <ul>
 <li>Very easy to get up and going with a basic CMS</li>
 <li>Easy to create new posts</li>
 <li>Themes have consistent Vue.js approach</li>
 <li>Seems to have a thriving community</li>
 </ul>
-<p><em>Cons:</em></p>
+<p><strong>Cons:</strong></p>
 <ul>
 <li>Not really aimed at blogging just yet (but it’s coming)</li>
 <li>Very developer centric</li>
@@ -268,7 +271,6 @@ Here is some more content
 <ul>
 <li><a href="https://willwillems.com/posts/building-a-website-with-vuepress.html" target="_blank" rel="noopener">https://willwillems.com/posts/building-a-website-with-vuepress.html</a></li>
 <li><a href="https://willwillems.com/posts/write-a-custom-theme-with-vuepress.html" target="_blank" rel="noopener">https://willwillems.com/posts/write-a-custom-theme-with-vuepress.html</a></li>
-<li><a href="https://github.com/bencodezen/vuepress-blog-boilerplate" target="_blank" rel="noopener">https://github.com/bencodezen/vuepress-blog-boilerplate</a></li>
 </ul>
 
                 </div>
