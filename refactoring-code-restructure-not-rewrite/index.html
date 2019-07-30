@@ -34,7 +34,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Automatic HTTPS on Kubernetes | Anthony Ison</title>
+	<title>Refactoring Code - restructure, not rewrite | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -43,7 +43,7 @@
 	<meta name="description" content>
 
 	
-	<meta name="keywords" content>
+	<meta name="keywords" content="refactoring">
 	
 
 	
@@ -64,16 +64,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Automatic HTTPS on Kubernetes | Anthony Ison">
+	<meta property="og:title" content="Refactoring Code - restructure, not rewrite | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/automatic-https-on-kubernetes/">
-	<meta property="og:image" content="https://anthonyison.com//automatic-https-on-kubernetes/small_cover.jpg">
+	<meta property="og:url" content="https://anthonyison.com/refactoring-code-restructure-not-rewrite/">
+	<meta property="og:image" content="https://anthonyison.com//refactoring-code-restructure-not-rewrite/small_cover.jpg">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-02-17T00:02:00+08:00"> 
+	<meta property="article:published_time" content="2019-07-30T15:07:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /automatic-https-on-kubernetes/">
+	<meta property="article:published_first" content="Anthony Ison, /refactoring-code-restructure-not-rewrite/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -167,17 +167,17 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-02-16T14:00:00.000Z" itemprop="datePublished">
-                    2019-02-17
+                <time class="post-full-meta-date" datetime="2019-07-30T05:35:28.000Z" itemprop="datePublished">
+                    2019-07-30
                 </time>
                 
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/kubernetes/">kubernetes</a>
+                <a href="/tags/principles/">principles</a>
                 
                 
             </section>
-            <h1 class="post-full-title">Automatic HTTPS on Kubernetes</h1>
+            <h1 class="post-full-title">Refactoring Code - restructure, not rewrite</h1>
         </header>
         <article class="post-full ">
             
@@ -186,91 +186,47 @@
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>This post starts with a slight regret that I didn’t get Ghost running on a Web App.  One of the brilliant parts of a Web App is that you can force all requests over HTTPS with the click of a button. Of course, I’d still need to organise a certificate for my domain. Hold on, let me stop and back up a minute.</p>
-<p>What the heck is this HTTPS and certificate stuff? Basically, HTTPS will guarantee that the communication between the client and server can’t be read or changed by anyone between the client and server. So, usernames and passwords are safe to send. While that’s important, it’s probably more important that your pages cannot be changed either. It’s a bit like a message written in code with the king’s seal. Since the code (HTTPS) is known to you and the king, you know it cannot be read. The seal (certificate) proves the authenticity.</p>
-<p>As I set out on this adventure, it looks like I need cert-manager and the best way to install this appears to be to use helm, which I installed with Chocolatey.</p>
-<pre class=" language-bash"><code class="language-bash">$ choco <span class="token function">install</span> kubernetes-helm
-$ helm init
+                    <p>I see a lot of similarities between software and business structures. If I’m talking about a queuing mechanism, it often helps to describe it as a call centre managing their tickets, or a lock as being like a key for the toilets. Refactoring then, would simply be a restructuring of a business, however developers often mean they want fire everyone and start over.</p>
+<p>It’s always possible that a business is in a state where this is needed, however small changes to a working system can produce incredible results. Software is expensive. I mean, REALLY expensive. So, let’s not burn down the house just because we no longer like the decor.</p>
+<p>As a developer, refactoring is a one of your daily chores. The thing about a daily chore is that, when it’s not done, it kind of builds up. If you never do your chores, you might find that you have a BIG job to get things neat and tidy again. And then, even if you stay on top of your chores, you might find you need an spring clean now and then just to get to the areas that aren’t being kept on a daily basis.</p>
+<p>The problem is, software developers don’t seem to agree on what refactoring is. It is often used to mean fixing a bug by writing “clean code” (or code that introduces design patterns) instead of “messy code”.</p>
+<h2 id="So-what-is-it"><a href="#So-what-is-it" class="headerlink" title="So what is it?"></a>So what is it?</h2><blockquote>
+<p>I’ve never seen one before. No one has, but I’m guessing it’s a white hole - <a href="https://www.youtube.com/watch?v=TxWN8AhNER0" target="_blank" rel="noopener">Kryten</a></p>
+</blockquote>
+<p>Refactoring is a change made to the internal structure of <strong>existing software</strong> to make it <strong>easier to understand</strong> and cheaper to modify <strong>without changing its observable behaviour</strong>. It does not mean “cleaning up code”. Basically, if you are fixing an issue or adding new behaviour, you are NOT refactoring. It is often an iterative, mechanical process that is practically risk-free. How can it be risk-free? Well, the types of changes we are talking about are renaming methods or variables or extracting a small chunk of code from one method into another.</p>
+<p>Consider the following example:</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token comment" spellcheck="true">// ...</span>
+<span class="token keyword">var</span> t <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>Items<span class="token punctuation">.</span><span class="token function">Sum</span><span class="token punctuation">(</span>i <span class="token operator">=</span><span class="token operator">></span> i<span class="token punctuation">.</span>Qty <span class="token operator">*</span> i<span class="token punctuation">.</span>Price<span class="token punctuation">)</span><span class="token punctuation">;</span>
+t <span class="token operator">-</span><span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">Round</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>Discount <span class="token operator">*</span> t<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> tt <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">Round</span><span class="token punctuation">(</span>t <span class="token operator">/</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// ...</span>
 </code></pre>
-<h2 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h2><p>We are going to install cert-manager which will perform all of the magic of fetching certificates and storing them for use in our various services. We need to set up the config for cert-manager, so that we can provide the link to Lets Encrypt. Save the following in a file, say issuer.yaml, and run <code>kubectl apply -f issuer.yaml</code> to apply. (Make sure you update with your email first!)</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> certmanager.k8s.io/v1alpha1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterIssuer
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">acme</span><span class="token punctuation">:</span>
-    <span class="token key atrule">server</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//acme<span class="token punctuation">-</span>v02.api.letsencrypt.org/directory    
-    <span class="token key atrule">email</span><span class="token punctuation">:</span> youremail@gmail.com
-    <span class="token key atrule">privateKeySecretRef</span><span class="token punctuation">:</span>
-      <span class="token key atrule">name</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-    <span class="token key atrule">http01</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<p>There are a few issues with this example. Let’s fix some of the variables.</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">var</span> subtotal <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>Items<span class="token punctuation">.</span><span class="token function">Sum</span><span class="token punctuation">(</span>i <span class="token operator">=</span><span class="token operator">></span> i<span class="token punctuation">.</span>Qty <span class="token operator">*</span> i<span class="token punctuation">.</span>Price<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> discount <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">Round</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>Discount <span class="token operator">*</span> subtotal<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> total <span class="token operator">=</span> subtotal <span class="token operator">-</span> discount<span class="token punctuation">;</span>
+<span class="token keyword">var</span> gst <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">Round</span><span class="token punctuation">(</span>total <span class="token operator">/</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="Installing-cert-manager"><a href="#Installing-cert-manager" class="headerlink" title="Installing cert manager"></a>Installing cert manager</h2><pre class=" language-bash"><code class="language-bash">$ kubectl apply -f \
-    https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml
-
-$ helm <span class="token function">install</span> --name cert-manager --namespace ingress \
-    --set ingressShim.defaultIssuerName<span class="token operator">=</span>letsencrypt-prod 
-    --set ingressShim.defaultIssuerKind<span class="token operator">=</span>ClusterIssuer 
-    stable/cert-manager
+<p>There is a code smell here with the parent accessing the child data (Qty and Price) to calculate the item subtotal. I think my first step here would be to add a get property to the child class to handle this.</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">var</span> subtotal <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>Items<span class="token punctuation">.</span><span class="token function">Sum</span><span class="token punctuation">(</span>i <span class="token operator">=</span><span class="token operator">></span> i<span class="token punctuation">.</span>Subtotal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> discount <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">Round</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>Discount <span class="token operator">*</span> subtotal<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> total <span class="token operator">=</span> subtotal <span class="token operator">-</span> discount<span class="token punctuation">;</span>
+<span class="token keyword">var</span> gst <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">Round</span><span class="token punctuation">(</span>total <span class="token operator">/</span> <span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>I ran into issues installing cert-manager with a ‘cluster-admin’ not found error. I found instructions on <a href="https://docs.bitnami.com/azure/get-started-aks/" target="_blank" rel="noopener">this page</a> which helped me create a cluster admin role, create a service account and assign tiller to it.</p>
-<h2 id="Installing-nginx-ingress"><a href="#Installing-nginx-ingress" class="headerlink" title="Installing nginx-ingress"></a>Installing nginx-ingress</h2><p>The next step is to configure an Ingress to manage the TLS endpoint, that is to manage my HTTPS endpoint with certificate connected to my domain. Without this step, I found I could set up my Ingress entry, but the address would stay empty.</p>
-<pre class=" language-bash"><code class="language-bash">$ helm <span class="token function">install</span> stable/nginx-ingress \
-    --name nginx \
-    --set rbac.create<span class="token operator">=</span>true \
-    --namespace ingress
+<p>Finally, the tax calculation has a hardcoded tax rate and it’s not clear that this is actually calculating Gst, so let’s move it to a global Gst calculator. I’m also not sure how often Gst is calculated, but this provides a single location to update all Gst calculation in the case that the rate changes.</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">var</span> subtotal <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>Items<span class="token punctuation">.</span><span class="token function">Sum</span><span class="token punctuation">(</span>i <span class="token operator">=</span><span class="token operator">></span> i<span class="token punctuation">.</span>Subtotal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> discount <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">Round</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>Discount <span class="token operator">*</span> subtotal<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> total <span class="token operator">=</span> subtotal <span class="token operator">-</span> discount<span class="token punctuation">;</span>
+<span class="token keyword">var</span> gst <span class="token operator">=</span> GstCalculator<span class="token punctuation">.</span><span class="token function">CalculateTax</span><span class="token punctuation">(</span>total<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>Once installed, I can see a LoadBalancer entry which has my External IP on it.</p>
-<h2 id="Update-the-Service"><a href="#Update-the-Service" class="headerlink" title="Update the Service"></a>Update the Service</h2><p>In the previous post, we set the service up as a LoadBalancer type. We don’t need that any more since we have a new IP on our LoadBalancer nginx-ingress service. Update the service.yaml and change LoadBalancer to a NodePort and run <code>kubectl apply -f service.yaml</code>. This will make sure we can only access our service through our TLS ingress service.</p>
-<h2 id="Generate-Certificate-and-Ingress-for-Service"><a href="#Generate-Certificate-and-Ingress-for-Service" class="headerlink" title="Generate Certificate and Ingress for Service"></a>Generate Certificate and Ingress for Service</h2><p>Apply the following updates to the kubernetes cluster.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Ingress
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>ingress
-  <span class="token key atrule">annotations</span><span class="token punctuation">:</span>
-    <span class="token key atrule">kubernetes.io/ingress.class</span><span class="token punctuation">:</span> nginx
-    <span class="token key atrule">certmanager.k8s.io/cluster-issuer</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">tls</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> anthonyison.com
-    <span class="token key atrule">secretName</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>crt
-  <span class="token key atrule">rules</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">host</span><span class="token punctuation">:</span> anthonyison.com
-    <span class="token key atrule">http</span><span class="token punctuation">:</span>
-      <span class="token key atrule">paths</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">path</span><span class="token punctuation">:</span> /
-        <span class="token key atrule">backend</span><span class="token punctuation">:</span>
-          <span class="token key atrule">serviceName</span><span class="token punctuation">:</span> anthonyison
-          <span class="token key atrule">servicePort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-</code></pre>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> certmanager.k8s.io/v1alpha1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Certificate
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>crt
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">secretName</span><span class="token punctuation">:</span> anthonyison<span class="token punctuation">-</span>crt
-  <span class="token key atrule">dnsNames</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> anthonyison.com
-  <span class="token key atrule">acme</span><span class="token punctuation">:</span>
-    <span class="token key atrule">config</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">http01</span><span class="token punctuation">:</span>
-        <span class="token key atrule">ingressClass</span><span class="token punctuation">:</span> nginx
-      <span class="token key atrule">domains</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> anthonyison.com
-  <span class="token key atrule">issuerRef</span><span class="token punctuation">:</span>
-    <span class="token key atrule">name</span><span class="token punctuation">:</span> letsencrypt<span class="token punctuation">-</span>prod
-    <span class="token key atrule">kind</span><span class="token punctuation">:</span> ClusterIssuer
-</code></pre>
-<p>That’s it!  Hit your domain and confirm that https is working. You should be able to click on the padlock in the address bar and click on Certificate to see the details. You should see a certificate issued by Lets Encrypt to your domain name.</p>
-<p>So, I started off with some regret that I wasn’t running in a Web App. While it took quite a while to work through many of the issues that showed up along the way, it is actually pretty easy once it’s set up, and furthermore, I don’t have to think about my certificates ever again. I think maybe it’s not as bad as I thought. No regrets, right?</p>
-<h3 id="References"><a href="#References" class="headerlink" title="References:"></a>References:</h3><ol>
-<li><a href="https://itnext.io/automated-tls-with-cert-manager-and-letsencrypt-for-kubernetes-7daaa5e0cae4" target="_blank" rel="noopener">Automated TLS with Cert Manager and Lets Encrypt for Kubernetes</a></li>
-<li><a href="https://akomljen.com/get-automatic-https-with-lets-encrypt-and-kubernetes-ingress/" target="_blank" rel="noopener">Get automatic HTTPS with Lets Encrpyt and Kubernetes Ingress</a></li>
-<li><a href="https://runnable.com/blog/how-to-use-lets-encrypt-on-kubernetes" target="_blank" rel="noopener">How to use Lets Encrypt on Kubernetes (without Cert Manager)</a></li>
-<li><a href="https://docs.bitnami.com/azure/get-started-aks/" target="_blank" rel="noopener">Configuring AKS</a></li>
-<li><a href="https://dzone.com/articles/secure-your-kubernetes-services-using-cert-manager" target="_blank" rel="noopener">Secure your Kubernetes Services using Cert Manager</a></li>
-</ol>
+<p>As you can see, the refactored code should produce the same results as the original code and has significant improvements to readability, mostly from renaming variables. It may not be immediately obvious that the extra context from naming helps to document the code without actually adding comments.</p>
+<h2 id="Refactoring-Techniques"><a href="#Refactoring-Techniques" class="headerlink" title="Refactoring Techniques"></a>Refactoring Techniques</h2><p>I mentioned earlier that refactoring is a mechanical process. In fact, there are a list of known <a href="https://refactoring.guru/refactoring/techniques" target="_blank" rel="noopener">refactoring techniques</a> as well as Martin Fowler’s <a href="https://refactoring.com/catalog/" target="_blank" rel="noopener">catalog</a>. Be aware that for every refactoring, there is an equal and opposite refactoring. There is not really a “best way” to lay out your code. Instead, you need to choose a refactoring that “improves” your code. If the code is overly complex, you might be looking at refactorings that reduce complexity. Alternatively, you might increase complexity to gain flexibility.</p>
+<blockquote>
+<p>Refactoring is a disciplined technique for restructuring an existing body of code, altering its internal structure without changing its external behaviour - <a href="https://refactoring.com/" target="_blank" rel="noopener">Martin Fowler</a></p>
+</blockquote>
+<p>The main benefits of refactoring are increased maintainability and extensibility with a low risk of introducing new issues.</p>
+<p>Like Test Driven Development (TDD), refactoring requires discipline to gain the full benefit from the practice. While each change seems too small to bother with, the cumulative effect of the practice will transform your code. </p>
+<p>If you want to learn more about refactoring techniques, I highly recommend the book, <a href="https://martinfowler.com/books/refactoring.html" target="_blank" rel="noopener">Refactoring: Improving the Design of Existing Code</a>. Originally published in 1999, it’s recently had a 2nd edition.</p>
 
                 </div>
             </section>
@@ -282,8 +238,8 @@ $ helm <span class="token function">install</span> --name cert-manager --namespa
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/automatic-https-on-kubernetes/";  
-	this.page.identifier = "ghost-5c68a96a21b29c00018dd0fd"
+	this.page.url = "https://anthonyison.com/refactoring-code-restructure-not-rewrite/";  
+	this.page.identifier = "yZ+e9L9xwBHVqs3DMaoFCyK90lg="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -300,14 +256,10 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Dynamic environment in your static Angular application" href="/dynamic-environment-in-your-static-angular-application/">
-            ← Dynamic environment in your static Angular application
-        </a>
-        
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="Running Ghost on Kubernetes on Azure" href="/running-ghost-on-kubernetes-on-azure/">
-            Running Ghost on Kubernetes on Azure →
+        <a class="next-post" title="Static Site Generation with Vuepress" href="/static-site-generation-with-vuepress/">
+            Static Site Generation with Vuepress →
         </a>
         
     </nav>
@@ -329,7 +281,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#First-steps"><span class="toc-text">First steps</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-cert-manager"><span class="toc-text">Installing cert manager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-nginx-ingress"><span class="toc-text">Installing nginx-ingress</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update-the-Service"><span class="toc-text">Update the Service</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Generate-Certificate-and-Ingress-for-Service"><span class="toc-text">Generate Certificate and Ingress for Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#References"><span class="toc-text">References:</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#So-what-is-it"><span class="toc-text">So what is it?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Refactoring-Techniques"><span class="toc-text">Refactoring Techniques</span></a></li></ol>
     </div>
 </div>
 
@@ -489,17 +441,17 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Automatic HTTPS on Kubernetes</div>
+    <div class="floating-header-title">Refactoring Code - restructure, not rewrite</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
                 <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
             </svg>
         </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Automatic HTTPS on Kubernetes&amp;url=https://anthonyison.com/automatic-https-on-kubernetes/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Refactoring Code - restructure, not rewrite&amp;url=https://anthonyison.com/refactoring-code-restructure-not-rewrite/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/automatic-https-on-kubernetes/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/refactoring-code-restructure-not-rewrite/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
         </a>
     </div>

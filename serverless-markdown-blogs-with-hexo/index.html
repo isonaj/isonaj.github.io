@@ -196,9 +196,9 @@
 <blockquote>
 <p>I thought I’d review Jekyll and Hexo, so I pulled a jekyll container in one window and installed Hexo in another. Unfortunately, I was up and running with Hexo before my download even finished, so rather than having a post that contrasts the two, I seem to have already chosen Hexo.</p>
 </blockquote>
-<h1 id="Jekyll"><a href="#Jekyll" class="headerlink" title="Jekyll"></a>Jekyll</h1><p>This is far and away the most popular. It has a thiving community and is well supported by Github Pages. The main disadvantage is that it becomes exponentially slower as pages are added, which wouldn’t likely be an issue for my blog but is worth noting.</p>
-<h1 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h1><p>Hexo is number 2 in popularity (mostly in China) and is growing fast. It also has many themes, and most of the demo sites are in Chinese.</p>
-<h2 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h2><p>Since it’s built on node, Hexo is super easy to install (assuming you already have node installed!) We will be using npm to install.</p>
+<h2 id="Jekyll"><a href="#Jekyll" class="headerlink" title="Jekyll"></a>Jekyll</h2><p>This is far and away the most popular. It has a thiving community and is well supported by Github Pages. The main disadvantage is that it becomes exponentially slower as pages are added, which wouldn’t likely be an issue for my blog but is worth noting.</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>Hexo is number 2 in popularity (mostly in China) and is growing fast. It also has many themes, and most of the demo sites are in Chinese.</p>
+<h3 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h3><p>Since it’s built on node, Hexo is super easy to install (assuming you already have node installed!) We will be using npm to install.</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Install Hexo:</span>
 $ <span class="token function">npm</span> <span class="token function">install</span> hexo-cli -g
 
@@ -220,10 +220,10 @@ $ hexo generate
 <li>Publish a draft with <code>hexo publish post this-is-a-draft-post</code></li>
 <li>Deploy your site: <code>hexo deploy</code></li>
 </ul>
-<h2 id="Themes"><a href="#Themes" class="headerlink" title="Themes"></a>Themes</h2><p>There are many themes around. Usually, you pull a git repo into your themes/theme-name folder. Themes basically wrap the whole presentation process, which means each theme has specific capabilities. (eg. some have google analytics, some have disqus comments). If you want to mix and match, you quickly find yourself editing your theme.</p>
-<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>There are different types of plugins. They seem to hook into the build process and provide various services. I haven’t looked into them too much yet.</p>
-<h2 id="Migrators"><a href="#Migrators" class="headerlink" title="Migrators"></a>Migrators</h2><p>There are migrators available and you can pull them in with npm install. I quickly found migrators for Wordpress and Ghost blogs. </p>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>Hexo is node-based and provides a familiar interface for an Angular developer. It is a fantasic tool for getting a blog up and running and has capability to migrate from existing platforms. Since it is git based, it’s a bit harder to manage from my phone, however I LOVE that my markdown content is in git so I can review changes and I know it won’t be lost in a corrupt database.</p>
+<h3 id="Themes"><a href="#Themes" class="headerlink" title="Themes"></a>Themes</h3><p>There are many themes around. Usually, you pull a git repo into your themes/theme-name folder. Themes basically wrap the whole presentation process, which means each theme has specific capabilities. (eg. some have google analytics, some have disqus comments). If you want to mix and match, you quickly find yourself editing your theme.</p>
+<h3 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h3><p>There are different types of plugins. They seem to hook into the build process and provide various services. I haven’t looked into them too much yet.</p>
+<h3 id="Migrators"><a href="#Migrators" class="headerlink" title="Migrators"></a>Migrators</h3><p>There are migrators available and you can pull them in with npm install. I quickly found migrators for Wordpress and Ghost blogs. </p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Hexo is node-based and provides a familiar interface for an Angular developer. It is a fantasic tool for getting a blog up and running and has capability to migrate from existing platforms. Since it is git based, it’s a bit harder to manage from my phone, however I LOVE that my markdown content is in git so I can review changes and I know it won’t be lost in a corrupt database.</p>
 <p>What do you think? Would you use Hexo?</p>
 
                 </div>
@@ -283,7 +283,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jekyll"><span class="toc-text">Jekyll</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Installing-Hexo"><span class="toc-text">Installing Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Themes"><span class="toc-text">Themes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plugins"><span class="toc-text">Plugins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Migrators"><span class="toc-text">Migrators</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jekyll"><span class="toc-text">Jekyll</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo"><span class="toc-text">Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Installing-Hexo"><span class="toc-text">Installing Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Themes"><span class="toc-text">Themes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plugins"><span class="toc-text">Plugins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Migrators"><span class="toc-text">Migrators</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li></ol>
     </div>
 </div>
 
@@ -315,6 +315,12 @@ var disqus_config = function () {
       
       
       <li>
+        <a href="/refactoring-code-restructure-not-rewrite/">Refactoring Code - restructure, not rewrite</a>
+      </li>
+      
+      
+      
+      <li>
         <a href="/static-site-generation-with-vuepress/">Static Site Generation with Vuepress</a>
       </li>
       
@@ -325,10 +331,6 @@ var disqus_config = function () {
       </li>
       
       
-      
-      <li>
-        <a href="/kubernetes-aks-and-windows-containers/">Kubernetes: AKS and Windows Containers</a>
-      </li>
       
       
       
@@ -372,7 +374,7 @@ var disqus_config = function () {
 		<h3 class="read-next-card-header-title">Tag Cloud</h3>
 	</header>
 	<div class="read-next-card-content-ext">
-		<a href="/tags/cdn/" style="font-size: 14px;">CDN</a> <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/azure/" style="font-size: 14px;">azure</a> <a href="/tags/blogging/" style="font-size: 20.67px;">blogging</a> <a href="/tags/dotnet/" style="font-size: 14px;">dotnet</a> <a href="/tags/ghost/" style="font-size: 20.67px;">ghost</a> <a href="/tags/hexo/" style="font-size: 17.33px;">hexo</a> <a href="/tags/kubernetes/" style="font-size: 24px;">kubernetes</a> <a href="/tags/serverless/" style="font-size: 14px;">serverless</a> <a href="/tags/vuejs/" style="font-size: 14px;">vuejs</a>
+		<a href="/tags/cdn/" style="font-size: 14px;">CDN</a> <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/azure/" style="font-size: 14px;">azure</a> <a href="/tags/blogging/" style="font-size: 20.67px;">blogging</a> <a href="/tags/dotnet/" style="font-size: 14px;">dotnet</a> <a href="/tags/ghost/" style="font-size: 20.67px;">ghost</a> <a href="/tags/hexo/" style="font-size: 17.33px;">hexo</a> <a href="/tags/kubernetes/" style="font-size: 24px;">kubernetes</a> <a href="/tags/principles/" style="font-size: 14px;">principles</a> <a href="/tags/serverless/" style="font-size: 14px;">serverless</a> <a href="/tags/vuejs/" style="font-size: 14px;">vuejs</a>
 	</div>
 </article>
 

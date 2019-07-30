@@ -187,11 +187,11 @@
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
                     <p>Most cloud providers provide a managed Kubernetes cluster at this point. Each time I come back to look at Kubernetes, I feel like I’ve forgotten something (or everything). This post is a cheat sheet for getting a cluster up and running on Azure (using AKS) with recommended extras.  </p>
-<h1 id="Creating-a-Cluster"><a href="#Creating-a-Cluster" class="headerlink" title="Creating a Cluster"></a>Creating a Cluster</h1><h2 id="Getting-ready"><a href="#Getting-ready" class="headerlink" title="Getting ready"></a>Getting ready</h2><p>Firstly, let’s install the latest Azure CLI. Check <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank" rel="noopener">here</a> for the latest version. Run <code>az --version</code> to see what version you have if you have it installed already. Next, <code>az login</code> and <code>az account set -s &lt;subscriptionId&gt;</code> so that you’re ready to go.</p>
+<h2 id="Creating-a-Cluster"><a href="#Creating-a-Cluster" class="headerlink" title="Creating a Cluster"></a>Creating a Cluster</h2><h3 id="Getting-ready"><a href="#Getting-ready" class="headerlink" title="Getting ready"></a>Getting ready</h3><p>Firstly, let’s install the latest Azure CLI. Check <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank" rel="noopener">here</a> for the latest version. Run <code>az --version</code> to see what version you have if you have it installed already. Next, <code>az login</code> and <code>az account set -s &lt;subscriptionId&gt;</code> so that you’re ready to go.</p>
 <p>Create the resource group: (location is important. some areas have no AKS support yet eg. australiasoutheast)</p>
 <pre class=" language-bash"><code class="language-bash">$ az group create --name myResourceGroup --location australiaeast
 </code></pre>
-<h2 id="Create-a-Linux-only-cluster"><a href="#Create-a-Linux-only-cluster" class="headerlink" title="Create a Linux-only cluster"></a>Create a Linux-only cluster</h2><p>Create the AKS cluster:</p>
+<h3 id="Create-a-Linux-only-cluster"><a href="#Create-a-Linux-only-cluster" class="headerlink" title="Create a Linux-only cluster"></a>Create a Linux-only cluster</h3><p>Create the AKS cluster:</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token variable">$az</span> aks create \
     --resource-group myResourceGroup \
     --name myAKSCluster \
@@ -199,7 +199,7 @@
     --enable-addons monitoring \
     --generate-ssh-keys
 </code></pre>
-<h2 id="Connect-kubectl-to-your-cluster"><a href="#Connect-kubectl-to-your-cluster" class="headerlink" title="Connect kubectl to your cluster"></a>Connect kubectl to your cluster</h2><p>Install latest kubectl using <code>az aks install-cli</code>. (You may need to update your path to find the correct kubectl.exe)</p>
+<h3 id="Connect-kubectl-to-your-cluster"><a href="#Connect-kubectl-to-your-cluster" class="headerlink" title="Connect kubectl to your cluster"></a>Connect kubectl to your cluster</h3><p>Install latest kubectl using <code>az aks install-cli</code>. (You may need to update your path to find the correct kubectl.exe)</p>
 <pre class=" language-bash"><code class="language-bash">$ az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
 </code></pre>
 <p>Connect to the Kubernetes Dashboard:</p>
@@ -268,7 +268,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Creating-a-Cluster"><span class="toc-text">Creating a Cluster</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Getting-ready"><span class="toc-text">Getting ready</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-a-Linux-only-cluster"><span class="toc-text">Create a Linux-only cluster</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Connect-kubectl-to-your-cluster"><span class="toc-text">Connect kubectl to your cluster</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Creating-a-Cluster"><span class="toc-text">Creating a Cluster</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Getting-ready"><span class="toc-text">Getting ready</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-Linux-only-cluster"><span class="toc-text">Create a Linux-only cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Connect-kubectl-to-your-cluster"><span class="toc-text">Connect kubectl to your cluster</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -300,6 +300,12 @@ var disqus_config = function () {
       
       
       <li>
+        <a href="/refactoring-code-restructure-not-rewrite/">Refactoring Code - restructure, not rewrite</a>
+      </li>
+      
+      
+      
+      <li>
         <a href="/static-site-generation-with-vuepress/">Static Site Generation with Vuepress</a>
       </li>
       
@@ -310,10 +316,6 @@ var disqus_config = function () {
       </li>
       
       
-      
-      <li>
-        <a href="/kubernetes-aks-and-windows-containers/">Kubernetes: AKS and Windows Containers</a>
-      </li>
       
       
       
@@ -357,7 +359,7 @@ var disqus_config = function () {
 		<h3 class="read-next-card-header-title">Tag Cloud</h3>
 	</header>
 	<div class="read-next-card-content-ext">
-		<a href="/tags/cdn/" style="font-size: 14px;">CDN</a> <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/azure/" style="font-size: 14px;">azure</a> <a href="/tags/blogging/" style="font-size: 20.67px;">blogging</a> <a href="/tags/dotnet/" style="font-size: 14px;">dotnet</a> <a href="/tags/ghost/" style="font-size: 20.67px;">ghost</a> <a href="/tags/hexo/" style="font-size: 17.33px;">hexo</a> <a href="/tags/kubernetes/" style="font-size: 24px;">kubernetes</a> <a href="/tags/serverless/" style="font-size: 14px;">serverless</a> <a href="/tags/vuejs/" style="font-size: 14px;">vuejs</a>
+		<a href="/tags/cdn/" style="font-size: 14px;">CDN</a> <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/azure/" style="font-size: 14px;">azure</a> <a href="/tags/blogging/" style="font-size: 20.67px;">blogging</a> <a href="/tags/dotnet/" style="font-size: 14px;">dotnet</a> <a href="/tags/ghost/" style="font-size: 20.67px;">ghost</a> <a href="/tags/hexo/" style="font-size: 17.33px;">hexo</a> <a href="/tags/kubernetes/" style="font-size: 24px;">kubernetes</a> <a href="/tags/principles/" style="font-size: 14px;">principles</a> <a href="/tags/serverless/" style="font-size: 14px;">serverless</a> <a href="/tags/vuejs/" style="font-size: 14px;">vuejs</a>
 	</div>
 </article>
 
