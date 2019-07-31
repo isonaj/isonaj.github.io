@@ -8,17 +8,17 @@
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>Software development and DevOps. Bringing solutions to life.</description>
-    <pubDate>Tue, 30 Jul 2019 05:42:40 GMT</pubDate>
+    <pubDate>Wed, 31 Jul 2019 08:51:27 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>Refactoring Code - restructure, not rewrite</title>
+      <title>Refactoring code - restructure, not rewrite</title>
       <link>https://anthonyison.com/refactoring-code-restructure-not-rewrite/</link>
       <guid>https://anthonyison.com/refactoring-code-restructure-not-rewrite/</guid>
       <pubDate>Tue, 30 Jul 2019 05:35:28 GMT</pubDate>
       <description>
       
-        I see a lot of similarities between software and business structures. If I’m talking about a queuing mechanism, it often helps to describe it as a call centre managing their tickets, or a lock as being like a key for the toilets. Refactoring then, would simply be a restructuring of a business, howev
+        I see a lot of similarities between software and business processes. If I’m talking about a queuing mechanism, it often helps to describe it as a call centre managing their tickets, or a lock as being like a key for the toilets. Refactoring then, would simply be a restructuring of a business or to g
       
       </description>
       
