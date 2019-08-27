@@ -8,8 +8,22 @@
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>Software development and DevOps. Bringing solutions to life.</description>
-    <pubDate>Thu, 01 Aug 2019 00:53:21 GMT</pubDate>
+    <pubDate>Tue, 27 Aug 2019 13:30:58 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Azure DevOps, unit testing and code coverage with .Net Core</title>
+      <link>https://anthonyison.com/azure-devops-unit-testing-and-code-coverage-with-dotnet-core/</link>
+      <guid>https://anthonyison.com/azure-devops-unit-testing-and-code-coverage-with-dotnet-core/</guid>
+      <pubDate>Tue, 27 Aug 2019 13:30:58 GMT</pubDate>
+      <description>
+      
+        Unit testing can be very handy when it’s set up correctly. The gold standard is to have regular CI builds, usually run after each commit, that executes all impacted unit tests to confirm that the application still does what it’s been designed to do. It can be tricky to get it all set up so that all 
+      
+      </description>
+      
+      <comments>https://anthonyison.com/azure-devops-unit-testing-and-code-coverage-with-dotnet-core/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Refactoring code - restructure, not rewrite</title>

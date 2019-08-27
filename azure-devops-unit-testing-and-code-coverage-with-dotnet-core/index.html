@@ -34,7 +34,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>Kubernetes: A Beginner's Guide | Anthony Ison</title>
+	<title>Azure DevOps, unit testing and code coverage with .Net Core | Anthony Ison</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -64,16 +64,16 @@
 
 	<meta property="og:site_name" content="Anthony Ison">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Kubernetes: A Beginner's Guide | Anthony Ison">
+	<meta property="og:title" content="Azure DevOps, unit testing and code coverage with .Net Core | Anthony Ison">
 	<meta property="og:description" content>
-	<meta property="og:url" content="https://anthonyison.com/kubernetes-a-beginners-guide/">
-	<meta property="og:image" content="https://anthonyison.com//kubernetes-a-beginners-guide/small_cover.jpg">
+	<meta property="og:url" content="https://anthonyison.com/azure-devops-unit-testing-and-code-coverage-with-dotnet-core/">
+	<meta property="og:image" content="https://anthonyison.com//azure-devops-unit-testing-and-code-coverage-with-dotnet-core/small_cover.jpg">
 	<meta name="twitter:card" content="summary_large_image">
 
 	
-	<meta property="article:published_time" content="2019-06-04T22:06:00+08:00"> 
+	<meta property="article:published_time" content="2019-08-27T23:08:00+08:00"> 
 	<meta property="article:author" content="Anthony Ison">
-	<meta property="article:published_first" content="Anthony Ison, /kubernetes-a-beginners-guide/">
+	<meta property="article:published_first" content="Anthony Ison, /azure-devops-unit-testing-and-code-coverage-with-dotnet-core/">
 	<meta property="article:tag" content="[object Object]">
 	
 <link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
@@ -167,17 +167,23 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-06-04T12:45:13.000Z" itemprop="datePublished">
-                    2019-06-04
+                <time class="post-full-meta-date" datetime="2019-08-27T13:30:58.000Z" itemprop="datePublished">
+                    2019-08-27
                 </time>
                 
                 
                 <span class="date-divider">/</span>
-                <a href="/tags/kubernetes/">kubernetes</a>
+                <a href="/tags/principles/">principles</a>
+                
+                <span class="date-divider">/</span>
+                <a href="/tags/devops/">devops</a>
+                
+                <span class="date-divider">/</span>
+                <a href="/tags/testing/">testing</a>
                 
                 
             </section>
-            <h1 class="post-full-title">Kubernetes: A Beginner's Guide</h1>
+            <h1 class="post-full-title">Azure DevOps, unit testing and code coverage with .Net Core</h1>
         </header>
         <article class="post-full ">
             
@@ -186,94 +192,133 @@
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>Kubernetes is a container orchestration platform and has been described as “the OS of the cloud”. It builds on container-based services by providing many features such as volumes for stateful services, resilience and scaling, monitoring, automated zero-downtime upgrades. It runs on a cluster of nodes (VMs) and allocates services to nodes based on either hard limits (eg. my service must run on linux) and prioritised preferences (eg. put these two services on the same VM). If you are running your services in containers, Kubernetes will likely make your life easier.</p>
-<h2 id="Containers"><a href="#Containers" class="headerlink" title="Containers"></a>Containers</h2><p>The first important step is to ensure your software is running in a container. A container is a way of packaging your service, along with any dependencies, removing the reliance of specific libraries, etc existing on the OS. I’m mostly assuming you know what a container is, what the benefits are and how to run one in this blog post.</p>
-<h2 id="First-steps"><a href="#First-steps" class="headerlink" title="First steps"></a>First steps</h2><p>Assuming you have a container already (and if you haven’t you can just use one of mine to follow along), the first step is to create your cluster. Sorry, that part is up to you. Come back here when you’re done. You can take a look at <a href="/kubernetes-setting-up-a-cluster-on-aks">this page</a> for assistance with Azure.</p>
-<h3 id="Pods"><a href="#Pods" class="headerlink" title="Pods"></a>Pods</h3><p>Pods are the basic building blocks of a Kubernetes system and it’s probably fair to say everything else supports Pods in keeping their services running and available. A Pod runs one or more containers and defines ports, volumes, config settings, etc to expose a container service.</p>
-<p>To create a pod, you will need a yaml file that defines its structure. If you’re not sure what yaml is, it’s like a json file with way fewer characters. It uses file layout to express relationships between properties, so take care of those spaces! Anyway, here’s our first yaml file:</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Pod
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>pod
-  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccore
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore
-    <span class="token key atrule">image</span><span class="token punctuation">:</span> isonaj/basiccore
-    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-  <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">beta.kubernetes.io/os</span><span class="token punctuation">:</span> linux
+                    <p>Unit testing can be very handy when it’s set up correctly. The gold standard is to have regular CI builds, usually run after each commit, that executes all impacted unit tests to confirm that the application still does what it’s been designed to do. It can be tricky to get it all set up so that all of the magic just happens and unfortunately that can mean that it’s never done. In this post, I will walk through the process of setting up a basic build pipeline with Azure DevOps that executes unit tests and reports on code coverage.</p>
+<h2 id="Start-with-a-project"><a href="#Start-with-a-project" class="headerlink" title="Start with a project"></a>Start with a project</h2><p>First steps are to create a basic project. You can follow these steps, or grab the project from <a href="https://github.com/isonaj/BuildApp" target="_blank" rel="noopener">here</a>. This project will be the sample angular web app.</p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">mkdir</span> BuildApp.Web
+$ <span class="token function">cd</span> BuildApp.Web
+$ dotnet new angular --no-https    <span class="token comment" spellcheck="true"># Create a web application</span>
+$ <span class="token function">cd</span> <span class="token punctuation">..</span>
+$ dotnet new sln                   <span class="token comment" spellcheck="true"># Create solution file</span>
+$ dotnet sln add BuildApp.Web\BuildApp.Web.csproj
+$ dotnet build
+$ dotnet run --project BuildApp.Web
 </code></pre>
-<p>Alright, that is not terribly clear because it’s got ‘basiccore’ all over it. This yaml file has 4 parts to it: apiVersion, kind, metadata and spec. We are asking for a <code>Pod</code> kind of component, from <code>v1</code> of the API. The metadata says that the name of the pod should be <code>basiccore-pod</code> and it should have one label called <code>app</code> with the value <code>basiccore</code>. Inside this pod, I want a single container running image <code>isonaj/basiccore</code> (with port <code>80</code> exposed) and the container should be called <code>basiccore</code>. The nodeSelector part is just to ensure that the linux container runs on a Linux node. (with AKS supporting windows nodepools, it helps to be sure)</p>
-<p>Now, run that on the cluster using <code>kubectl apply -f pod.yaml</code>. You can check what is happening by running <code>kubectl get pods</code>. If it shows an error, use <code>kubectl describe pod basiccore-pod</code> to find out more.</p>
-<p>Once you’re finished, there’s nothing more to see. We won’t actually be using this to go further. Nobody expects the spanish inquision and nobody starts a pod on its own. Delete your pod with <code>kubectl delete pod basiccore-pod</code>.</p>
-<h3 id="Deployments"><a href="#Deployments" class="headerlink" title="Deployments"></a>Deployments</h3><p>So let’s start over. Nobody starts a pod by itself, because there’s a much better construct for running pods and that is a Deployment. A deployment will provide zero downtime by managing all sorts of things for you. It can be used to automatically rollout new image versions or pod configs (basically anything that could put your uptime at risk). We’ll take a closer look in a later post.</p>
-<p>Let’s jump into the yaml:</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> extensions/v1beta1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Deployment
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>deployment
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">2</span>
-  <span class="token key atrule">template</span><span class="token punctuation">:</span>
-    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-      <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>pod
-      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
-        <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccore
-    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
-      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore
-        <span class="token key atrule">image</span><span class="token punctuation">:</span> isonaj/basiccore
-        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">containerPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-      <span class="token key atrule">nodeSelector</span><span class="token punctuation">:</span>
-        <span class="token key atrule">beta.kubernetes.io/os</span><span class="token punctuation">:</span> linux
+<h2 id="Unit-testing-in-VS-Code"><a href="#Unit-testing-in-VS-Code" class="headerlink" title="Unit testing in VS Code"></a>Unit testing in VS Code</h2><p>I am going to use xUnit for my tests. Why xUnit? No particular reason. There are a few options. If you don’t have a favourite already, just pick one. Any unit testing framework is better than none.</p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">mkdir</span> BuildApp.Web.Tests
+$ <span class="token function">cd</span> BuildApp.Web.Tests
+$ dotnet new xunit                 <span class="token comment" spellcheck="true"># Create a test project</span>
+$ dotnet add reference <span class="token punctuation">..</span>\BuildApp.Web\BuildApp.Web.csproj
+$ cd<span class="token punctuation">..</span>
+$ dotnet sln add BuildApp.Web.Tests\BuildApp.Web.Tests.csproj
+$ dotnet <span class="token function">test</span>
 </code></pre>
-<p>It’s a bit bigger than the Pod yaml. Let’s work through from the top. Deployments weren’t available in v1. It was added in <code>extensions/v1beta1</code>. Next, we’re creating a <code>Deployment</code>, not a <code>Pod</code> and giving it a name of <code>basiccore-deployment</code>. The <code>spec</code> for a deployment consists of the number of replicas and the template. We are starting 2 Pods with this one and the template is the yaml we used to create the Pod earlier.</p>
-<p>Let’s take a look:</p>
-<pre class=" language-bash"><code class="language-bash">$ kubectl get deployments
-NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
-basiccore-deployment   2/2     2            2           33s
+<p>Update <code>UnitTest1.cs</code> like so:</p>
+<pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnitTest1</span>
+<span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>Fact<span class="token punctuation">]</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">Test1</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> controller <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SampleDataController</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> result <span class="token operator">=</span> controller<span class="token punctuation">.</span><span class="token function">WeatherForecasts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-$ kubectl get pods
-NAME                                   READY   STATUS             RESTARTS   AGE
-basiccore-deployment-c46759d6d-5qw96   1/1     Running            0          7s
-basiccore-deployment-c46759d6d-f94lk   1/1     Running            0          7s
+    Assert<span class="token punctuation">.</span><span class="token function">Equal</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> result<span class="token punctuation">.</span><span class="token function">Count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>We’ve just spent all of this time starting and stopping pods, but we haven’t actually connected to it yet. We need a way to get in, and get directed to the pod. For this, we use a Service component. </p>
-<blockquote>
-<p>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods. - kubernetes.io</p>
-</blockquote>
-<p>What’s that mean? A service component is basically a load balancer that sits across some pods and directs the incoming requests where they are supposed to go.</p>
-<pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
-<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-<span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
-<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
-  <span class="token key atrule">name</span><span class="token punctuation">:</span> basiccore<span class="token punctuation">-</span>service
-<span class="token key atrule">spec</span><span class="token punctuation">:</span>
-  <span class="token key atrule">type</span><span class="token punctuation">:</span> LoadBalancer
-  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
-    <span class="token key atrule">app</span><span class="token punctuation">:</span> basiccore
-  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">protocol</span><span class="token punctuation">:</span> TCP
-    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">80</span>
-    <span class="token key atrule">targetPort</span><span class="token punctuation">:</span> <span class="token number">80</span>
-</code></pre>
-<p>This service will open up a port in our cluster and load balance any traffic across the pods in the selector. In this case, we’re creating a service with a <code>type</code> of <code>LoadBalancer</code> targetting any pod with the metadata <code>app</code> of <code>basiccore</code> (which we applied in the deployment template).</p>
-<p>Run <code>kubectl apply -f basiccore-service.yaml</code> to apply the service and then <code>kubectl get services</code> to see the current state.</p>
-<pre class=" language-bash"><code class="language-bash">$ kubectl get services
-NAME                TYPE           CLUSTER-IP   EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>        AGE
-basiccore-service   LoadBalancer   10.0.55.65   <span class="token operator">&lt;</span>pending<span class="token operator">></span>     80:30376/TCP   5m52s
+<p>And then execute the test:</p>
+<pre class=" language-bash"><code class="language-bash">$ dotnet <span class="token function">test</span>
 
-$ kubectl get services
-NAME                TYPE           CLUSTER-IP   EXTERNAL-IP    PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>        AGE
-basiccore-service   LoadBalancer   10.0.55.65   13.75.220.78   80:30376/TCP   8m12s
+Starting <span class="token function">test</span> execution, please wait<span class="token punctuation">..</span>.
+
+Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
+Test Run Successful.
+Test execution time: 1.3171 Seconds
 </code></pre>
-<p>Once the External IP is displayed, put that into your browser, and there it is. A container, in a pod, accessible from the outside world. </p>
+<p>That’s helpful, but we can do better.</p>
+<h2 id="Code-coverage-with-Coverlet"><a href="#Code-coverage-with-Coverlet" class="headerlink" title="Code coverage with Coverlet"></a>Code coverage with Coverlet</h2><p>Coverlet is a great tool that provides code coverage for your unit tests. It’s super easy to install and use. Just do:</p>
+<pre class=" language-bash"><code class="language-bash">$ dotnet add package coverlet.msbuild
+$ dotnet <span class="token function">test</span> /p:CollectCoverage<span class="token operator">=</span>true
+
+Starting <span class="token function">test</span> execution, please wait<span class="token punctuation">..</span>.
+
+Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
+Test Run Successful.
+Test execution time: 1.3743 Seconds
+
+Calculating coverage result<span class="token punctuation">..</span>.
+  Generating report <span class="token string">'C:\Projects\BuildApp\BuildApp.Web.Tests\coverage.json'</span>
+
++--------------------+--------+--------+--------+
+<span class="token operator">|</span> Module             <span class="token operator">|</span> Line   <span class="token operator">|</span> Branch <span class="token operator">|</span> Method <span class="token operator">|</span>
++--------------------+--------+--------+--------+
+<span class="token operator">|</span> BuildApp.Web       <span class="token operator">|</span> 22.85% <span class="token operator">|</span> 0%     <span class="token operator">|</span> 33.33% <span class="token operator">|</span>
++--------------------+--------+--------+--------+
+<span class="token operator">|</span> BuildApp.Web.Views <span class="token operator">|</span> 0%     <span class="token operator">|</span> 100%   <span class="token operator">|</span> 0%     <span class="token operator">|</span>
++--------------------+--------+--------+--------+
+
++---------+---------+--------+---------+
+<span class="token operator">|</span>         <span class="token operator">|</span> Line    <span class="token operator">|</span> Branch <span class="token operator">|</span> Method  <span class="token operator">|</span>
++---------+---------+--------+---------+
+<span class="token operator">|</span> Total   <span class="token operator">|</span> 21.33%  <span class="token operator">|</span> 0%     <span class="token operator">|</span> 31.25%  <span class="token operator">|</span>
++---------+---------+--------+---------+
+<span class="token operator">|</span> Average <span class="token operator">|</span> 10.665% <span class="token operator">|</span> 0%     <span class="token operator">|</span> 15.625% <span class="token operator">|</span>
++---------+---------+--------+---------+
+</code></pre>
+<h2 id="Azure-DevOps-build-pipeline"><a href="#Azure-DevOps-build-pipeline" class="headerlink" title="Azure DevOps build pipeline"></a>Azure DevOps build pipeline</h2><p>Unit tests on a developer machine are one thing, but what if you forget to run them?  That’s what continuous integration (CI) is all about. Every time code is pushed to master, it is built and the unit tests are run. If it fails to compile, or the unit tests fail, the whole build fails.</p>
+<p>First, we will be generating code coverage results in Cobertura format. We will need to use <a href="https://www.nuget.org/packages/dotnet-reportgenerator-cli/" target="_blank" rel="noopener">ReportGenerator</a> to convert this to html and before publishing the results. To do this, add the following to the <code>BuildApp.Web.Tests.csproj</code>:</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ItemGroup</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>DotNetCliToolReference</span> <span class="token attr-name">Include</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dotnet-reportgenerator-cli<span class="token punctuation">"</span></span> <span class="token attr-name">Version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4.2.15<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ItemGroup</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>Add this to the project as <code>azure-pipelines.yml</code>:</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> BuildApp<span class="token punctuation">-</span>CI
+
+<span class="token key atrule">trigger</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> master
+
+<span class="token key atrule">pool</span><span class="token punctuation">:</span>
+  <span class="token key atrule">vmImage</span><span class="token punctuation">:</span> <span class="token string">'ubuntu-latest'</span>
+
+<span class="token key atrule">variables</span><span class="token punctuation">:</span>
+  <span class="token key atrule">buildConfiguration</span><span class="token punctuation">:</span> <span class="token string">'Release'</span>
+
+<span class="token key atrule">steps</span><span class="token punctuation">:</span>
+<span class="token punctuation">-</span> <span class="token key atrule">task</span><span class="token punctuation">:</span> DotNetCoreInstaller@0
+  <span class="token key atrule">displayName</span><span class="token punctuation">:</span> <span class="token string">'Install .net core 3.0 (preview)'</span>
+  <span class="token key atrule">inputs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.0.100-preview6-012264'</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">script</span><span class="token punctuation">:</span> dotnet build <span class="token punctuation">-</span><span class="token punctuation">-</span>configuration $(buildConfiguration)
+  <span class="token key atrule">displayName</span><span class="token punctuation">:</span> <span class="token string">'dotnet build $(buildConfiguration)'</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">script</span><span class="token punctuation">:</span> dotnet test BuildApp.Web.Tests/BuildApp.Web.Tests.csproj <span class="token punctuation">-</span><span class="token punctuation">-</span>logger "trx;LogFileName=testresults.trx" /p<span class="token punctuation">:</span>CollectCoverage=true /p<span class="token punctuation">:</span>CoverletOutputFormat=cobertura /p<span class="token punctuation">:</span>CoverletOutput=TestResults/Coverage/
+  <span class="token key atrule">displayName</span><span class="token punctuation">:</span> <span class="token string">'dotnet test'</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">script</span><span class="token punctuation">:</span> dotnet reportgenerator "<span class="token punctuation">-</span>reports<span class="token punctuation">:</span>$(Build.SourcesDirectory)/TestResults/Coverage/coverage.cobertura.xml" "<span class="token punctuation">-</span>targetDir<span class="token punctuation">:</span>$(Build.SourcesDirectory)/TestResults/Coverage/Reports" <span class="token punctuation">-</span>tag<span class="token punctuation">:</span>$(Build.BuildNumber) <span class="token punctuation">-</span>reportTypes<span class="token punctuation">:</span>htmlInline
+  <span class="token key atrule">workingDirectory</span><span class="token punctuation">:</span> $(Build.SourcesDirectory)/BuildApp.Web.Tests
+  <span class="token key atrule">displayName</span><span class="token punctuation">:</span> <span class="token string">'dotnet reportgenerator'</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">task</span><span class="token punctuation">:</span> PublishTestResults@2
+  <span class="token key atrule">inputs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">testRunner</span><span class="token punctuation">:</span> VSTest
+    <span class="token key atrule">testResultsFiles</span><span class="token punctuation">:</span> <span class="token string">'**/*.trx'</span>
+    <span class="token key atrule">failTaskOnFailedTests</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">task</span><span class="token punctuation">:</span> PublishCodeCoverageResults@1
+  <span class="token key atrule">inputs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">codeCoverageTool</span><span class="token punctuation">:</span> <span class="token string">'cobertura'</span>
+    <span class="token key atrule">summaryFileLocation</span><span class="token punctuation">:</span> $(Build.SourcesDirectory)/TestResults/Coverage/**/coverage.cobertura.xml
+    <span class="token key atrule">reportDirectory</span><span class="token punctuation">:</span> $(Build.SourcesDirectory)/TestResults/Coverage/Reports
+    <span class="token key atrule">failIfCoverageEmpty</span><span class="token punctuation">:</span> <span class="token boolean important">false </span>
+</code></pre>
+<p><img alt="Test Results" class="post-img b-lazy" href="./testresults.png" data-src="./testresults.png"><br><strong>Figure: Test Results for the single test</strong></p>
+<p><img alt="Code Coverage" class="post-img b-lazy" href="./codecoverage.png" data-src="./codecoverage.png"><br><strong>Figure: Code Coverage Results</strong></p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://www.hanselman.com/blog/AutomaticUnitTestingInNETCorePlusCodeCoverageInVisualStudioCode.aspx" target="_blank" rel="noopener">https://www.hanselman.com/blog/AutomaticUnitTestingInNETCorePlusCodeCoverageInVisualStudioCode.aspx</a></li>
+<li><a href="https://medium.com/bluekiri/code-coverage-in-vsts-with-xunit-coverlet-and-reportgenerator-be2a64cd9c2f" target="_blank" rel="noopener">https://medium.com/bluekiri/code-coverage-in-vsts-with-xunit-coverlet-and-reportgenerator-be2a64cd9c2f</a></li>
+<li><a href="https://dev.to/deinsoftware/net-core-unit-test-and-code-coverage-with-visual-studio-code-37bp" target="_blank" rel="noopener">https://dev.to/deinsoftware/net-core-unit-test-and-code-coverage-with-visual-studio-code-37bp</a></li>
+</ul>
 
                 </div>
             </section>
@@ -285,8 +330,8 @@ basiccore-service   LoadBalancer   10.0.55.65   13.75.220.78   80:30376/TCP   8m
                 <div id="disqus_thread"></div>
 <script>
 var disqus_config = function () {
-	this.page.url = "https://anthonyison.com/kubernetes-a-beginners-guide/";  
-	this.page.identifier = "MzSKZwtL0sMGhLqU6/gl/LJ2xP0="
+	this.page.url = "https://anthonyison.com/azure-devops-unit-testing-and-code-coverage-with-dotnet-core/";  
+	this.page.identifier = "SNFnJSROTQ0fiGWBIn72ww7AQDI="
 };
 (function() {
     var d = document, s = d.createElement('script');
@@ -303,14 +348,10 @@ var disqus_config = function () {
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Kubernetes: AKS and Windows Containers" href="/kubernetes-aks-and-windows-containers/">
-            ← Kubernetes: AKS and Windows Containers
-        </a>
-        
         <span class="prev-next-post">•</span>
         
-        <a class="next-post" title="Kubernetes: Setting up a cluster on AKS" href="/kubernetes-setting-up-a-cluster-on-aks/">
-            Kubernetes: Setting up a cluster on AKS →
+        <a class="next-post" title="Refactoring code - restructure, not rewrite" href="/refactoring-code-restructure-not-rewrite/">
+            Refactoring code - restructure, not rewrite →
         </a>
         
     </nav>
@@ -332,7 +373,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Containers"><span class="toc-text">Containers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#First-steps"><span class="toc-text">First steps</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pods"><span class="toc-text">Pods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deployments"><span class="toc-text">Deployments</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Services"><span class="toc-text">Services</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-with-a-project"><span class="toc-text">Start with a project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unit-testing-in-VS-Code"><span class="toc-text">Unit testing in VS Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-coverage-with-Coverlet"><span class="toc-text">Code coverage with Coverlet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Azure-DevOps-build-pipeline"><span class="toc-text">Azure DevOps build pipeline</span></a></li></ol>
     </div>
 </div>
 
@@ -494,17 +535,17 @@ var disqus_config = function () {
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Kubernetes: A Beginner's Guide</div>
+    <div class="floating-header-title">Azure DevOps, unit testing and code coverage with .Net Core</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this 
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
                 <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
             </svg>
         </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Kubernetes: A Beginner's Guide&amp;url=https://anthonyison.com/kubernetes-a-beginners-guide/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Azure DevOps, unit testing and code coverage with .Net Core&amp;url=https://anthonyison.com/azure-devops-unit-testing-and-code-coverage-with-dotnet-core/" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/kubernetes-a-beginners-guide/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://anthonyison.com/azure-devops-unit-testing-and-code-coverage-with-dotnet-core/" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
         </a>
     </div>
