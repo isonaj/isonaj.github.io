@@ -192,7 +192,10 @@
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <p>Unit testing can be very handy when it’s set up correctly. The gold standard is to have regular CI builds, usually run after each commit, that executes all impacted unit tests to confirm that the application still does what it’s been designed to do. It can be tricky to get it all set up so that all of the magic just happens and unfortunately that can mean that it’s never done. In this post, I will walk through the process of setting up a basic build pipeline with Azure DevOps that executes unit tests and reports on code coverage.</p>
+                    <p>Unit testing can be very handy when it’s set up correctly. The gold standard is to have regular CI builds, usually run after each commit, that executes all impacted unit tests to confirm that the application still does what it’s been designed to do. It can be tricky to get it all set up so that all of the magic just happens and unfortunately that can mean that it’s never done. Get those tests running and reporting! Future You will thank you. In this post, I will walk through the process of setting up a basic build pipeline with Azure DevOps that executes unit tests and reports on code coverage.</p>
+<blockquote>
+<p>“The best and most convenient time to set up tests is before you start the project” - <a href="https://azuregems.io/" target="_blank" rel="noopener">William Liebenberg</a></p>
+</blockquote>
 <h2 id="Start-with-a-project"><a href="#Start-with-a-project" class="headerlink" title="Start with a project"></a>Start with a project</h2><p>First steps are to create a basic project. You can follow these steps, or grab the project from <a href="https://github.com/isonaj/BuildApp" target="_blank" rel="noopener">here</a>. This project will be the sample angular web app.</p>
 <pre class=" language-bash"><code class="language-bash">$ <span class="token function">mkdir</span> BuildApp.Web
 $ <span class="token function">cd</span> BuildApp.Web
