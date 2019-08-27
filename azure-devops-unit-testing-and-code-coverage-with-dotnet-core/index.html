@@ -316,6 +316,26 @@ Calculating coverage result<span class="token punctuation">..</span>.
 </code></pre>
 <p><img alt="Test Results" class="post-img b-lazy" href="./testresults.png" data-src="./testresults.png"><br><strong>Figure: Test Results for the single test</strong></p>
 <p><img alt="Code Coverage" class="post-img b-lazy" href="./codecoverage.png" data-src="./codecoverage.png"><br><strong>Figure: Code Coverage Results</strong></p>
+<h2 id="SonarQube"><a href="#SonarQube" class="headerlink" title="SonarQube"></a>SonarQube</h2><p><a href="https://www.sonarqube.io/" target="_blank" rel="noopener">SonarQube</a> is a static analysis tool that will: </p>
+<ul>
+<li>highlight bugs and vulnerabilities</li>
+<li>review security hotspots</li>
+<li>track technical debt</li>
+<li>provide code quality metrics </li>
+<li>integrate with CI/CD</li>
+<li><em>and that’s just in the community edition!</em> </li>
+</ul>
+<p>Let’s hook it up.</p>
+<ol>
+<li>Sign up at sonarqube.io and create your project. Use the new Auto Scan feature.</li>
+<li>Drop a .sonarcloud.properties file into the root folder of your project.</li>
+<li>Commit and push. This will trigger the first analysis run.</li>
+</ol>
+<p>Some of the results you can get from SonarQube are:<br><img alt="SonarQube Overview" class="post-img b-lazy" href="./sonarqube_overview.png" data-src="./sonarqube_overview.png"><br><strong>Figure: SonarQube overview</strong></p>
+<p><img alt="SonarQube Issues" class="post-img b-lazy" href="./sonarqube_issues.png" data-src="./sonarqube_issues.png"><br><strong>Figure: SonarQube review results</strong></p>
+<p><img alt="SonarQube Project Summary" class="post-img b-lazy" href="./sonarqube_projects.png" data-src="./sonarqube_projects.png"><br><strong>Figure: SonarQube project summary</strong></p>
+<p>SonarQube looks like a great addition to any project. If you’re worried about giving them access to your codebase, they also have local server options that can generate reports without handing over access.</p>
+<p>Running unit tests during your build process really helps to keep your code doing what it is designed to do. There are also many static analysis tools that can automatically scan for security vulnerabilities and best practices. By applying these tools automatically in your CI/CD pipeline, you can deploy with confidence. </p>
 <p><strong>References:</strong></p>
 <ul>
 <li><a href="https://www.hanselman.com/blog/AutomaticUnitTestingInNETCorePlusCodeCoverageInVisualStudioCode.aspx" target="_blank" rel="noopener">https://www.hanselman.com/blog/AutomaticUnitTestingInNETCorePlusCodeCoverageInVisualStudioCode.aspx</a></li>
@@ -376,7 +396,7 @@ var disqus_config = function () {
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-with-a-project"><span class="toc-text">Start with a project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unit-testing-in-VS-Code"><span class="toc-text">Unit testing in VS Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-coverage-with-Coverlet"><span class="toc-text">Code coverage with Coverlet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Azure-DevOps-build-pipeline"><span class="toc-text">Azure DevOps build pipeline</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-with-a-project"><span class="toc-text">Start with a project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unit-testing-in-VS-Code"><span class="toc-text">Unit testing in VS Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-coverage-with-Coverlet"><span class="toc-text">Code coverage with Coverlet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Azure-DevOps-build-pipeline"><span class="toc-text">Azure DevOps build pipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SonarQube"><span class="toc-text">SonarQube</span></a></li></ol>
     </div>
 </div>
 
