@@ -8,7 +8,7 @@
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     
     <description>Software development and DevOps. Bringing solutions to life.</description>
-    <pubDate>Tue, 27 Aug 2019 23:33:12 GMT</pubDate>
+    <pubDate>Wed, 28 Aug 2019 00:14:30 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -18,7 +18,7 @@
       <pubDate>Tue, 27 Aug 2019 13:30:58 GMT</pubDate>
       <description>
       
-        Unit testing can be very handy when it’s set up correctly. The gold standard is to have regular CI builds, usually run after each commit, that executes all impacted unit tests to confirm that the application still does what it’s been designed to do. It can be tricky to get it all set up so that all 
+        Unit testing can be very handy when it’s set up correctly. The gold standard is to have regular CI builds, usually run after each commit, that executes all tests to confirm that the application still does what it’s been designed to do. It can be tricky to get it all set up so all of the magic just h
       
       </description>
       
